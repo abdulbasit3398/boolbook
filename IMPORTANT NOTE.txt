@@ -1,0 +1,1 @@
+for uploading to server, move public/assests folder to parent directory. Also update just assests folder.
