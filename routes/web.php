@@ -1,5 +1,10 @@
 <?php
 
+Route::post('/delete_all_cost_in_month', [
+    'uses' => 'DashboardController@delete_all_cost_in_month',
+    'as'   => 'delete_all_cost_in_month'
+]);
+
 Route::get('/manage_subscription', [
     'uses' => 'UserAccountController@manage_subscription',
     'as'   => 'manage_subscription'

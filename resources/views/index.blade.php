@@ -16,6 +16,11 @@
       border-radius: 25px !important;
       margin-left: 24% !important;
     }
+    .pricing_info{
+      margin-top: 30px !important;
+      display: flex;
+      padding-left: 0;
+    }
   }
 
   /*Small devices (portrait tablets and large phones, 600px and up)  */
@@ -28,12 +33,22 @@
       border-radius: 25px !important;
       margin-left: 24% !important;
     }
+    .pricing_info{
+      margin-top: 30px !important;
+      display: flex;
+      padding-left: 0;
+    }
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
   @media only screen and (min-width: 768px) {
     .footer-copyright-text{
       padding-left: 40%;
+    }
+    .pricing_info{
+      margin-top: 50px;
+      display: flex;
+      padding-left: 15%;
     }
   } 
 
@@ -42,12 +57,22 @@
     .footer-copyright-text{
       padding-left: 40%;
     }
+    .pricing_info{
+      margin-top: 50px;
+      display: flex;
+      padding-left: 27%;
+    }
   } 
 
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   @media only screen and (min-width: 1200px) {
     .footer-copyright-text{
       padding-left: 40%;
+    }
+    .pricing_info{
+      margin-top: 50px;
+      display: flex;
+      padding-left: 27%;
     }
   }
   .nav-bar-all, .nav-bar-all.nav-bar-non-scrolling.nav-bar-gray{
@@ -72,14 +97,7 @@
   }
   .w-container{
     font-size: 12px;
-  }
-  output {
-    display: block;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    margin: 30px 0;
-  }
+  } 
   .rangeslider__fill{
     background: #175ade !important;
   }
@@ -189,7 +207,7 @@ online <br/>boekhouding van bolbooks. </p>
             <div class="w-form">
                <form id="" name="" data-name="" method="get" class="w-hidden-tiny">
                   <div class="email-capture-product-left w-clearfix">
-                      <input type="email" class="email-capture-field w-input" maxlength="256" name="email-3"  placeholder="Enter your email" id="" required=""/><input type="submit" value="Nu starten"  id="" class="button button-rounded w-button"/></div>
+                      <input type="email" class="email-capture-field w-input" maxlength="256" name="email-3"  placeholder="Vul je emailadres in" id="" required=""/><input type="submit" value="Nu starten"  id="" class="button button-rounded w-button"/></div>
                </form>
                <div class="modal-form-success-product w-form-done">
                   <div>Securing your account...</div>
@@ -530,18 +548,34 @@ online <br/>boekhouding van bolbooks. </p>
             </div>
          </div>
       </div> -->
-      <div class="white-section-slanted" id="pricing-section" style="padding-top: 10px !important;">
+      <div class="gray-section-slanted" id="pricing-section">
          <div class="container-slanted container-slanted-center w-container">
-          <input type="range" min="50" max="50000"   value="3000" data-rangeslider="" >
+          <h2 class="section-headline-green section-headline-green-center">
+            Onze transparante tarieven.
+          </h2>
+          <div class="testimonial-div" style="text-align: center;height: 300px;margin-top: 100px;">
+            <div class="section-subtitle pricing_info section-description">
+              Bekijk wat jouw tarief is door middel van je bol.com omzet.
+            </div>
+            <input type="range" min="0" step="100" max="50000" id="range_slider"  value="2000" data-rangeslider="" >
            
-            <output id="js-output">430</output>
+            <div class="section-subtitle pricing_info">
+              <span class="section-description">
+                Bij een omzet van &nbsp;€<output id="js-output"></output>&nbsp;reken we €<span id="price_range">4.95</span>&nbsp;per maand.
+              </span>
+              
+            </div>
+
+          </div>
+          <a data-request-account-btn="true" href="#" class="button w-button" style="border-radius: 25px;margin-top: 50px;" >Nu starten</a>
          </div>
        </div>
-      <div class="white-section-slanted" id="pricing-section" style="padding-top: 10px !important;">
+      <div class="white-section-slanted" id="pricing-section">
          <div class="container-slanted container-slanted-center w-container">
           
 
             <h2 class="section-headline-green section-headline-green-center">Probeer Bolbooks vandaag nog.</h2>
+
             <div class="section-subtitle">With “1 week voor slechts €1.</div>
             <a data-request-account-btn="true" href="#" class="button w-button" style="border-radius: 25px;">Nu starten</a>
          </div>
@@ -642,6 +676,7 @@ online <br/>boekhouding van bolbooks. </p>
       <script src="{{asset('home/js/libs/flow/webflow.js')}}" type="text/javascript"></script>
       <script src="{{asset('home/js/rangeslider.js')}}" type="text/javascript"></script>
       <script>
+         
         $(function() {
         var $document = $(document);
         var selector = '[data-rangeslider]';
@@ -656,6 +691,28 @@ online <br/>boekhouding van bolbooks. </p>
         }
         $document.on('input', 'input[type="range"], ' + selector, function(e) {
             valueOutput(e.target);
+            var output = $('#js-output').html();
+            if(output >= 50 && output <= 1999)
+            {
+              $('#price_range').html('4.95');
+            }
+            if(output >= 2000 && output <= 4999)
+            {
+              $('#price_range').html('19.95');
+            }
+            if(output >= 5000 && output <= 9999)
+            {
+              $('#price_range').html('29.95');
+            }
+            if(output >= 10000 && output <= 30000)
+            {
+              $('#price_range').html('39.95');
+            }
+            if(output > 30000)
+            {
+              $('#price_range').html('69.95');
+            }
+            
         });
         // Example functionality to demonstrate disabled functionality
         $document .on('click', '#js-example-disabled button[data-behaviour="toggle"]', function(e) {

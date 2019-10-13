@@ -3,40 +3,7 @@
 
 @section('main_content')
 <style type="text/css">
-	/* Extra small devices (phones, 600px and down) */
-	@media only screen and (max-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Small devices (portrait tablets and large phones, 600px and up)  */
-	@media only screen and (min-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Medium devices (landscape tablets, 768px and up) */
-	@media only screen and (min-width: 768px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Large devices (laptops/desktops, 992px and up) */
-	@media only screen and (min-width: 992px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Extra large devices (large laptops and desktops, 1200px and up) */
-	@media only screen and (min-width: 1200px) {
-		h4{
-			font-size: 16px;
-		}
-	}
+	
 	.amount_div{
 		position: relative;
 	}
@@ -82,6 +49,11 @@
 	}
 	.mdi-arrow-right-drop-circle-outline{
 		font-size: 16px;
+	}
+	.arrow_right{
+		font-size: 14px;
+	    font-weight: 400;
+	    color: #34373c;
 	}
 </style>
 
@@ -150,9 +122,10 @@
 				</div>
 				<div class="row">
 					<div class="col-md-4">
-						<i class="arrow_right">Alle afschrijvingen bekijken &nbsp;&nbsp;
+						<a class="arrow_right" href="{{route('view_invoice')}}">
+							Alle afschrijvingen bekijken&nbsp;&nbsp;
 							<i class="mdi mdi-arrow-right-drop-circle-outline"></i>
-						</i>
+						</a>
 					</div>
 
 				</div>
@@ -191,14 +164,14 @@
 
 				<div class="row">
 					<div class="col-md-4">
-						<i class="arrow_right">Betalingswijze veranderen &nbsp;&nbsp;
+						<a href="#" class="arrow_right">Betalingswijze veranderen&nbsp;&nbsp;
 							<i class="mdi mdi-arrow-right-drop-circle-outline"></i>
-						</i>
+						</a>
 					</div>
 					<div class="col-md-4">
-						<i class="arrow_right">Abbonement opzeggen &nbsp;&nbsp;
+						<a href="#" class="arrow_right">Abonnement opzeggen &nbsp;&nbsp;
 							<i class="mdi mdi-arrow-right-drop-circle-outline"></i>
-						</i>
+						</a>
 					</div>
 				</div>
 				<br/>

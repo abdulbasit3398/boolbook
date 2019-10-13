@@ -80,7 +80,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 8px;margin-bottom: 15px">
+        <div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 16px;margin-bottom: 15px">
             <div class="col-md-7" style="padding-top: 12px">
               <h5>Dit is de informatie die je nodig hebt om je BTW-aangifte in te vullen.</h5>
             </div>

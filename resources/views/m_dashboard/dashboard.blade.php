@@ -48,6 +48,7 @@
     font-size: small;
     font-weight: 600;
   }
+  
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -77,6 +78,7 @@
     font-size: small;
     font-weight: 600;
   }
+  
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -101,6 +103,7 @@
     font-size: 17px;
     font-weight: 600;
   }
+  
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
@@ -126,6 +129,7 @@
     font-size: 17px;
     font-weight: 600;
   }
+  
 } 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -151,6 +155,7 @@
     font-size: 17px;
     font-weight: 600;
   }
+  
 }
 .blue_div{
   background-color: blue;

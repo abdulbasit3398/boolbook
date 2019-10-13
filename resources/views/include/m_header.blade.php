@@ -54,7 +54,7 @@
           <!-- Dark Logo icon -->
           <!-- <img src="{{asset('ui/assets/images/logo-light-icon.png')}}" alt="homepage" class="dark-logo" /> -->
           <!-- Light Logo icon -->
-          <img src="{{asset('images/small.gif')}}" alt="homepage" style="width: 33px; margin-top: 10px;margin-left: 21px;" class="light-logo" />
+          <img src="{{asset('images/small.gif')}}" alt="homepage" style="width: 33px; margin-top: 0px;margin-left: 21px;" class="light-logo" />
         </b>
         <!--End Logo icon -->
         <!-- Logo text -->
@@ -62,7 +62,7 @@
          <!-- dark Logo text -->
          <!-- <img src="{{asset('images/logo.gif')}}" alt="homepage" class="dark-logo" /> -->
          <!-- Light Logo text -->    
-         <img src="{{asset('images/logo.jpg')}}" class="light-logo" style="width: 75px; margin-top: 10px;" alt="homepage" /></span> </a>
+         <img src="{{asset('images/logo.jpg')}}" class="light-logo" style="width: 75px; margin-top: 0px;" alt="homepage" /></span> </a>
        </div>
        <!-- ============================================================== -->
        <!-- End Logo -->

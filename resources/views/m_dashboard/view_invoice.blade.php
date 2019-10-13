@@ -3,40 +3,7 @@
 
 @section('main_content')
 <style type="text/css">
-	/* Extra small devices (phones, 600px and down) */
-	@media only screen and (max-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Small devices (portrait tablets and large phones, 600px and up)  */
-	@media only screen and (min-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Medium devices (landscape tablets, 768px and up) */
-	@media only screen and (min-width: 768px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Large devices (laptops/desktops, 992px and up) */
-	@media only screen and (min-width: 992px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Extra large devices (large laptops and desktops, 1200px and up) */
-	@media only screen and (min-width: 1200px) {
-		h4{
-			font-size: 16px;
-		}
-	}
+	
 	.amount_div{
 		position: relative;
 	}
@@ -88,7 +55,7 @@
 			<div class="card-body">
 				<div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 8px;margin-bottom: 15px">
 					<div class="col-md-9" style="padding-top: 8px">
-						<h4>Bekijk en download al jouw facturen.
+						<h5>Bekijk en download al jouw facturen.</h5>
 						</div>
 
 					</div>
@@ -142,13 +109,19 @@
 							<div class="col-md-4" style="display: grid;">
 								<span class="form_total1">Bedrag</span>
 								<span>
-									{{$payment->amount_val}}
+									€ {{$payment->amount_val}}
 								</span>
 							</div>
 							<div class="col-md-4" style="display: grid;">
 								<span class="form_total1">Status</span>
 								<span>
-									{{$payment->status}}
+									@if($payment->status == 'paid')
+										Betaald
+									@elseif($payment->status == 'open')
+										In afwachting
+									@elseif($payment->status == 'canceled')
+										Mislukt
+									@endif
 								</span>
 							</div>
 						</div>

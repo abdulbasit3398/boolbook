@@ -3,40 +3,7 @@
 
 @section('main_content')
 <style type="text/css">
-	/* Extra small devices (phones, 600px and down) */
-	@media only screen and (max-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Small devices (portrait tablets and large phones, 600px and up)  */
-	@media only screen and (min-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Medium devices (landscape tablets, 768px and up) */
-	@media only screen and (min-width: 768px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Large devices (laptops/desktops, 992px and up) */
-	@media only screen and (min-width: 992px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Extra large devices (large laptops and desktops, 1200px and up) */
-	@media only screen and (min-width: 1200px) {
-		h4{
-			font-size: 16px;
-		}
-	}
+	
 	.amount_div{
 		position: relative;
 	}
@@ -85,8 +52,8 @@
         	{{csrf_field()}}
 
         	<div class="form-group">
-	        	<input class="form-control" type="text" class="edit_field form-control" id="name" name="name" value="{{$data->name}}" placeholder="Fill out your first name">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input class="form-control" type="text" class="edit_field form-control" id="name" name="name" value="{{$data->name}}" >
+	        	<label style="font-size: 13px"><i>Typ je voornaam hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -99,15 +66,15 @@
   <div class="modal-dialog" role="document" style="margin: 200px auto;">
     <div class="modal-content">
     	<div class="modal-header">
-        <h4 class="modal-title" id="vcenter">EDIT LASTNAME</h4>
+        <h4 class="modal-title" id="vcenter">Achternaam bewerken</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     	</div>
       <div class="modal-body">
         <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 40px 0px 25px 0px;">
         	{{csrf_field()}}
         	<div class="form-group">
-	        	<input type="text" class="edit_field form-control" id="last_name" name="last_name" value="{{$data->last_name}}" placeholder="Fill out your last name">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input type="text" class="edit_field form-control" id="last_name" name="last_name" value="{{$data->last_name}}" >
+	        	<label style="font-size: 13px"><i>Typ je achternaam hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -120,15 +87,15 @@
   <div class="modal-dialog" role="document" style="margin: 200px auto;">
     <div class="modal-content">
     	<div class="modal-header">
-	      <h4 class="modal-title" id="vcenter">EDIT STREET NAME</h4>
+	      <h4 class="modal-title" id="vcenter">Straatnaam bewerken</h4>
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	  	</div>
       <div class="modal-body">
         <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 40px 0px 25px 0px;">
         	{{csrf_field()}}
         	<div class="form-group">
-	        	<input type="text" class="edit_field form-control" id="street_name" name="street_name" value="{{$data->street_name}}" placeholder="Fill out your street name">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input type="text" class="edit_field form-control" id="street_name" name="street_name" value="{{$data->street_name}}" >
+	        	<label style="font-size: 13px"><i>Typ je straatnaam hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -141,7 +108,7 @@
   <div class="modal-dialog" role="document" style="margin: 200px auto;">
     <div class="modal-content">
     	<div class="modal-header">
-	      <h4 class="modal-title" id="vcenter">EDIT STREET NAME AND HOUSE NO</h4>
+	      <h4 class="modal-title" id="vcenter">Huisnummer bewerken</h4>
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	  	</div>
       <div class="modal-body">
@@ -149,8 +116,8 @@
         	{{csrf_field()}}
 
         	<div class="form-group">
-	        	<input type="text" class="edit_field form-control" name="house_no" value="{{$data->house_no}}" placeholder="Fill out your house no">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input type="text" class="edit_field form-control" name="house_no" value="{{$data->house_no}}" >
+	        	<label style="font-size: 13px"><i>Typ je huisnummer hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -163,15 +130,15 @@
   <div class="modal-dialog" role="document" style="margin: 200px auto;">
     <div class="modal-content">
     	<div class="modal-header">
-	      <h4 class="modal-title" id="vcenter">EDIT CITY</h4>
+	      <h4 class="modal-title" id="vcenter">Woonplaats bewerken</h4>
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	  	</div>
       <div class="modal-body">
         <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 40px 0px 25px 0px;">
         	{{csrf_field()}}
         	<div class="form-group">
-	        	<input type="text" class="edit_field form-control" id="residence" name="residence" value="{{$data->residence}}" placeholder="Fill out your city name">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input type="text" class="edit_field form-control" id="residence" name="residence" value="{{$data->residence}}" >
+	        	<label style="font-size: 13px"><i>Typ je woonplaats hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -184,15 +151,15 @@
   <div class="modal-dialog" role="document" style="margin: 200px auto;">
     <div class="modal-content">
     	<div class="modal-header">
-	      <h4 class="modal-title" id="vcenter">EDIT POST CODE</h4>
+	      <h4 class="modal-title" id="vcenter">Postcode bewerken</h4>
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	  	</div>
       <div class="modal-body">
         <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 40px 0px 25px 0px;">
         	{{csrf_field()}}
         	<div class="form-group">
-	        	<input type="text" class="edit_field form-control" id="post_code" name="post_code" value="{{$data->post_code}}" placeholder="Fill out your city name">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input type="text" class="edit_field form-control" id="post_code" name="post_code" value="{{$data->post_code}}" >
+	        	<label style="font-size: 13px"><i>Typ je postcode hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -205,15 +172,15 @@
   <div class="modal-dialog" role="document" style="margin: 200px auto;">
     <div class="modal-content">
     	<div class="modal-header">
-	      <h4 class="modal-title" id="vcenter">EDIT COMPANY NAME</h4>
+	      <h4 class="modal-title" id="vcenter">Bedrijfsnaam bewerken</h4>
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	  	</div>
       <div class="modal-body">
         <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 40px 0px 25px 0px;">
         	{{csrf_field()}}
         	<div class="form-group">
-	        	<input type="text" class="edit_field form-control" id="company_name" name="company_name" value="{{$data->company_name}}" placeholder="Fill out your company name">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input type="text" class="edit_field form-control" id="company_name" name="company_name" value="{{$data->company_name}}" >
+	        	<label style="font-size: 13px"><i>Typ je bedrijfsnaam hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -226,7 +193,7 @@
   <div class="modal-dialog" role="document" style="margin: 200px auto;">
     <div class="modal-content">
     	<div class="modal-header">
-	      <h4 class="modal-title" id="vcenter">EDIT VAT NUMBER</h4>
+	      <h4 class="modal-title" id="vcenter">BTW-Nummer bewerken</h4>
 	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 	  	</div>
       <div class="modal-body">
@@ -234,8 +201,8 @@
         <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 40px 0px 25px 0px;">
         	{{csrf_field()}}
         	<div class="form-group">
-	        	<input type="text" class="edit_field form-control" id="vat_number" name="vat_number" value="{{$data->vat_number}}" placeholder="Fill out your VAT Number">
-	        	<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+	        	<input type="text" class="edit_field form-control" id="vat_number" name="vat_number" value="{{$data->vat_number}}" >
+	        	<label style="font-size: 13px"><i>Typ je BTW-nummer hierboven en druk vervolgens op enter</i></label> 
         	</div>
         </form>
       </div>
@@ -248,7 +215,7 @@
 			<div class="card-body">
 				<div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 8px;margin-bottom: 15px">
 					<div class="col-md-9" style="padding-top: 8px">
-						<h4>Jouw gegevens aanpassen. Let op, deze zijn ook zichtbaar op je factuur.
+						<h5>Jouw gegevens aanpassen. Let op, deze zijn ook zichtbaar op je factuur.</h5>
 						</div>
 
 					</div>
@@ -310,7 +277,7 @@
 					<div class="row">
 						<div class="col-md-5">
 							<div class="blue_div">
-								(Benrijfs)adres
+								(Bedrijfs)adres
 							</div>
 						</div>
 					</div>
@@ -335,7 +302,7 @@
 					<br/><br/>
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
-							<span class="form_total1" >Plaatsnaam</span>
+							<span class="form_total1" >Woonplaats</span>
 							<span>
 								{{$data->residence}}
 								<a data-toggle="modal" data-target="#residence_modal" data-toggle="modal" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 

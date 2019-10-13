@@ -31,7 +31,11 @@ class CustomCostController extends Controller
 
       $user_id = Auth::user()->id;
       $data['custom_category'] = CustomCategory::where('user_id',$user_id)->get();
-      $data['custom_costs'] = AllCosts::where([['user_id',$user_id],['custom_cost','!=','0']])->orderBy('for_year','desc')->orderBy('for_month','desc')->get();
+      //Fetch all custom costs
+      $data['custom_costs'] = AllCosts::where([['user_id',$user_id],['custom_cost','!=','0']])->orderBy('for_year','desc')->orderBy('for_month','desc')->orderBy('id','desc')->get();
+      //Fetch custom costs group by for_month
+      $data['custom_costs_group'] = AllCosts::where([['user_id',$user_id],['custom_cost','!=','0']])->groupBy('for_month')->orderBy('for_year','desc')->orderBy('for_month','desc')->get();
+
       // return view('dashboard.customcosts',compact('data'));
       return view('m_dashboard.customcosts',compact('data'));
     }
@@ -143,9 +147,9 @@ class CustomCostController extends Controller
      * @param  \App\Model\CustomCost  $customCost
      * @return \Illuminate\Http\Response
      */
-    public function edit(CustomCost $customCost)
+    public function edit($customCost)
     {
-        //
+      dd($custom_cost);
     }
 
     /**
@@ -171,4 +175,5 @@ class CustomCostController extends Controller
         AllCosts::where('id',$customCost)->delete();
         return redirect()->back()->with('message','Kosten succesvol verwijderd.');
     }
+
   }

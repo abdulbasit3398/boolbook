@@ -4,11 +4,45 @@
 @include('include.m_head')
 
 <style type="text/css">
+
   @media only screen and (min-width: 768px) {
-    .page-wrapper {padding-top: 30px;}
+    .page-wrapper {
+      padding-top: 30px;
+    }
+    .form_total1{
+      margin-bottom: 0px;
+      margin-top: 0px;
+      font-weight: 500;
+      font-size: 14px !important;
+      color: #34373c !important;
+    }
+    .modal-content{
+      width: 100%;
+      margin-left: 0px;
+    }
   }
   @media only screen and (max-width: 768px) {
-    .page-wrapper {padding-top: 120px;}
+    .nav-link{
+      padding: 11px 6px 1px 6px;
+    }
+    .mdi-menu{
+      font-size: 33px;
+    }
+    .mini-sidebar .page-wrapper {
+      margin-left: 0px;
+      padding-top: 100px !important;
+    }
+  .form_total1{
+      margin-bottom: 5px;
+      margin-top: 8px;
+      font-weight: 500;
+      font-size: 14px !important;
+      color: #34373c !important;
+    }
+    .modal-content{
+      width: 90%;
+      margin-left: 5%;
+    }
   }
   body{
     color: #6d6d6d !important;
@@ -30,8 +64,12 @@
   h1, h2, h3, h4, h5, h6{
     color: #34373c !important;
   }
+  h4{
+    font-size: 16px;
+  }
   .table thead th, .table th{
     font-weight: 400 !important;
+    vertical-align: bottom;
   }
   [type="radio"]:not(:checked) + label, [type="radio"]:checked + label{
     font-size: 14px !important;
@@ -47,10 +85,18 @@
   .alert{
     font-size: 14px;
   }
-  .form_total1{
-    font-weight: 500;
-    font-size: 14px !important;
+  .btn-secondary, .btn-secondary.disabled{
+    background: #175ade !important;
+    border: 1px solid #175ade !important;
+  }
+  .form-control{
+    font-size: 14px;
+  }
+  .form-control{
     color: #34373c !important;
+  }
+  .modal-header{
+    padding-left: 31px;
   }
 </style>
 

@@ -77,7 +77,7 @@ class UserAccountController extends Controller
   public function view_invoice()
   {
     $user_id = Auth::user()->id;
-    $payments = Payment::where([['user_id',$user_id],['sequenceType','recurring'],['status','paid']])->get();
+    $payments = Payment::where([['user_id',$user_id],['status','paid']])->get();
     // dd($payment);
     return view('m_dashboard.view_invoice',compact('payments'));
   }
@@ -159,7 +159,7 @@ class UserAccountController extends Controller
       'vat_number' => '123902'
     ];
     // dd($data);
-        $pdf = PDF::loadView('dashboard.download_invoice',compact('payment'),$data);
+        $pdf = PDF::loadView('m_dashboard.download_invoice',compact('payment'),$data);
         return $pdf->download('invoice.pdf');
     // $pdf = PDF::loadView('dashboard.download_invoice');
     // return $pdf->stream('invoice.pdf');

@@ -65,9 +65,9 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title">
-            Affiliate Program
+            Affiliate Programma
           </div>
-          Verdien geld met het doorverwijzen nieuwe gebruikers naar Bolbooks.
+          Verdien geld met het doorverwijzen van nieuwe gebruikers naar Bolbooks.
         </div>
       </div>
     </a>
@@ -77,9 +77,9 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title">
-            Edit Profile
+            Bewerk Profiel
           </div>
-          Verdien geld met het doorverwijzen nieuwe gebruikers naar Bolbooks.
+          Bewerk de gegevens die we op jouw factuur weergeven.
         </div>
       </div>
     </a>
@@ -92,9 +92,9 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title">
-            Manage Subscription
+            Beheer Abonnement
           </div>
-          Verdien geld met het doorverwijzen nieuwe gebruikers naar Bolbooks.
+          Bekijk, wijzig en beëindig je abonnement via deze pagina.
         </div>
       </div>
     </a>
@@ -104,9 +104,9 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title">
-            View Invoices
+            Bekijk Facturen
           </div>
-          Verdien geld met het doorverwijzen nieuwe gebruikers naar Bolbooks.
+          Bekijk en download de facturen van de afgelopen betalingen.
         </div>
       </div>
     </a>
@@ -119,9 +119,9 @@
       <div class="card">
         <div class="card-body">
           <div class="card-title">
-            Bol Account Details
+            Bekijk Bol Details
           </div>
-          Verdien geld met het doorverwijzen nieuwe gebruikers naar Bolbooks.
+          Bekijk met welke API jouw account is verbonden.
         </div>
       </div>
     </a>

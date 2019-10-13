@@ -5,36 +5,66 @@
 <style type="text/css">
 	/* Extra small devices (phones, 600px and down) */
 	@media only screen and (max-width: 600px) {
-		h4{
-			font-size: 16px;
+
+		.exclamation_p{
+			width: 84%;
+			font-weight: 300;
+			font-size: 14px;
+			margin-left: 10px;
+			padding-top: 5px;
+			color: #6d6d6d;
 		}
 	}
 
 	/* Small devices (portrait tablets and large phones, 600px and up)  */
 	@media only screen and (min-width: 600px) {
-		h4{
-			font-size: 16px;
+
+		.exclamation_p{
+			width: 84%;
+			font-weight: 300;
+			font-size: 14px;
+			margin-left: 10px;
+			padding-top: 5px;
+			color: #6d6d6d;
 		}
 	}
 
 	/* Medium devices (landscape tablets, 768px and up) */
 	@media only screen and (min-width: 768px) {
-		h4{
-			font-size: 16px;
+
+		.exclamation_p{
+			width: 100%;
+			font-weight: 300;
+			font-size: 14px;
+			margin-left: 10px;
+			padding-top: 5px;
+			color: #6d6d6d;
 		}
 	} 
 
 	/* Large devices (laptops/desktops, 992px and up) */
 	@media only screen and (min-width: 992px) {
-		h4{
-			font-size: 16px;
+
+		.exclamation_p{
+			width: 100%;
+			font-weight: 300;
+			font-size: 14px;
+			margin-left: 10px;
+			padding-top: 5px;
+			color: #6d6d6d;
 		}
 	} 
 
 	/* Extra large devices (large laptops and desktops, 1200px and up) */
 	@media only screen and (min-width: 1200px) {
-		h4{
-			font-size: 16px;
+		
+		.exclamation_p{
+			width: 100%;
+			font-weight: 300;
+			font-size: 14px;
+			margin-left: 10px;
+			padding-top: 5px;
+			color: #6d6d6d;
 		}
 	}
 	.amount_div{
@@ -82,7 +112,7 @@
 			<div class="card-body">
 				<div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 8px;margin-bottom: 15px">
 					<div class="col-md-9" style="padding-top: 8px">
-						<h4>Deze Client ID gebruiken we voor het ophalen van jouw gegevens.
+						<h5>Deze Client ID gebruiken we voor het ophalen van jouw gegevens.</h5>
 						</div>
 
 					</div>
@@ -135,11 +165,11 @@
 						</div>
 					</div>
 					<br/>
-					<div class="row" style="display: -webkit-box;">
+					<div class="row" style="display: -webkit-box;padding-left: 25px">
 						<div class="exclamation_div">
 							<i class="mdi mdi-alert-circle" aria-hidden="true"></i>
 						</div>
-						<p style="font-weight: 500;font-size: unset;margin-left: 10px;padding-top: 2px"><i>We kunnen jouw API Keys niet aanpassen. Mocht je willen veranderen dan raden we je aan een nieuw account te openen.</i></p>
+						<p class="exclamation_p"><i>We kunnen jouw API Keys niet aanpassen. Mocht je willen veranderen dan raden we je aan een nieuw account te openen.</i></p>
 					</div>
 				</div>
 			</div>

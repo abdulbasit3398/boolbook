@@ -393,12 +393,7 @@ for($i=0; $i<=11; $i++)
     padding: 10px 0px 10px 0px;
     border-bottom: 1px solid #dee2e6;
   }
-  .form-control{
-    font-size: 14px;
-  }
-  .form-control{
-    color: #34373c !important;
-  }
+  
 </style>
 
 <div class="row">
@@ -406,7 +401,7 @@ for($i=0; $i<=11; $i++)
     <div class="card">
       <div class="card-body">
         <div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 16px;margin-bottom: 15px">
-            <div class="col-md-7" style="padding-top: 8px">
+            <div class="col-md-7" style="padding: 8px 0px 0px 22px;">
               <h5>Dit is je resultaat in 
                 <span id="monthName">{{ __('translate.'.$data["monthName"])}}</span> 
                 <span id="year">{{$data['invoice_for_year']}}</span></h5>

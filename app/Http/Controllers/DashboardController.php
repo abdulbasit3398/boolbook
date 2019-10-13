@@ -461,4 +461,16 @@ class DashboardController extends Controller
 		// $mandates = Mollie::api()->mandates()->listFor($customer);
 		// dd($mandates);
 	}
+
+	public function delete_all_cost_in_month(Request $request)
+	{
+		$cost_id = $request->cost_id;
+		$custom_cost = AllCosts::find($cost_id);
+
+		$for_month = $custom_cost->for_month;
+		$user_id = $custom_cost->user_id;
+
+		$delete = AllCosts::where([['for_month',$for_month],['user_id',$user_id],['custom_cost','!=','0']])->delete();
+		return redirect()->back()->with('message','Deleted successfully.');;
+	}
 }

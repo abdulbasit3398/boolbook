@@ -3,40 +3,7 @@
 
 @section('main_content')
 <style type="text/css">
-	/* Extra small devices (phones, 600px and down) */
-	@media only screen and (max-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Small devices (portrait tablets and large phones, 600px and up)  */
-	@media only screen and (min-width: 600px) {
-		h4{
-			font-size: 16px;
-		}
-	}
-
-	/* Medium devices (landscape tablets, 768px and up) */
-	@media only screen and (min-width: 768px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Large devices (laptops/desktops, 992px and up) */
-	@media only screen and (min-width: 992px) {
-		h4{
-			font-size: 16px;
-		}
-	} 
-
-	/* Extra large devices (large laptops and desktops, 1200px and up) */
-	@media only screen and (min-width: 1200px) {
-		h4{
-			font-size: 16px;
-		}
-	}
+	
 	.amount_div{
 		position: relative;
 	}
@@ -76,15 +43,15 @@
 	<div class="modal-dialog" role="document" style="margin: 200px auto;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="vcenter">Account IBAN</h4>
+				<h4 class="modal-title" id="vcenter">Je IBAN bewerken</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			</div>
 			<div class="modal-body">
 				<form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 40px 0px 25px 0px;">
 					{{csrf_field()}}
 					<div class="form-group">
-						<input type="text" class="edit_field form-control" id="account_iban" name="account_iban" value="{{$data->account_iban}}" placeholder="Fill out your account IBAN No">
-						<label style="font-size: 13px"><i>To change your voornaam, type your new voornaam above and press enter</i></label> 
+						<input type="text" class="edit_field form-control" id="account_iban" name="account_iban" value="{{$data->account_iban}}">
+						<label style="font-size: 13px"><i>Typ je IBAN hierboven en druk vervolgens op enter</i></label> 
 					</div>
 				</form>
 			</div>
@@ -99,7 +66,7 @@
 			<div class="card-body">
 				<div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 8px;margin-bottom: 15px">
 					<div class="col-md-9" style="padding-top: 8px">
-						<h4>Verdien maandelijks 20% van de betaling door klanten die jij ons aanlevert.
+						<h5>Verdien maandelijks 20% van de betaling door klanten die jij ons aanlevert.</h5>
 						</div>
 
 					</div>
@@ -184,7 +151,7 @@
 							</span>
 						</div>
 					</div>
-					<br/><br/>
+					<br/>
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Aantal nieuwe klanten deze maand</span>
@@ -199,7 +166,7 @@
 							</span>
 						</div>
 					</div>
-					<br/><br/>
+					<br/>
 				</div>
 			</div>
 		</div>

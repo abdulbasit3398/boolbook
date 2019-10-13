@@ -5,9 +5,6 @@
 <style type="text/css">
   /* Extra small devices (phones, 600px and down) */
   @media only screen and (max-width: 600px) {
-    h4{
-      font-size: 16px;
-    }
     .padding_left{
       padding-left: 0;
     }
@@ -15,9 +12,6 @@
 
   /* Small devices (portrait tablets and large phones, 600px and up)  */
   @media only screen and (min-width: 600px) {
-    h4{
-      font-size: 16px;
-    }
     .padding_left{
       padding-left: 0;
     }
@@ -25,9 +19,6 @@
 
   /* Medium devices (landscape tablets, 768px and up) */
   @media only screen and (min-width: 768px) {
-    h4{
-      font-size: 16px;
-    }
     .padding_left{
       padding-left: 14%;
     }
@@ -35,9 +26,6 @@
 
   /* Large devices (laptops/desktops, 992px and up) */
   @media only screen and (min-width: 992px) {
-    h4{
-      font-size: 16px;
-    }
     .padding_left{
       padding-left: 14%;
     }
@@ -45,9 +33,6 @@
 
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   @media only screen and (min-width: 1200px) {
-    h4{
-      font-size: 16px;
-    }
     .padding_left{
       padding-left: 14%;
     }
@@ -80,6 +65,10 @@
   .custom-control{
     padding-left: 0.5rem;
   }
+  .mdi{
+    color: black;
+    font-size: 14px;
+  }
   .mdi:hover{
     color: #175ade !important;
   }
@@ -96,6 +85,10 @@
   .padding_left{
     padding-left: 13px !important;
   }
+  .custom-radio{
+    left: -12px !important;
+  }
+  
 </style>
 <?php 
 
@@ -120,6 +113,7 @@ for($i=0; $i<=11; $i++)
   $previous_year[$i] = $date->format("Y");
   $dateObj = DateTime::createFromFormat('!m', $previous_month_num[$i]);
   $previous_month_name[$i] = $dateObj->format('F');
+  
     // echo $previous_month_num[$i]."<br>";
     // echo $previous_month_name[$i]."<br>";
     // echo $previous_year[$i]."<br>";
@@ -145,6 +139,37 @@ for($i=0; $i<=11; $i++)
   
 }
 
+$for_month = 0;
+$total_val_tax_arr = $total_tax_arr = [];
+//to calculate total of amount_val and tax_val in model
+  //fetch all custom category of user
+  foreach($data['custom_category'] as $category){
+    //fetch all custom cost of the user
+    foreach($data['custom_costs'] as $custom_cost){
+      //check the category id with all cost custom_cost
+      if($custom_cost->custom_cost == $category->id){
+        //sum of month wise custom cost 
+        if($for_month != $custom_cost->for_month){
+          $total_val_tax = $total_tax = 0;
+
+          $total_tax += $custom_cost->tax_amount_val;
+          $total_val_tax += $custom_cost->line_ext_val+$custom_cost->tax_amount_val;
+
+          $for_month = $custom_cost->for_month;
+        }
+        else
+        {
+          $total_tax += $custom_cost->tax_amount_val;
+          $total_val_tax += $custom_cost->line_ext_val+$custom_cost->tax_amount_val;
+        }
+        $total_tax_arr[$category->id][$custom_cost->for_month] = $total_tax;
+        $total_val_tax_arr[$category->id][$custom_cost->for_month] = $total_val_tax;
+      }
+
+      
+    }
+  }
+
 ?>
 @foreach($data['custom_category'] as $category)
 
@@ -161,39 +186,116 @@ for($i=0; $i<=11; $i++)
       </div>
       <div class="modal-body">
         <div class="row" style="padding: 0px 25px">
-          @foreach($data['custom_costs'] as $custom_cost)
-            @if($custom_cost->custom_cost == $category->id)
+          
 
               <div class="table-responsive">
                 <table class="table">
-                  <thead>
+              @foreach($data['custom_costs'] as $custom_cost)
+                @if($custom_cost->custom_cost == $category->id)
+
+                    <?php 
+                        // $total_val_tax += 2;
+                        
+                        // $total_tax += $custom_cost->tax_amount_val;
+
+                      if($for_month != $custom_cost->for_month){
+                      
+                    ?>
                     <tr>
                       <th>{{__('translate.Month')}}</th>
                       <th>Bedrag</th>
-                      <th></th>
+                      <th>Waarvan BTW</th>
+                      <th>Acties</th>
                     </tr>
-                  </thead>
-                  <tbody>
+
                     <tr>
                       <td>
                         <?= __('translate.'.date("F", mktime(0, 0, 0,$custom_cost->for_month, 10))); ?>
                       </td>
                       <td>
-                        €<?= number_format($custom_cost->line_ext_val,2,",",".");?>
+                        €<?= number_format($total_val_tax_arr[$category->id][$custom_cost->for_month],2,",",".");?>
                       </td>
-                      <td>Alles weergeven&nbsp;<i data-toggle="collapse" data-target="#collapse<?= $custom_cost->id; ?>" class="ti-arrow-circle-down"></i></td>
+                      <td>
+                        €<?= number_format($total_tax_arr[$category->id][$custom_cost->for_month],2,",",".");?>
+                      </td>
+                      <td>
+                        <i data-toggle="collapse" data-target="#collapse<?= $custom_cost->for_month; ?>" class="mdi mdi-eye"></i>
+
+                        <form id="delete-form-{{$custom_cost->for_month}}" method="post" style="display: none;" action="{{route('delete_all_cost_in_month')}}">
+                          {{csrf_field()}}
+                          <input type="hidden" name="cost_id" value="{{$custom_cost->id}}">
+                        </form>
+                        <a href="#" onclick="
+                          if(confirm('Are you sure you want to delete this?'))
+                          {
+                            event.preventDefault();
+                            document.getElementById('delete-form-{{$custom_cost->for_month}}').submit();
+                          }
+                          else
+                          {
+                            event.preventDefault();
+                          }
+
+                        ">
+                          <i class="mdi mdi-close-circle"></i>
+                        </a>
+                      </td>
                     </tr>
-                    <tr id="collapse<?= $custom_cost->id; ?>" class="collapse">
+                    <tr id="collapse<?= $custom_cost->for_month; ?>" class="collapse">
                       <th>Added on</th>
                       <th>Amount</th>
-                      <th>Description</th>
+                      <th>Waarvan BTW</th>
+                      <th>Acties</th>
                     </tr>
-                    <tr id="collapse<?= $custom_cost->id; ?>" class="collapse">
+                    <tr id="collapse<?= $custom_cost->for_month; ?>" class="collapse">
                       <td>
                         <?= date('d-m-Y',strtotime($custom_cost->created_at)) ?>
                       </td>
                       <td>
+                        €<?= number_format($custom_cost->line_ext_val+$custom_cost->tax_amount_val,2,",",".");?>
+                      </td>
+                      <td>
                         €<?= number_format($custom_cost->tax_amount_val,2,",",".");?>
+                          
+                      </td>
+                      <td>
+                        <i class="ti-info-alt" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
+                        <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('customcost.destroy',$custom_cost->id)}}">
+                          {{csrf_field()}}
+                          {{method_field('DELETE')}}
+                        </form>
+                        <a href="#" onclick="
+                          if(confirm('Are you sure you want to delete this?'))
+                          {
+                            event.preventDefault();
+                            document.getElementById('delete-form-{{$custom_cost->id}}').submit();
+                          }
+                          else
+                          {
+                            event.preventDefault();
+                          }
+
+                        ">
+                          <i class="mdi mdi-close-circle"></i>
+                        </a>
+                        
+                      </td>
+                    </tr>
+                  <?php 
+                      $for_month = $custom_cost->for_month;
+                    }else{
+
+                  ?>
+                  <tr id="collapse<?= $custom_cost->for_month; ?>" class="collapse">
+                      <td>
+                        <?= date('d-m-Y',strtotime($custom_cost->created_at)) ?>
+                      </td>
+                      <td>
+                        €<?= number_format($custom_cost->line_ext_val+$custom_cost->tax_amount_val,2,",",".");?>
+                      </td>
+                      <td>
+                        €<?= number_format($custom_cost->tax_amount_val,2,",",".");?>
+                          
                       </td>
                       <td>
                         <i class="ti-info-alt" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
@@ -218,7 +320,10 @@ for($i=0; $i<=11; $i++)
                         
                       </td>
                     </tr>
-                  </tbody>
+                    <?php } ?>
+
+                    @endif
+                  @endforeach
                 </table>
                 
               </div>
@@ -251,8 +356,7 @@ for($i=0; $i<=11; $i++)
                   <button style="float: right;" type="button" class="btn btn-outline-danger btn-fw btn-rounded btn-block">Delete</button>
                 </a>
               </div> -->
-            @endif
-          @endforeach
+            
         </div>
       </div>
       <div class="modal-footer">
@@ -289,7 +393,7 @@ for($i=0; $i<=11; $i++)
 
 
 <div class="row">
-	<div class="col-12">
+  <div class="col-12">
     <div class="card">
         <div class="card-body">
           <div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 8px;margin-bottom: 15px">
@@ -342,7 +446,7 @@ for($i=0; $i<=11; $i++)
                         <?php 
 
                           if($custom_cost->custom_cost == $category->id){ 
-                            $total_cost += $custom_cost->line_ext_val;}
+                            $total_cost += $custom_cost->line_ext_val+$custom_cost->tax_amount_val;}
 
                         ?>
                         @endforeach
@@ -359,8 +463,8 @@ for($i=0; $i<=11; $i++)
                             </a>
                             
 
-                            <a href="#my_modal" data-toggle="modal" data-category-name="{{$category->category_name}}" data-category-id="{{$category->id}}" data-toggle="tooltip" data-original-title="Naam bewerken" >
-                             <i class="mdi mdi-pencil-circle text-inverse"></i> 
+                            <a href="#my_modal" data-toggle="modal" data-category-name="{{$category->category_name}}" data-category-id="{{$category->id}}"  >
+                             <i class="mdi mdi-pencil-circle text-inverse" data-toggle="tooltip" data-original-title="Naam bewerken"></i> 
                             </a>
                             <form id="delete-form-{{$category->id}}" method="post" style="display: none;" action="{{route('customcategory.destroy',$category->id)}}">
                               {{csrf_field()}}
@@ -454,64 +558,65 @@ for($i=0; $i<=11; $i++)
             </div>
           </div>
           <div class="row" style="padding-left: 14px">
-            <div class="form-group col-md-6 amount_div" style="margin-top: 11px;">
+            <div class="col-md-6">
+              <div class="form-group amount_div" style="margin-top: 11px;">
 
-              <input type="number" class="form-control custom-input" min="0" id="cost_amount" name="cost_amount" required placeholder="Voer het bedrag in"   oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')">
-
+                <input type="number" class="form-control custom-input" min="0" id="cost_amount" name="cost_amount" required placeholder="Voer het bedrag in"   oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')">
+                
+              </div>
+              <div class="form-group">
+                <div class=" ">
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="with-gap radio-col-blue-grey" id="amount_inc_tax" name="cost_amount_opt" value="1" checked>
+                    <label class="custom-control-label" for="amount_inc_tax">Amount includes tax</label>
+                  </div>
+                  <div class="custom-control custom-radio" style="margin-top: 14px;">
+                    <input type="radio" class="with-gap radio-col-blue-grey" id="amount_exl_tax" name="cost_amount_opt" value="0">
+                    <label class="custom-control-label" for="amount_exl_tax">Amount excludes tax</label>
+                  </div>
+                </div>
+              </div>
             </div>
-
 <input type="hidden" name="result_cost" id="result_cost">
 <input type="hidden" name="result_tax" id="result_tax">
 
 <input type="hidden" name="tax_amount" id="tax_amount">
+            <div class="col-md-6">
+              <div id="tax_amount_per_div" class="form-group amount_div">
 
-            <div id="tax_amount_per_div" class="form-group col-md-6 amount_div">
+                <select class="form-control custom-select" id="tax_amount_per" name="tax_amount_per">
+                  <option value="21">21 %</option>
+                  <option value="9">9 %</option>
+                  <option value="0">0 %</option>
+                </select>
+                <!-- <input type="number" value="21" onInput="checkLength(5,this)" class="form-control" min="0" maxlength="4" id="tax_amount" name="tax_amount" >
+                <i class="fas fa-percent tax_amount_i"></i> -->
+              </div>
+              <div id="tax_amount_amt_div" class="form-group amount_div" style="display: none;margin-top: 11px;">
 
-              <select class="form-control custom-select" id="tax_amount_per" name="tax_amount_per">
-                <option value="21">21 %</option>
-                <option value="9">9 %</option>
-                <option value="0">0 %</option>
-              </select>
-              <!-- <input type="number" value="21" onInput="checkLength(5,this)" class="form-control" min="0" maxlength="4" id="tax_amount" name="tax_amount" >
-              <i class="fas fa-percent tax_amount_i"></i> -->
-            </div>
-            <div id="tax_amount_amt_div" class="form-group col-md-6 amount_div" style="display: none;margin-top: 11px;">
-
-              <input type="number" class="form-control custom-input" min="0" id="tax_amount_amt" name="tax_amount_amt" placeholder="Voer het bedrag in" oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')" >
+                <input type="number" class="form-control custom-input" min="0" id="tax_amount_amt" name="tax_amount_amt" placeholder="Voer het bedrag in" oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')" >
+              </div>
+              <div class="form-group">
+                <div class="custom-control custom-radio">
+                  <input type="radio" class="with-gap radio-col-blue-grey" id="percentage" name="tax_amount_opt" value="1" checked>
+                  <label class="custom-control-label" for="percentage">Percentage</label>
+                </div>
+                <div class="custom-control custom-radio" style="margin-top: 14px;">
+                  <input type="radio" class="with-gap radio-col-blue-grey" id="amount" name="tax_amount_opt" value="0">
+                  <label class="custom-control-label" for="amount">Amount</label>
+                </div>
+              </div>
             </div>
           </div>
+
           <div class="row">
-            <div class="col-md-6 padding_left">
-              <div class="custom-control custom-radio">
-                <input type="radio" class="with-gap radio-col-blue-grey" id="amount_inc_tax" name="cost_amount_opt" value="1" checked>
-                <label class="custom-control-label" for="amount_inc_tax">Amount includes tax</label>
-              </div>
-              <div class="custom-control custom-radio" style="margin-top: 14px;">
-                <input type="radio" class="with-gap radio-col-blue-grey" id="amount_exl_tax" name="cost_amount_opt" value="0">
-                <label class="custom-control-label" for="amount_exl_tax">Amount excludes tax</label>
-              </div>
-            </div>
-            <div class="col-md-6 padding_left">
-              <div class="custom-control custom-radio">
-                <input type="radio" class="with-gap radio-col-blue-grey" id="percentage" name="tax_amount_opt" value="1" checked>
-                <label class="custom-control-label" for="percentage">Percentage</label>
-              </div>
-              <div class="custom-control custom-radio" style="margin-top: 14px;">
-                <input type="radio" class="with-gap radio-col-blue-grey" id="amount" name="tax_amount_opt" value="0">
-                <label class="custom-control-label" for="amount">Amount</label>
-              </div>
-            </div>
-            
-          </div>
-          <br/>
-          <div class="row">
-            <div class="col-md-12" style="padding-left: 24px !important;">
+            <div class="col-md-12" style="padding-left: 29px !important;">
               <div class="form-group">
                 <input type="text" class="form-control" name="category_description" required placeholder="Beschrijving kosten" oninvalid="this.setCustomValidity('Selecteer een kostenpost')" oninput="setCustomValidity('')">
               </div>
             </div>
           </div>
-          <div class="row" style="margin: 22px 0px 10px 4px;">
+          <div class="row" style="margin: 22px 0px 10px 8px;">
             <div class="col-md-9" style="padding: 0px;">
               <button type="submit" class="btn waves-effect waves-light btn-rounded btn-secondary">Add cost</button>
             </div>
@@ -651,11 +756,12 @@ for($i=0; $i<=11; $i++)
 
     $('#summary_month').html(monthName);
     $('#summary_category').html(custom_category_name);
-    $('#summary_add_cost').html(number_format(cost, 2, ',', '.'));
+    var summary_add_cost = cost+tax;
+    $('#summary_add_cost').html(number_format(summary_add_cost, 2, ',', '.'));
     $('#summary_tax_amnt').html(number_format(tax, 0, ',', '.'));
 
-    $('#result_cost').val(number_format(cost, 2, ',', '.'));
-    $('#result_tax').val(number_format(tax, 2, ',', '.'));
+    $('#result_cost').val(cost.toFixed(2));
+    $('#result_tax').val(tax.toFixed(2));
   }
   function GetMonthName(monthNumber) {
       var months = [
