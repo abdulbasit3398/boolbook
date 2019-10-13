@@ -21,7 +21,6 @@ class ProfitLossController extends Controller
   }
   public function index()
   {
-    
     $first_date_last_month = new Carbon('first day of last month');
     $data['invoice_for_month'] = date('m',strtotime($first_date_last_month));
     $data['invoice_for_year'] = date('Y',strtotime($first_date_last_month));

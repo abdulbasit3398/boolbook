@@ -109,13 +109,13 @@
 				<div class="row custom_row">
 					<div class="col-md-4" style="display: grid;">
 						<span class="form_total1" >Maandelijks bedrag</span>
-						<span>
+						<span class="regular_text">
 							{{$data['amount_val']}}
 						</span>
 					</div>
 					<div class="col-md-4" style="display: grid;">
 						<span class="form_total1">Volgende afschrijving</span>
-						<span>
+						<span class="regular_text">
 							{{$data['next_payment_date']}}
 						</span>
 					</div>
@@ -144,19 +144,19 @@
 				<div class="row custom_row">
 					<div class="col-md-4" style="display: grid;">
 						<span class="form_total1" >Betalingswijze</span>
-						<span>
+						<span class="regular_text">
 							{{$data['method']}}
 						</span>
 					</div>
 					<div class="col-md-4" style="display: grid;">
 						<span class="form_total1">Rekeningnummer</span>
-						<span>
+						<span class="regular_text">
 							{{$data['consumerAccount']}}
 						</span>
 					</div>
 					<div class="col-md-4" style="display: grid;">
 						<span class="form_total1">Op naam van</span>
-						<span>
+						<span class="regular_text">
 							{{$data['consumerName']}}
 						</span>
 					</div>

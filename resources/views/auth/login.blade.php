@@ -1,11 +1,32 @@
-@extends('layouts.app1')
+@include('include.m_head')
 <style type="text/css">
   body {
     background-color: white !important;
   }
+  .btn-secondary, .btn-secondary.disabled{
+    background: #175ade !important;
+    border: 1px solid #175ade !important;
+    color: white;
+  }
+  .btn-secondary_white{
+    background: white !important;
+    border: 1px solid #175ade !important;
+    color: #175ade;
+  }
+  .btn-secondary_white:hover{
+    background: #175ade !important;
+    border: 1px solid #175ade !important;
+    color: white;
+  }
+  .card_head{
+    border-bottom: 1px solid gainsboro;
+    padding-left: 13px;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+  }
 </style>
-@section('content')
 
+<br/>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-3" style="text-align: center;">
@@ -15,22 +36,19 @@
   <br/>
   <div class="row justify-content-center">
     <div class="col-md-7">
-      <div class="card" style="background-color: rgb(26, 83, 255);border-radius: 10px;">
-        <!-- <div class="card-header">{{ __('Login') }}</div> -->
-        <div class="row" style="margin-top: 20px;">
-          <div class="col-md-2"></div>
-          <div class="col-md-8" style="text-align: center;">
-            <h3 style="color: white;font-weight: 600">Inloggen</h3>
-            <span style="text-transform: none;color: white">Welkom terug! Log hier in met je account.</span>
-          </div>
-          <div class="col-md-2"></div>
-          
-        </div>
+      <div class="card">
+
         <div class="card-body">
-          <div class="container col-md-8">
-            <form action="{{ route('login') }}" method="POST">
+          <div class="row card_head">
+            <div class="col-md-9" style="padding-top: 8px">
+              <h5 style="color: black">Login op je account.</h5>
+            </div>
+
+          </div>
+          <div class="col-12" style="margin-top: 50px;">
+            <form class="form-material" action="{{ route('login') }}" method="POST">
               @csrf
-              <div class="form-group row">
+              <div class="form-group">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"  name="email" value="{{ old('email') }}" placeholder="Emailadres" required autocomplete="email" autofocus>
                 @error('email')
                 <span class="invalid-feedback" role="alert">
@@ -39,7 +57,7 @@
                 @enderror
               </div>
 
-              <div class="form-group row">
+              <div class="form-group">
                 <input id="password" type="password"class="form-control @error('password') is-invalid @enderror" placeholder="Wachtwoord" name="password" required autocomplete="current-password">
                 @error('password')
                 <span class="invalid-feedback" role="alert">
@@ -48,23 +66,16 @@
                 @enderror
               </div>
 
-              <div class="form-group row">
-                <div class="col-md-6">
-                  <input type="submit" value="Inloggen" style="background-color: white; color: rgb(26, 83, 255);border-radius: 10px;padding: 9px 20px">
-                </div>
-                <div class="col-md-6" style="padding-top: 6px;"> 
-                    @if (Route::has('password.request'))
-                    <div style="border: 1px solid white;border-radius: 10px;text-align: center;padding: 9px 3px">
-                    <a  href="{{ route('password.request') }}" style="border-radius: 10px;background-color: rgb(26, 83, 255);color: white">
-                      <span style="padding: 0px;text-transform: none">{{ __('Password Forgotten?') }}</span>
+              <div class="form-group ">
+                  <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="submit">Inloggen</button>
+                  @if (Route::has('password.request'))
+                    <a style="margin-left: 16px;" href="{{ route('password.request') }}" class="btn waves-effect waves-light btn-rounded btn-secondary_white">{{ __('Password Forgotten?') }}</span>
                       
                       <!-- <button class="btn btn-primary" >
                         
                       </button> -->
                     </a>
-                  </div>
                     @endif
-                </div>
                 
 
               </div>
@@ -76,4 +87,5 @@
     </div>
   </div>
 </div>
-@endsection
+
+@include('include.m_scripts')

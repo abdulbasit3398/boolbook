@@ -141,7 +141,7 @@ class CustomCategoryController extends Controller
       $user_id = Auth::user()->id;
       $custom_category = AllCosts::where([['user_id',$user_id],['custom_cost',$customCategory],])->delete();
       CustomCategory::where('id',$customCategory)->delete();
-      return redirect()->back()->with('message','Category deleted successfully.');
+      return redirect()->back()->with('message','Kostenpost succesvol verwijderd.');
       
         // if(count($custom_category) > 0)
         // {

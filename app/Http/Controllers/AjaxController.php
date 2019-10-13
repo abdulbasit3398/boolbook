@@ -25,7 +25,9 @@ class AjaxController extends Controller
    $invoice_for_month = $request['month'];
    $invoice_for_year = $request['year'];
    $data['all_costs'] = AllCosts::where([['user_id',$user_id],['for_month',$invoice_for_month],['for_year',$invoice_for_year],['custom_cost','=','0'],])->groupBy('cost_name')->get();
-   $data['custom_costs'] = AllCosts::where([['user_id',$user_id],['for_month',$invoice_for_month],['for_year',$invoice_for_year],['custom_cost','!=','0'],])->get();
+   // $data['custom_costs'] = AllCosts::where([['user_id',$user_id],['for_month',$invoice_for_month],['for_year',$invoice_for_year],['custom_cost','!=','0'],])->get();
+   $data['custom_costs'] = DB::table('all_costs')->select(DB::raw(" cost_name,sum(line_ext_val) as line_ext_val,sum(tax_amount_val) as tax_amount_val "))->where("user_id",$user_id)->where("for_month",$invoice_for_month)->where("for_year",$invoice_for_year)->where("custom_cost","!=","0")->groupBy('custom_cost')->get();
+
    return $data;
  }
 

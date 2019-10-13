@@ -156,12 +156,12 @@
 						<div class="col-md-6">
 							<span class="form_total1">Client ID</span>
 							<br/>
-							<span>{{$data->client_id}}</span>
+							<span class="regular_text">{{$data->client_id}}</span>
 						</div>
 						<div class="col-md-6">
 							<span class="form_total1">Secret ID</span>
 							<br/>
-							<span>Om veiligheidsredenen niet zichtbaar.</span>
+							<span class="regular_text">Om veiligheidsredenen niet zichtbaar.</span>
 						</div>
 					</div>
 					<br/>

@@ -109,14 +109,14 @@
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Jouw persoonlijke Affilliate link</span>
-							<span>
+							<span class="regular_text">
 								{{ Auth::user()->referral_link }}
 							</span>
 						</div>
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1">Jouw IBAN-nummer voor betalingen</span>
-							<span>
-								{{($data->account_iban == '') ? 'Enter your Account IBAN' : $data->account_iban }}
+							<span class="regular_text">
+								{{($data->account_iban == '') ? 'Vul je IBAN in' : $data->account_iban }}
 								<a data-toggle="modal" data-target="#account_iban" data-toggle="modal" data-target="#lastname" href="#lastname" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 </a>
 							</span>
@@ -133,20 +133,20 @@
 					</div>
 					<div class="row">
 						<div class="col-md-7" style="display: grid;">
-							<span>This is your affiliate result of {{$affiliate_data['current_month'].' '.$affiliate_data['current_year']}} so far.</span>
+							<span class="regular_text">Dit is je resultaat in {{$affiliate_data['current_month'].' '.$affiliate_data['current_year']}} tot nu toe.</span>
 						</div>
 					</div>
 					<br/>
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Totaal aantal aangeleverde klanten</span>
-							<span>
+							<span class="regular_text">
 								{{ count(Auth::user()->referrals)  ?? '0' }}
 							</span>
 						</div>
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Totaal ontvangen bedrag</span>
-							<span>
+							<span class="regular_text">
 								{{$affiliate_data['amount_referrals_paid_to_company_this_month']}}
 							</span>
 						</div>
@@ -155,13 +155,13 @@
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Aantal nieuwe klanten deze maand</span>
-							<span>
+							<span class="regular_text">
 								{{$affiliate_data['referrals_this_month']}}
 							</span>
 						</div>
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1">Jouw uitbetaling op ditmoment</span>
-							<span>
+							<span class="regular_text">
 								{{$affiliate_data['payout_amount_in_this_month']}}
 							</span>
 						</div>

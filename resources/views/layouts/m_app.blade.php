@@ -88,6 +88,7 @@
   .btn-secondary, .btn-secondary.disabled{
     background: #175ade !important;
     border: 1px solid #175ade !important;
+    color: white;
   }
   .form-control{
     font-size: 14px;
@@ -97,6 +98,10 @@
   }
   .modal-header{
     padding-left: 31px;
+  }
+  .regular_text{
+    font-size: 14px;
+    color: #6d6d6d !important;
   }
 </style>
 

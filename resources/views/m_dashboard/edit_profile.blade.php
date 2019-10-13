@@ -258,7 +258,7 @@
 					<div class="row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Jouw voornaam</span>
-							<span>
+							<span class="regular_text">
 								{{$data->name}}
 								<a data-toggle="modal" data-target="#firstname" href="#firstname" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 </a>
@@ -266,7 +266,7 @@
 						</div>
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1">Jouw achternaam</span>
-							<span>
+							<span class="regular_text">
 								{{$data->last_name}}
 								<a data-toggle="modal" data-target="#lastname" data-toggle="modal" data-target="#lastname" href="#lastname" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 </a>
@@ -284,7 +284,7 @@
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Straatnaam</span>
-							<span>
+							<span class="regular_text">
 								{{$data->street_name}}
 								<a data-toggle="modal" data-target="#streetname" data-toggle="modal" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 				</a>
@@ -292,7 +292,7 @@
 						</div>
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Huisnummer</span>
-							<span>
+							<span class="regular_text">
 								{{$data->house_no}}
 								<a data-toggle="modal" data-target="#houseno" data-toggle="modal" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 				</a>
@@ -303,7 +303,7 @@
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1" >Woonplaats</span>
-							<span>
+							<span class="regular_text">
 								{{$data->residence}}
 								<a data-toggle="modal" data-target="#residence_modal" data-toggle="modal" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 </a>
@@ -311,7 +311,7 @@
 						</div>
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1">Postcode</span>
-							<span>
+							<span class="regular_text">
 								{{$data->post_code}}
 								<a data-toggle="modal" data-target="#postcode" data-toggle="modal" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 </a>
@@ -329,7 +329,7 @@
 					<div class=" row">
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1">Bedrijfsnaam</span>
-							<span>
+							<span class="regular_text">
 								{{$data->company_name}}
 								<a data-toggle="modal" data-target="#companyname" data-toggle="modal" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 </a>
@@ -337,7 +337,7 @@
 						</div>
 						<div class="col-md-5" style="display: grid;">
 							<span class="form_total1">BTW-Nummer</span>
-							<span>
+							<span class="regular_text">
 								{{$data->vat_number}}
 								<a data-toggle="modal" data-target="#vatnumber" data-toggle="modal" data-toggle="tooltip" data-original-title="Edit"> <i class="mdi mdi-pencil-circle text-inverse"></i> 
                 </a>

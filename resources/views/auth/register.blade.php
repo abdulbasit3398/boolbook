@@ -1,152 +1,71 @@
-@extends('layouts.app1')
-<link href="{{asset('assets/fontawesome/css/all.css')}}" rel="stylesheet">
-    
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/ionicons/css/ionicons.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/typicons/src/font/typicons.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/flag-icon-css/css/flag-icon.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/css/vendor.bundle.base.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendors/css/vendor.bundle.addons.css')}}">
-    <!-- endinject -->
-    <!-- plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="{{asset('assets/css/shared/style.css')}}">
-    <!-- endinject -->
-    <!-- Layout styles -->
-    <link rel="stylesheet" href="{{asset('assets/css/demo_1/style.css')}}">
-    <!-- End Layout styles -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}" />
-    <script src="{{asset('js/jquery.min.js')}}"></script>
-    <script src="{{asset('assets/js/chart.js')}}"></script>
+@include('include.m_head')
 <style type="text/css">
 
   /* Extra small devices (phones, 600px and down) */
   @media only screen and (max-width: 600px) {
-    .span_euro{
-      text-transform: none;
-      padding: 7px 30px 7px 30px;
-      border: 1px solid;
-      font-size: 37px;
-      background-color: white;
-      color: #175ADF;
-      border-radius: 22px;
-    }
+
   }
 
   /* Small devices (portrait tablets and large phones, 600px and up) */
   @media only screen and (min-width: 600px) {
-    .span_euro{
-      text-transform: none;
-      padding: 7px 30px 7px 30px;
-      border: 1px solid;
-      font-size: 37px;
-      background-color: white;
-      color: #175ADF;
-      border-radius: 22px;
-    }
+
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
   @media only screen and (min-width: 768px) {
-    .span_euro{
-      text-transform: none;
-      padding: 7px 30px 7px 30px;
-      border: 1px solid;
-      font-size: 37px;
-      background-color: white;
-      color: #175ADF;
-      border-radius: 22px;
-    }
+
   } 
 
   /* Large devices (laptops/desktops, 992px and up) */
   @media only screen and (min-width: 992px) {
-    .span_euro{
-      text-transform: none;
-      padding: 7px 48px 7px 58px;
-      border: 1px solid;
-      font-size: 37px;
-      background-color: white;
-      color: #175ADF;
-      border-radius: 22px;
-    }
+
   } 
 
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   @media only screen and (min-width: 1200px) {
-    .span_euro{
-      text-transform: none;
-      padding: 7px 48px 7px 58px;
-      border: 1px solid;
-      font-size: 37px;
-      background-color: white;
-      color: #175ADF;
-      border-radius: 22px;
-    }
+
   }
   body {
     background-color: white !important;
     letter-spacing: 1px;
   }
-  .heading{
+  .btn-secondary, .btn-secondary.disabled{
+    background: #175ade !important;
+    border: 1px solid #175ade !important;
     color: white;
-    font-weight: 600
   }
-  .form-group {
-    margin-bottom: -1.5px !important;
+  .btn-secondary_white{
+    background: white !important;
+    border: 1px solid #175ade !important;
+    color: #175ade;
   }
-  input{
-    box-shadow: 3px 3px #2125295c !important;
-    border-radius: 8px !important;
+  .btn-secondary_white:hover{
+    background: #175ade !important;
+    border: 1px solid #175ade !important;
+    color: white;
   }
-  .btn{
-    color: #175ADF !important;
-    box-shadow: 3px 3px #2125295c !important;
-    border-radius: 8px !important;
-    font-weight: 800 !important;
-    font-size: larger !important;
+  .card_head{
+    border-bottom: 1px solid gainsboro;
+    padding-left: 13px;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
   }
-  .vr {
-    width:1px;
-    background-color:#000;
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:150px;
+  .custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: grey;
+    background-color: grey;
   }
-  .form-radio.form-radio-flat label input:checked + .input-helper:before
-  {
-    background: white;
-    border-color: white;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
+  .custom-checkbox .custom-control-label::before {
+    border-radius: 1.25rem;
   }
-  .form-radio.form-radio-flat label input:checked + .input-helper:after
-  {
-    width: 20px;
-    height: 20px;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
-    left: -2px;
-    color: #175ADF;
-    background: none;
-    content: '\F12C';
-    font-family: Material Design Icons;
-    text-align: center;
-    font-weight: bold;
-    font-size: 15px;
-  }
-  .invalid-feedback{
-    display: block !important;
-    color: #ffaf00 !important;
+  .footer_text{
+    color: #175ade;
+    font-size: 14px;
+    font-weight: 500;
   }
 </style>
 
-@section('content')
+<br/>
 
 <div class="container">
   <div class="row justify-content-center">
@@ -155,24 +74,24 @@
     </div>
   </div>
   <br/>
-  <div class="row justify-content-center" style="box-shadow: 3px 2px #2125295c !important;border-radius: 8px;background-color: rgb(26, 83, 255);padding: 30px 0px 30px 0px;">
-    <div class="col-md-6" style="border-radius: 10px 0px 0px 10px;padding: 35px 30px 20px 60px;border-right: 1px solid white;">
-          <form method="POST" action="{{ route('register') }}">
-            @csrf
+  <div class="row justify-content-center">
+    <div class="col-md-11">
+     <div class="card">
+       <div class="card-body">
+        <div class="row card_head">
+          <div class="col-md-9" style="padding-top: 8px">
+            <h5 style="color: black">Maak je account aan.</h5>
+          </div>
 
-            <div class="form-group row">
-              <div class="col-md-12">
-                <h3 class="heading">Maak je account aan</h3>
-                <span style="color: white;text-transform: none;padding: 0px">
-                Begin vandaag nog met tijd besparen via Bolbooks
-                </span>
-              </div>
-            </div>
+        </div>
+         <div class="col-12">
+           <form method="POST" class="form-material" action="{{ route('register') }}">
+            @csrf
             <br/>
             <div class="form-group row">
 
               <div class="col-md-12" style="display: flex;">
-                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus style="margin-right: 7px;" placeholder="Voornaam">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus style="margin-right: 10%;" placeholder="Voornaam">
 
                 <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder="Achternaam">
 
@@ -205,7 +124,7 @@
             <div class="form-group row">
 
               <div class="col-md-12" style="display: flex;">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" style="margin-right: 7px;" placeholder="Wachtwoord">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" style="margin-right: 10%;" placeholder="Wachtwoord">
 
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Herhaal wachtwoord">
 
@@ -216,11 +135,11 @@
                 @enderror
               </div>
             </div>
-            <br/>
+
             <div class="form-group row">
 
               <div class="col-md-12" style="display: flex;">
-                <input id="street_name" type="text" class="form-control @error('street_name') is-invalid @enderror" name="street_name" value="{{ old('street_name') }}" required autocomplete="street_name" autofocus style="margin-right: 7px;" placeholder="Straatnaam">
+                <input id="street_name" type="text" class="form-control @error('street_name') is-invalid @enderror" name="street_name" value="{{ old('street_name') }}" required autocomplete="street_name" autofocus style="margin-right: 10%;" placeholder="Straatnaam">
                 @error('street_name')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -239,7 +158,7 @@
             <div class="form-group row">
 
               <div class="col-md-12" style="display: flex;">
-                <input id="post_code" type="text" class="form-control @error('post_code') is-invalid @enderror" name="post_code" value="{{ old('post_code') }}" required autocomplete="post_code" autofocus style="margin-right: 7px;" placeholder="Postcode">
+                <input id="post_code" type="text" class="form-control @error('post_code') is-invalid @enderror" name="post_code" value="{{ old('post_code') }}" required autocomplete="post_code" autofocus style="margin-right: 10%;" placeholder="Postcode">
                 @error('post_code')
                 <span class="invalid-feedback" role="alert">
                   <strong>{{ $message }}</strong>
@@ -257,111 +176,58 @@
             </div>
             <br/>
             <div class="form-group row">
-              <div class="col-md-12">
-                <div class="form-radio form-radio-flat" style="color: white">
+              <div class="col-md-1"></div>
+              <div class="col-md-10" style="height: 42px">
+                <!-- <label class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input">
+                    <span class="custom-control-label">Check this custom checkbox</span>
+                </label> -->
+                
+                <input type="checkbox" id="md_checkbox_18" class="chk-col-blue-grey" value="true" name="agrement">
+                <label for="md_checkbox_18">Ik ga akkoord met de algemene voorwaarden & de privacyverklaring.</label>
+                <!-- <div class="form-radio form-radio-flat">
                   <label class="form-check-label">
                     <input type="radio" class="form-check-input" name="agrement" id="agrement" value="true">
-                    Ik ga akkoord met de algemene voorwaarden & de privacyverklaring.
+                    
                     <i class="input-helper"></i></label>
+                  </div> -->
+                  @error('agrement')
+                  <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                 </div>
-                @error('agrement')
-                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                <div class="col-md-1"></div>
               </div>
-            </div>
-          <br/>
-            <div class="form-group row mb-0">
-              <div class="col-md-12">
-                <button type="submit" class="btn btn-light btn-block">
-                  {{ __('Account maken') }}
-                </button>
-              </div>
-            </div>
-          </form>
 
+              <div class="form-group row mb-0" style="text-align: center;">
+                <div class="col-md-12">
+                  <button type="submit" class="btn waves-effect waves-light btn-rounded btn-secondary">
+                    {{ __('Account maken') }}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br/>
+          <div class="row" style="border-top: 1px solid gainsboro;padding: 26px 0px 7px 0px">
+            <br/>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+              <span class="footer_text"><i class="mdi mdi-trophy-variant"></i>&nbsp;1 WEEK VOOR $1 UITPROBEREN.</span>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+              <span class="footer_text"><i class="mdi mdi-trophy-variant"></i>&nbsp;DIRECT TOEGANG TOT JE ACCOUNT.</span>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+              <span class="footer_text"><i class="mdi mdi-trophy-variant"></i>&nbsp;GELD EN TIJD BESPAREN.</span>
+            </div>
+          </div>
+        </div><!-- card-body -->
+
+      </div><!-- card -->
     </div>
-    <div class="col-md-6" style="padding: 0px;color: white;padding: 35px 30px 20px 60px;">
-    
-          <!-- <div class="vr">&nbsp;</div> -->
-          <form method="POST" action="{{ route('register') }}" style="margin-top: 3px;">
-            @csrf
-            <div class="form-group row">
-              <div class="col-md-12">
-                <h3 class="heading">Wat is ingebegrepen?</h3>
-                <span style="text-transform: none;padding: 0px">
-                Deze voordelen ga jij vanaf vandaag ervaren!
-                </span>
-              </div>
-            </div>
-            <br/>
-            <div class="form-group row">
-              <div class="col-md-12">
-                <div class="form-radio form-radio-flat">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="flatRadios1" id="flatRadios1" value="option2" checked>
-                    Alle gegevens direct uit je Bol account ophalen.
-                    <i class="input-helper"></i></label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-md-12">
-                <div class="form-radio form-radio-flat">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="flatRadios2" id="flatRadios2" value="option2" checked>
-                    Duidelijk maandelijks overzicht van winst of verlies.
-                    <i class="input-helper"></i></label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-md-12">
-                <div class="form-radio form-radio-flat">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="flatRadios3" id="flatRadios3" value="option2" checked>
-                    Per kwartaal de BTW-aangifte direct klaar.
-                    <i class="input-helper"></i></label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <div class="col-md-12">
-                <div class="form-radio form-radio-flat">
-                  <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="flatRadios4" id="flatRadios4" value="option2" checked>
-                    Persoonlijke boekhoudsupport voor al je vragen.
-                    <i class="input-helper"></i></label>
-                </div>
-              </div>
-            </div>
-            <br/>
-            <div class="form-group row">
-              <div class="col-md-12">
-                <h3 class="heading">Wat ga ik betalen?</h3>
-                <span style="text-transform: none;padding: 0px">
-                De eerste week kun je ons uittesten voor slechts:
-                </span>
-              </div>
-            </div>
-            <br/>
-            <div class="form-group row">
-              <div class="col-md-12" style="padding-left: 15%;">
-                <span class="span_euro">
-                  € 1,-
-                  <span style="text-transform: none; padding: 0px">incl. btw</span>
-                </span>
-              </div>
-            </div>
-            <br/>
-            <div class="form-group row">
-              <div class="col-md-12">
-                <span style="text-transform: none; padding: 0px">Hierna betaal je een bedrag gebaseerd op jouw omzet.</span>
-              </div>
-            </div>
-          </form>
-    </div>
+
   </div>
 </div>
-@endsection
+
+@include('include.m_scripts')

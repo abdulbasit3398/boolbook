@@ -188,7 +188,7 @@
                   </a>
                   @auth
                   @else
-                  <a data-sign-up-btn="true" href="{{route('register')}}" id="nav-bar-button-signup" class="navlink linkbtn sign-up sign-up-menu w-nav-link" style="border-radius: 25px;color: white !important;">START FREE</a>
+                  <a data-sign-up-btn="true" href="{{route('register')}}" id="nav-bar-button-signup" class="navlink linkbtn sign-up sign-up-menu w-nav-link" style="border-radius: 25px;color: white !important;">Nu starten</a>
                   @endauth
                </nav>
                <div class="menu-button w-nav-button">

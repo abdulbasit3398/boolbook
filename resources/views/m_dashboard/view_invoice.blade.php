@@ -102,19 +102,19 @@
 						<div class="row custom_row">
 							<div class="col-md-4" style="display: grid;">
 								<span class="form_total1" >Factuur datum</span>
-								<span>
+								<span class="regular_text">
 									{{date('d-m-Y',strtotime($payment->createdAt))}}
 								</span>
 							</div>
 							<div class="col-md-4" style="display: grid;">
 								<span class="form_total1">Bedrag</span>
-								<span>
+								<span class="regular_text">
 									€ {{$payment->amount_val}}
 								</span>
 							</div>
 							<div class="col-md-4" style="display: grid;">
 								<span class="form_total1">Status</span>
-								<span>
+								<span class="regular_text">
 									@if($payment->status == 'paid')
 										Betaald
 									@elseif($payment->status == 'open')

@@ -54,20 +54,11 @@
     background-color: #f8fafb;
     border-color: #f5f7f9;
   }
-  .btn-secondary, .btn-secondary.disabled{
-    background: #727b84;
-    border: 1px solid #727b84;
-    color: white;
-  }
   input{
     font-weight: 500 !important;
   }
   .custom-control{
     padding-left: 0.5rem;
-  }
-  .mdi{
-    color: black;
-    font-size: 14px;
   }
   .mdi:hover{
     color: #175ade !important;
@@ -197,7 +188,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                         // $total_val_tax += 2;
                         
                         // $total_tax += $custom_cost->tax_amount_val;
-
+                      $for_month = 0;
                       if($for_month != $custom_cost->for_month){
                       
                     ?>
@@ -225,8 +216,8 @@ $total_val_tax_arr = $total_tax_arr = [];
                           {{csrf_field()}}
                           <input type="hidden" name="cost_id" value="{{$custom_cost->id}}">
                         </form>
-                        <a href="#" onclick="
-                          if(confirm('Are you sure you want to delete this?'))
+                        <a href="#" style="color: #6d6d6d" onclick="
+                          if(confirm('Weet je zeker dat je deze kostenpost wil verwijderen?'))
                           {
                             event.preventDefault();
                             document.getElementById('delete-form-{{$custom_cost->for_month}}').submit();
@@ -242,8 +233,8 @@ $total_val_tax_arr = $total_tax_arr = [];
                       </td>
                     </tr>
                     <tr id="collapse<?= $custom_cost->for_month; ?>" class="collapse">
-                      <th>Added on</th>
-                      <th>Amount</th>
+                      <th>Toegevoegd op</th>
+                      <th>Bedrag</th>
                       <th>Waarvan BTW</th>
                       <th>Acties</th>
                     </tr>
@@ -259,13 +250,13 @@ $total_val_tax_arr = $total_tax_arr = [];
                           
                       </td>
                       <td>
-                        <i class="ti-info-alt" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
+                        <i class="mdi mdi-information" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
                         <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('customcost.destroy',$custom_cost->id)}}">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
                         </form>
-                        <a href="#" onclick="
-                          if(confirm('Are you sure you want to delete this?'))
+                        <a href="#" style="color: #6d6d6d" onclick="
+                          if(confirm('Weet je zeker dat je deze kostenpost wil verwijderen?'))
                           {
                             event.preventDefault();
                             document.getElementById('delete-form-{{$custom_cost->id}}').submit();
@@ -298,12 +289,12 @@ $total_val_tax_arr = $total_tax_arr = [];
                           
                       </td>
                       <td>
-                        <i class="ti-info-alt" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
+                        <i class="mdi mdi-information" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
                         <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('customcost.destroy',$custom_cost->id)}}">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
                         </form>
-                        <a href="#" onclick="
+                        <a href="#" style="color: #6d6d6d" onclick="
                           if(confirm('Are you sure you want to delete this?'))
                           {
                             event.preventDefault();
@@ -315,7 +306,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                           }
 
                         ">
-                          <i class="mdi mdi-delete-sweep"></i>
+                          <i class="mdi mdi-close-circle"></i>
                         </a>
                         
                       </td>
@@ -327,36 +318,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                 </table>
                 
               </div>
-              <!-- <div class="alert alert-info col-md-12">
-                
-                
-                <h4>For Month: {{$custom_cost->for_month.' '.$custom_cost->for_year}}</h4>
-                <label>Cost Amount: €<span>{{$custom_cost->line_ext_val}}</span> 
-                </label>
-                <br/>
-                <label>Tax Amount: €<span>{{$custom_cost->tax_amount_val}}</span> 
-                </label>
-                <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('customcost.destroy',$custom_cost->id)}}">
-                  {{csrf_field()}}
-                  {{method_field('DELETE')}}
-                </form>
 
-                <a href="#" onclick="
-                  if(confirm('Are you sure you want to delete this?'))
-                  {
-                    event.preventDefault();
-                    document.getElementById('delete-form-{{$custom_cost->id}}').submit();
-                  }
-                  else
-                  {
-                    event.preventDefault();
-                  }
-
-                ">
-                  <button style="float: right;" type="button" class="btn btn-outline-danger btn-fw btn-rounded btn-block">Delete</button>
-                </a>
-              </div> -->
-            
         </div>
       </div>
       <div class="modal-footer">
@@ -561,18 +523,18 @@ $total_val_tax_arr = $total_tax_arr = [];
             <div class="col-md-6">
               <div class="form-group amount_div" style="margin-top: 11px;">
 
-                <input type="number" class="form-control custom-input" min="0" id="cost_amount" name="cost_amount" required placeholder="Voer het bedrag in"   oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')">
+                <input type="text" class="form-control custom-input" min="0" id="cost_amount" name="cost_amount" required placeholder="Voer het bedrag in"   oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')" onkeypress='onlynumbers(event)'>
                 
               </div>
               <div class="form-group">
                 <div class=" ">
                   <div class="custom-control custom-radio">
                     <input type="radio" class="with-gap radio-col-blue-grey" id="amount_inc_tax" name="cost_amount_opt" value="1" checked>
-                    <label class="custom-control-label" for="amount_inc_tax">Amount includes tax</label>
+                    <label class="custom-control-label" for="amount_inc_tax">Bedrag is inclusief BTW</label>
                   </div>
                   <div class="custom-control custom-radio" style="margin-top: 14px;">
                     <input type="radio" class="with-gap radio-col-blue-grey" id="amount_exl_tax" name="cost_amount_opt" value="0">
-                    <label class="custom-control-label" for="amount_exl_tax">Amount excludes tax</label>
+                    <label class="custom-control-label" for="amount_exl_tax">Bedrag is exclusief BTW</label>
                   </div>
                 </div>
               </div>
@@ -594,7 +556,7 @@ $total_val_tax_arr = $total_tax_arr = [];
               </div>
               <div id="tax_amount_amt_div" class="form-group amount_div" style="display: none;margin-top: 11px;">
 
-                <input type="number" class="form-control custom-input" min="0" id="tax_amount_amt" name="tax_amount_amt" placeholder="Voer het bedrag in" oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')" >
+                <input type="text" class="form-control custom-input" min="0" id="tax_amount_amt" name="tax_amount_amt" placeholder="Voer het bedrag in" oninvalid="this.setCustomValidity('Je bent deze vergeten')" oninput="setCustomValidity('')" onkeypress='onlynumbers(event)'>
               </div>
               <div class="form-group">
                 <div class="custom-control custom-radio">
@@ -603,7 +565,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                 </div>
                 <div class="custom-control custom-radio" style="margin-top: 14px;">
                   <input type="radio" class="with-gap radio-col-blue-grey" id="amount" name="tax_amount_opt" value="0">
-                  <label class="custom-control-label" for="amount">Amount</label>
+                  <label class="custom-control-label" for="amount">Bedrag</label>
                 </div>
               </div>
             </div>
@@ -612,13 +574,13 @@ $total_val_tax_arr = $total_tax_arr = [];
           <div class="row">
             <div class="col-md-12" style="padding-left: 29px !important;">
               <div class="form-group">
-                <input type="text" class="form-control" name="category_description" required placeholder="Beschrijving kosten" oninvalid="this.setCustomValidity('Selecteer een kostenpost')" oninput="setCustomValidity('')">
+                <input type="text" class="form-control" name="category_description" required placeholder="Beschrijving kosten" oninvalid="this.setCustomValidity('Voeg een beschrijving toe')" oninput="setCustomValidity('')">
               </div>
             </div>
           </div>
           <div class="row" style="margin: 22px 0px 10px 8px;">
             <div class="col-md-9" style="padding: 0px;">
-              <button type="submit" class="btn waves-effect waves-light btn-rounded btn-secondary">Add cost</button>
+              <button type="submit" class="btn waves-effect waves-light btn-rounded btn-secondary">Kosten toevoegen</button>
             </div>
           </div>
           </div>
