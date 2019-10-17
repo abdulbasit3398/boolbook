@@ -160,10 +160,10 @@ $total_val_tax_arr = $total_tax_arr = [];
       
     }
   }
-
+ 
 ?>
 @foreach($data['custom_category'] as $category)
-
+<?php $for_month = 0; ?>
 <div class="modal fade" id="Modal{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel{{$category->id}}" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -188,9 +188,9 @@ $total_val_tax_arr = $total_tax_arr = [];
                         // $total_val_tax += 2;
                         
                         // $total_tax += $custom_cost->tax_amount_val;
-                      $for_month = 0;
+                      // $for_month = 0;
                       if($for_month != $custom_cost->for_month){
-                      
+                        // if($repeat_id == 0){
                     ?>
                     <tr>
                       <th>{{__('translate.Month')}}</th>
@@ -210,7 +210,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                         €<?= number_format($total_tax_arr[$category->id][$custom_cost->for_month],2,",",".");?>
                       </td>
                       <td>
-                        <i data-toggle="collapse" data-target="#collapse<?= $custom_cost->for_month; ?>" class="mdi mdi-eye"></i>
+                        <i data-toggle="collapse" data-target="#collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>" class="mdi mdi-eye"></i>
 
                         <form id="delete-form-{{$custom_cost->for_month}}" method="post" style="display: none;" action="{{route('delete_all_cost_in_month')}}">
                           {{csrf_field()}}
@@ -232,13 +232,13 @@ $total_val_tax_arr = $total_tax_arr = [];
                         </a>
                       </td>
                     </tr>
-                    <tr id="collapse<?= $custom_cost->for_month; ?>" class="collapse">
+                    <tr id="collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>" class="collapse">
                       <th>Toegevoegd op</th>
                       <th>Bedrag</th>
                       <th>Waarvan BTW</th>
                       <th>Acties</th>
                     </tr>
-                    <tr id="collapse<?= $custom_cost->for_month; ?>" class="collapse">
+                    <tr id="collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>" class="collapse">
                       <td>
                         <?= date('d-m-Y',strtotime($custom_cost->created_at)) ?>
                       </td>
@@ -273,11 +273,14 @@ $total_val_tax_arr = $total_tax_arr = [];
                       </td>
                     </tr>
                   <?php 
-                      $for_month = $custom_cost->for_month;
+                        $for_month = $custom_cost->for_month;
+                        // $repeat_id = 1;
+                      // }
                     }else{
-
+                      
+                      // $repeat_id = 0;
                   ?>
-                  <tr id="collapse<?= $custom_cost->for_month; ?>" class="collapse">
+                  <tr id="collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>" class="collapse">
                       <td>
                         <?= date('d-m-Y',strtotime($custom_cost->created_at)) ?>
                       </td>

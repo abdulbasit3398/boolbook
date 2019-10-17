@@ -554,14 +554,17 @@ online <br/>boekhouding van bolbooks. </p>
             Onze transparante tarieven.
           </h2>
           <div class="testimonial-div" style="text-align: center;height: 300px;margin-top: 100px;">
+            <br/>
             <div class="section-subtitle pricing_info section-description">
               Bekijk wat jouw tarief is door middel van je bol.com omzet.
             </div>
+            <br/>
+
             <input type="range" min="0" step="100" max="50000" id="range_slider"  value="2000" data-rangeslider="" >
-           
+           <br/>
             <div class="section-subtitle pricing_info">
               <span class="section-description">
-                Bij een omzet van &nbsp;€<output id="js-output"></output>&nbsp;reken we €<span id="price_range">4.95</span>&nbsp;per maand.
+                Bij een omzet van <span style="color: #175ade">€<output id="js-output"></output></span> reken we <span style="color: #175ade">€<span id="price_range">4.95</span></span> per maand.
               </span>
               
             </div>
