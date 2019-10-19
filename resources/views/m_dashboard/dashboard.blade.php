@@ -24,176 +24,55 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .pencil{
-    width: 14px;
-    margin-left: 5px;
-  }
-  .modal-content{
-    padding:35px 0px 0px 0px;
-    text-align: center;
-  }
+  
   .card_pading
   {
     padding-left: 0px;
-  }
-  .outer_row{
-    font-size: small;
-  }
-  .form_value{
-    font-size: small;
-    font-weight: 500;
-    float: right;
-  }
-  .form_total1{
-    font-size: small;
-    font-weight: 600;
   }
   
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-  .pencil{
-    width: 14px;
-    margin-left: 5px;
-  }
-  .modal-content{
-    padding:35px 0px 0px 0px;
-    text-align: center;
-  }
+  
   .card_pading
   {
     padding-left: 0px;
-  }
-  .outer_row
-  {
-    font-size: small;
-  }
-  .form_value{
-    font-size: small;
-    font-weight: 500;
-    float: right;
-  }
-  .form_total1{
-    font-size: small;
-    font-weight: 600;
   }
   
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-  .pencil{
-    width: 18px;
-    margin-left: 10px;
-  }
-  .modal-content{
-    padding:35px 0px 0px 0px;
-    text-align: center;
-  }
   .card_pading
   {
     padding-left:45px !important;
-  }
-  .outer_row{
-    font-size: large;
-  }
-  .form_total1{
-    margin-bottom: 10px;
-    font-size: 17px;
-    font-weight: 600;
   }
   
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .pencil{
-    width: 18px;
-    margin-left: 10px;
-  }
-  .modal-content{
-    padding:35px 0px 0px 0px;
-    text-align: center;
-    width: 660px;
+  .modal-dialog{
+    max-width: 675px;
   }
   .card_pading
   {
     padding-left:45px !important;
-  }
-  .outer_row{
-    font-size: large;
-  }
-  .form_total1{
-    margin-bottom: 10px;
-    font-size: 17px;
-    font-weight: 600;
   }
   
 } 
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-  .pencil{
-    width: 18px;
-    margin-left: 10px;
-  }
-  .modal-content{
-    padding:35px 0px 0px 0px;
-    text-align: center;
-    width: 660px;
+  .modal-dialog{
+    max-width: 675px;
   }
   .card_pading
   {
     padding-left:45px !important;
   }
-  .outer_row{
-    font-size: large;
-  }
-  .form_total1{
-    margin-bottom: 10px;
-    font-size: 17px;
-    font-weight: 600;
-  }
   
-}
-.blue_div{
-  background-color: blue;
-  width: 208px;
-  height: 40px;
-  color: white;
-  padding-left: 25px;
-  padding-top: 6px;
-  font-size: unset;
-  margin-bottom: 20px;
-}
-.edit_field{
-  border-radius: 10px;
-  background-color: blue;
-  border: 1px solid blue;
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
-}
-.btn-save{
-  border: 3px solid blue;
-  border-radius: 25px;
-  color: blue;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 10px 26px;
-}
-.edit_field::placeholder{
-  color: white;
-}
-.form-control:focus
-{
-  color: white;
-  background-color: blue;
-}
-.btn-save:hover{
-  color: white;
-  background-color: blue;
 }
 
 #regForm {
@@ -205,19 +84,6 @@ h1 {
   text-align: center;  
 }
 
-input {
-  padding: 7px 18px;
-  border-radius: 10px;
-  background-color: #175ade;
-  border: 1px solid #175ade;
-  width: 97%;
-  color: white;
-  font-size: 16px;
-  font-weight: 500;
-}
-input::placeholder{
-  color: white;
-}
 /* Mark input boxes that gets an error on validation: */
 input.invalid {
   background-color: #175ade54;
@@ -243,9 +109,7 @@ input.invalid {
 .step.active {
   opacity: 1;
 }
-.modal-body{
-  padding: 0px !important;
-}
+
 /* Mark the steps that are finished and valid: */
 .step.finish {
   background-color: #4CAF50;
@@ -253,20 +117,6 @@ input.invalid {
 iframe{
   width: 100%;
   height: 100%;
-}
-.btn_next{
-  margin-top: 30px;
-  background-color: white;
-  color: #175ade;
-  border: 2px solid #175ade;
-  border-radius: 25px;
-  padding: 10px 20px;
-  font-size: 17px;
-  cursor: pointer;
-}
-.btn_next:hover{
-  background-color: #175ade;
-  color: white;
 }
 .mollie_payment{
   margin-top: 20px;
@@ -278,7 +128,7 @@ iframe{
   font-size: 17px;
   cursor: pointer;
 }
-.mollie_div{
+/*.mollie_div{
   border-top: 4px solid white;
   border-bottom: 4px solid white;
   color: white;
@@ -286,7 +136,7 @@ iframe{
   width: 100%;
   text-align: center;
   padding: 35px 0px;
-}
+}*/
 .iframe_div{
   width: 90%;
   margin-left: 4%;
@@ -297,69 +147,94 @@ iframe{
 .text-muted {
   color: #6d6d6d !important;
 }
+.step{
+  display: none;
+}
+form input{
+  padding: .375rem .75rem !important;
+}
 </style>
 @if(Auth::user()->client_id == '')
   <div class="modal fade" id="MymodalPreventScript">
    <div class="modal-dialog">
    <div class="modal-content">
-
-   <div class="modal-body">
-     
+    
+    <div class="modal-body" style="text-align: center;">
+      
       <!-- One "tab" for each step in the form: -->
       <div class="tab">
-        <h3 style="color: blue"><b>WELKOM BIJ BOLBOOKS</b></h3>
-        <p><b>Het boekhoudprogramma dat de boekhouding voor bol.com-verkopers <br/>extreem simpel maakt!</b></p>
-        <div style="width: 100%;height: 13px;background-color: #175ade"></div>
+        <div class="modal-header" style="text-align: center;display: block;">
+          <h4 class="modal-title" id="ModalLabel26">
+            Welkom bij Bolbooks
+          </h4>
+        </div>
         <div class="mollie_div">
-          <h4 style="color: white"> TEST ONS EEN WEEK UIT VOOR SLECHTS €1!</h4>
-          
+          <br/>
+          <p class="text-muted">Wij zorgen ervoor dat jouw boekhouding simpel & overzichtelijk wordt.<br/>Voor slechts $1 kun je onze app een week uitproberen!</p>
+          <br/>
           <!-- if user does not go to Mollie -->
           @if($payment['exists'] == 0)
-          <p style="color: white">Ervaar het gemak van Bolbooks en kies zelf.</p>
+
           <a href="{{route('molli_payment')}}">
-            <button class="mollie_payment">Nu beginnen</button>
+            <button class="mollie_payment">Nu Starten</button>
           </a>
           @else
           <!-- if payment status is not 'paid' -->
             @if($payment['paid'] == 0)
             <p style="color: white">Payment unsuccessful. Try again.</p>
             <a href="{{route('molli_payment')}}">
-              <button class="mollie_payment">Nu beginnen</button>
+              <button class="mollie_payment">Nu Starten</button>
             </a>
             @else
             <button class="mollie_payment" type="button" id="mollie_tab_btn">Starten!</button>
             @endif
           @endif
         </div>
-        <div style="width: 100%;height: 13px;background-color: #175ade"></div>
         <br/>
-        <p style="color: #175ade"><b>Na betaling wordt jouw omgeving binnen enkele seconde geladen.</b></p>
+        <span style="color: #175ade;font-size: 14px;font-weight: 400;">
+          <i>Na betaling wordt jouw omgeving binnen enkele seconde geladen.</i>
+        </span>
       </div>
       
       <div class="tab">
-        <form id="regForm">
-          <h3 style="color: blue"><b>WE GAAN VOOR JOU AAN DE SLAG!</b></h3>
-          <p><b>We hebben jouw API-keys nodig om jouw gegevens te laden. Bekijk in de video waar je ze vindt en vul ze hieronder in.</b></p>
+        <div class="modal-header" style="text-align: center;display: block;">
+          <h4 class="modal-title" id="ModalLabel26">
+            We gaan aan de slag voor je!
+          </h4>
+        </div>
+        <form id="regForm" class=" form-material">
+          <p style="text-align: center;">We hebben jouw API-keys nodig om jouw gegevens te laden.<br/> Bekijk in de video waar je ze vindt.</p>
           <div class="iframe_div">
             <!-- <iframe src="https://player.vimeo.com/video/184862361?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe> -->
             <iframe src="//www.youtube.com/embed/3tRw8eRHwgA?autoplay=1" frameborder="0" allowfullscreen></iframe>
           </div>
-          <span style="color: red;display: none;" id="error">
-            Credentials are not valid.
-          </span>
-          <input type="hidden" id="user_id" value="{{Auth::user()->id}}">
-          <p><input id="client_id" placeholder="Vul hier je Client ID in" oninput="this.className = ''" ></p>
-          <p><input id="client_secret" placeholder="Vul hier je Secret ID in" oninput="this.className = ''"></p>
-          <button class="btn_next" type="button" id="form_submit">Volgende!</button>
+          <div style="margin-left: 20px">
+            <span style="color: red;display: none;" id="error">
+              Credentials are not valid.
+            </span>
+            <input type="hidden" id="user_id" value="{{Auth::user()->id}}">
+            <p><input id="client_id" class="form-control" placeholder="Typ hier je Client ID" oninput="this.className = ''" ></p>
+            <p><input id="client_secret" class="form-control" placeholder="Typ hier je Secret ID" oninput="this.className = ''"></p>
+          </div>
+          <br/>
+          <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="button" id="form_submit">Volgende!</button>
         </form>
       </div>
       <div class="tab">
-        <h3 style="color: blue"><b>JE BENT KLAAR OM TE BEGINNEN!</b></h3>
-        <p style="padding: 0px 20px;"><b>Bekijk terwiji jouw gegevens worden ingeladen hoe onze webapp werkt in de video hieronder om m zo goed mogelijk te gebruiken.</b></p>
+        <div class="modal-header" style="text-align: center;display: block;">
+          <h4 class="modal-title" id="ModalLabel26">
+            We zijn bijna klaar!
+          </h4>
+        </div>
+        <p style="padding: 18px 20px;">We laden jouw gegevens, dat duurt ongeveer 2 minuten,<br/>bekijk in de tussentijd hieronder hoe de webapp werkt.</p>
         <div class="iframe_div">
           <iframe src="//www.youtube.com/embed/3tRw8eRHwgA?autoplay=1" frameborder="0" allowfullscreen></iframe>
         </div>
-        <button class="btn_next" type="button" style="display: none;" id="refresh_page" data-dismiss="modal">Starten!</button>
+        <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="button" style="display: none;" id="refresh_page" data-dismiss="modal">Starten</button>
+        <br/>
+        <span style="color: #175ade;font-size: 14px;font-weight: 400;">
+          Hierboven verschijnt binnen 2 minuten een knop.
+        </span>
       </div>
       <div style="overflow:auto;">
         <div>
@@ -370,11 +245,13 @@ iframe{
       </div>
       <!-- Circles which indicates the steps of the form: -->
       <div style="text-align:center;margin: 15px 0px;">
+        
+
         <span class="step"></span>
         <span class="step"></span>
         <span class="step"></span>
       </div>
-   </div>   
+    </div>   
    <!-- <div class="modal-footer">
    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
    </div> -->
@@ -382,6 +259,7 @@ iframe{
    </div>                                          
   </div>
   @endif
+
 <div class="row">
   <!-- Column -->
   <div class="col-lg-4 col-md-6">
