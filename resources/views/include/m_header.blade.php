@@ -8,6 +8,28 @@
       padding-right: 68px;
       border-right: 1px solid #dadada;
     }
+    .feedback-button {
+      display: block;
+      box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
+      height: 39px;
+      /* border: solid 3px #CCCCCC; */
+      background: white;
+      width: 109px;
+      line-height: 32px;
+      -webkit-transform: rotate(-90deg);
+      font-weight: 500;
+      color: #34373c;
+      transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      text-align: center;
+      font-size: 15px;
+      position: fixed;
+      right: -40px;
+      top: 45%;
+      z-index: 999;
+      border-radius: 8px;
+    }
   }
   @media only screen and (max-width: 768px) {
     .navbar-nav {
@@ -17,6 +39,28 @@
       padding-right: 68px;
       border-bottom: 1px solid #dadada;
       height: 67px;
+    }
+    .feedback-button {
+      display: none;
+      box-shadow: 0 4px 16px 0 rgba(167, 175, 183, 0.33);
+      height: 39px;
+      /* border: solid 3px #CCCCCC; */
+      background: white;
+      width: 109px;
+      line-height: 32px;
+      -webkit-transform: rotate(-90deg);
+      font-weight: 500;
+      color: #34373c;
+      transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      text-align: center;
+      font-size: 15px;
+      position: fixed;
+      right: -40px;
+      top: 45%;
+      z-index: 999;
+      border-radius: 8px;
     }
   }
   .topbar .navbar-light .navbar-nav .nav-item > a.nav-link{
@@ -39,6 +83,11 @@
     min-height: 70px;
     padding: 0px 0px 0 0;
   }
+
+  
+
+
+
 </style>
 
 <header class="topbar" style="background: white">
@@ -187,3 +236,59 @@
                   </div>
                 </nav>
               </header>
+
+
+<!-- Modal Last Name -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="firstnamelabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="margin: 100px auto;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="vcenter">We waarderen jouw feedback!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 10px 0px 25px 0px;">
+          {{csrf_field()}}
+          <div class="form-group">
+            <h6>Wat vind je van Bolbooks?</h6>
+            <div class="row" style="margin-top: 17px">
+              <div class="col-md-4" style="padding-left: 12px">
+                <input name="feedback_option" type="radio" id="radio_7" class="radio-col-blue-grey" value="ontevreden">
+                <label for="radio_7">Ontevreden</label>
+              </div>
+              <div class="col-md-4" style="padding-left: 12px">
+                <input name="feedback_option" type="radio" id="radio_8" class="radio-col-blue-grey" value="wel_oke">
+                <label for="radio_8">Wel oke</label>
+              </div>
+              <div class="col-md-4" style="padding-left: 12px">
+                <input name="feedback_option" type="radio" id="radio_9" class="radio-col-blue-grey" value="top_software">
+                <label for="radio_9">Top software</label>
+              </div>
+              
+            </div>
+          </div>
+          <div id="feedback_empty_div" style="height: 180px">
+            
+          </div>
+          <div class="form-group" id="feedback_form_div" style="display: none;">
+            <textarea class="form-control" rows="5"></textarea>
+            <label style="font-size: 13px" id="first_lable">
+              <i>Typ hierboven wat we kunnen verbeteren om aan jouw wensen te voldoen!</i>
+            </label>
+            <label style="font-size: 13px" id="second_lable">
+              <i>Typ hierboven wat je het fijnst vindt aan Bolbooks.</i>
+            </label>
+            
+          </div>
+          <div class="form-group" style="text-align: center;">
+            <button type="submit" class="btn waves-effect waves-light btn-rounded btn-secondary">Feedback versturen</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="popup" class="feedback-button" data-toggle="modal" data-target="#myModal">Feedback</button>
+
+

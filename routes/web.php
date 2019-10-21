@@ -1,5 +1,7 @@
 <?php
 
+// Auth::routes(['verify' => true]);
+
 Route::post('/delete_all_cost_in_month', [
     'uses' => 'DashboardController@delete_all_cost_in_month',
     'as'   => 'delete_all_cost_in_month'

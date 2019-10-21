@@ -662,6 +662,8 @@ online <br/>boekhouding van bolbooks. </p>
                </div>
             </div>
          </div> -->
+
+
          <div>
             <div class="footer-div">
                <div class="w-container">
@@ -679,7 +681,17 @@ online <br/>boekhouding van bolbooks. </p>
       <script src="{{asset('home/js/libs/flow/webflow.js')}}" type="text/javascript"></script>
       <script src="{{asset('home/js/rangeslider.js')}}" type="text/javascript"></script>
       <script>
-         
+
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='{{asset("home/js/twak.js")}}';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+
         $(function() {
         var $document = $(document);
         var selector = '[data-rangeslider]';
