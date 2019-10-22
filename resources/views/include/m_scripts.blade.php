@@ -4,7 +4,7 @@
   //   // $( "input:checked" ).val();
   // });
   
-  $('input:radio[name="feedback_option"]').change(function(){
+  $('input:radio[name="comment_option"]').change(function(){
     var val = $( "input:checked" ).val();
     $('#feedback_form_div').show();
     $('#feedback_empty_div').hide();
@@ -14,6 +14,7 @@
       $('#first_lable').show();
       $('#second_lable').hide();
     }else{
+      $('#comment').val('');
       $('#first_lable').hide();
       $('#second_lable').show();
     }

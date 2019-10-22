@@ -1,6 +1,10 @@
 <?php
 
 // Auth::routes(['verify' => true]);
+Route::post('/user_feedback', [
+    'uses' => 'FeedbackController@user_feedback',
+    'as'   => 'user_feedback'
+]);
 
 Route::post('/delete_all_cost_in_month', [
     'uses' => 'DashboardController@delete_all_cost_in_month',

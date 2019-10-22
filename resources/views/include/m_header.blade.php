@@ -247,21 +247,21 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
       <div class="modal-body">
-        <form method="post" class="col-md-12 form-material" action="{{route('update_profile')}}" style="margin: 10px 0px 25px 0px;">
+        <form method="post" class="col-md-12 form-material" action="{{route('user_feedback')}}" style="margin: 10px 0px 25px 0px;">
           {{csrf_field()}}
           <div class="form-group">
             <h6>Wat vind je van Bolbooks?</h6>
             <div class="row" style="margin-top: 17px">
               <div class="col-md-4" style="padding-left: 12px">
-                <input name="feedback_option" type="radio" id="radio_7" class="radio-col-blue-grey" value="ontevreden">
+                <input name="comment_option" type="radio" id="radio_7" class="radio-col-blue-grey" value="ontevreden">
                 <label for="radio_7">Ontevreden</label>
               </div>
               <div class="col-md-4" style="padding-left: 12px">
-                <input name="feedback_option" type="radio" id="radio_8" class="radio-col-blue-grey" value="wel_oke">
+                <input name="comment_option" type="radio" id="radio_8" class="radio-col-blue-grey" value="wel_oke">
                 <label for="radio_8">Wel oke</label>
               </div>
               <div class="col-md-4" style="padding-left: 12px">
-                <input name="feedback_option" type="radio" id="radio_9" class="radio-col-blue-grey" value="top_software">
+                <input name="comment_option" type="radio" id="radio_9" class="radio-col-blue-grey" value="top_software">
                 <label for="radio_9">Top software</label>
               </div>
               
@@ -271,7 +271,7 @@
             
           </div>
           <div class="form-group" id="feedback_form_div" style="display: none;">
-            <textarea class="form-control" rows="5"></textarea>
+            <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
             <label style="font-size: 13px" id="first_lable">
               <i>Typ hierboven wat we kunnen verbeteren om aan jouw wensen te voldoen!</i>
             </label>
