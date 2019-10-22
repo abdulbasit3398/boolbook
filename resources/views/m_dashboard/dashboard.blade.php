@@ -141,7 +141,6 @@ iframe{
   width: 90%;
   margin-left: 4%;
   height: 310px;
-  border: 2px solid blue;
   margin-bottom: 30px;
 }
 .text-muted {
@@ -153,42 +152,51 @@ iframe{
 form input{
   padding: .375rem .75rem !important;
 }
+.model_head{
+  text-align: center;
+  display: block;
+  padding: 2px 5px 10px 5px !important;
+}
 </style>
 @if(Auth::user()->client_id == '')
   <div class="modal fade" id="MymodalPreventScript">
    <div class="modal-dialog">
-   <div class="modal-content">
+   <div class="modal-content" style="margin-top: 20%;">
     
     <div class="modal-body" style="text-align: center;">
       
       <!-- One "tab" for each step in the form: -->
       <div class="tab">
-        <div class="modal-header" style="text-align: center;display: block;">
+        <div class="modal-header model_head">
           <h4 class="modal-title" id="ModalLabel26">
             Welkom bij Bolbooks
           </h4>
         </div>
         <div class="mollie_div">
           <br/>
-          <p class="text-muted">Wij zorgen ervoor dat jouw boekhouding simpel & overzichtelijk wordt.<br/>Voor slechts $1 kun je onze app een week uitproberen!</p>
-          <br/>
+          <span>Wij zorgen ervoor dat jouw boekhouding simpel & overzichtelijk wordt.</span>
+
           <!-- if user does not go to Mollie -->
           @if($payment['exists'] == 0)
 
           <a href="{{route('molli_payment')}}">
             <button class="mollie_payment">Nu Starten</button>
           </a>
+          
+
           @else
           <!-- if payment status is not 'paid' -->
             @if($payment['paid'] == 0)
-            <p style="color: white">Payment unsuccessful. Try again.</p>
+            <p style="margin: 11px 0px -1px 0px;">De betaling is mislukt, probeer het nog eens.</p>
             <a href="{{route('molli_payment')}}">
               <button class="mollie_payment">Nu Starten</button>
             </a>
+            
             @else
             <button class="mollie_payment" type="button" id="mollie_tab_btn">Starten!</button>
             @endif
           @endif
+          <p style="margin-top: 20px;">Voor slechts €1 kun je onze app een week uitproberen!</p>
         </div>
         <br/>
         <span style="color: #175ade;font-size: 14px;font-weight: 400;">
@@ -197,7 +205,7 @@ form input{
       </div>
       
       <div class="tab">
-        <div class="modal-header" style="text-align: center;display: block;">
+        <div class="modal-header model_head">
           <h4 class="modal-title" id="ModalLabel26">
             We gaan aan de slag voor je!
           </h4>
@@ -210,18 +218,19 @@ form input{
           </div>
           <div style="margin-left: 20px">
             <span style="color: red;display: none;" id="error">
-              Credentials are not valid.
+              De API gegevens kloppen niet.
             </span>
             <input type="hidden" id="user_id" value="{{Auth::user()->id}}">
-            <p><input id="client_id" class="form-control" placeholder="Typ hier je Client ID" oninput="this.className = ''" ></p>
-            <p><input id="client_secret" class="form-control" placeholder="Typ hier je Secret ID" oninput="this.className = ''"></p>
+            <p><input id="client_id" class="form-control" placeholder="Typ hier je Client ID" ></p>
+            <p><input id="client_secret" class="form-control" placeholder="Typ hier je Secret ID"></p>
           </div>
           <br/>
           <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="button" id="form_submit">Volgende!</button>
         </form>
       </div>
+
       <div class="tab">
-        <div class="modal-header" style="text-align: center;display: block;">
+        <div class="modal-header model_head" >
           <h4 class="modal-title" id="ModalLabel26">
             We zijn bijna klaar!
           </h4>
@@ -230,12 +239,13 @@ form input{
         <div class="iframe_div">
           <iframe src="//www.youtube.com/embed/3tRw8eRHwgA?autoplay=1" frameborder="0" allowfullscreen></iframe>
         </div>
-        <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="button" style="display: none;" id="refresh_page" data-dismiss="modal">Starten</button>
-        <br/>
+        <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="button" style="display: none;"  id="refresh_page" data-dismiss="modal">Starten</button>
+        <br/> <br/>
         <span style="color: #175ade;font-size: 14px;font-weight: 400;">
           Hierboven verschijnt binnen 2 minuten een knop.
         </span>
       </div>
+
       <div style="overflow:auto;">
         <div>
           <!-- <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button> -->
@@ -479,11 +489,11 @@ form input{
       x[n].style.display = "block";
       //... and fix the Previous/Next buttons:
 
-      if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-      } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-      }
+      // if (n == (x.length - 1)) {
+      //   document.getElementById("nextBtn").innerHTML = "Submit";
+      // } else {
+      //   document.getElementById("nextBtn").innerHTML = "Next";
+      // }
       //... and run a function that will display the correct step indicator:
       fixStepIndicator(n)
     }
