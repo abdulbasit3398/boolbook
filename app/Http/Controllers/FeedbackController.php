@@ -10,6 +10,10 @@ use Mail;
 
 class FeedbackController extends Controller
 {
+	public function __construct()
+	{
+	    $this->middleware('auth');
+	}
 	public function user_feedback(Request $request)
 	{
 		$user_name = Auth::user()->name.' '.Auth::user()->last_name;
@@ -38,7 +42,7 @@ class FeedbackController extends Controller
 			), function($message)
 			{
 				// $message->from('abdulbasit3398@gmail.com');
-				$message->to('wouter.blokhuis@gmail.com', 'Admin')->subject('User Feedback');
+				$message->to('info@bolbooks.nl', 'Admin')->subject('User Feedback');
 			});
 		return redirect()->back();
 	}

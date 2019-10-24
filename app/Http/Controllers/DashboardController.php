@@ -473,4 +473,5 @@ class DashboardController extends Controller
 		$delete = AllCosts::where([['for_month',$for_month],['user_id',$user_id],['custom_cost','!=','0']])->delete();
 		return redirect()->back()->with('message','Deleted successfully.');;
 	}
+	
 }

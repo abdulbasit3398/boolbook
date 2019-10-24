@@ -8,9 +8,7 @@
     background-color: #fafafa !important;
   }*/
   @media only screen and (max-width: 600px) {
-    .footer-copyright-text{
-      padding-left: 0;
-    }
+    
     .custom_btn{
       width: 43% !important;
       border-radius: 25px !important;
@@ -18,16 +16,12 @@
     }
     .pricing_info{
       margin-top: 30px !important;
-      display: flex;
-      padding-left: 0;
     }
   }
 
   /*Small devices (portrait tablets and large phones, 600px and up)  */
   @media only screen and (min-width: 600px) {
-    .footer-copyright-text{
-      padding-left: 0;
-    }
+    
     .custom_btn{
       width: 43% !important;
       border-radius: 25px !important;
@@ -35,45 +29,22 @@
     }
     .pricing_info{
       margin-top: 30px !important;
-      display: flex;
-      padding-left: 0;
     }
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
   @media only screen and (min-width: 768px) {
-    .footer-copyright-text{
-      padding-left: 40%;
-    }
-    .pricing_info{
-      margin-top: 50px;
-      display: flex;
-      padding-left: 15%;
-    }
+    
   } 
 
   /* Large devices (laptops/desktops, 992px and up) */
   @media only screen and (min-width: 992px) {
-    .footer-copyright-text{
-      padding-left: 40%;
-    }
-    .pricing_info{
-      margin-top: 50px;
-      display: flex;
-      padding-left: 27%;
-    }
+    
   } 
 
   /* Extra large devices (large laptops and desktops, 1200px and up) */
   @media only screen and (min-width: 1200px) {
-    .footer-copyright-text{
-      padding-left: 40%;
-    }
-    .pricing_info{
-      margin-top: 50px;
-      display: flex;
-      padding-left: 27%;
-    }
+    
   }
   .nav-bar-all, .nav-bar-all.nav-bar-non-scrolling.nav-bar-gray{
     background-color: white !important;
@@ -100,6 +71,12 @@
   } 
   .rangeslider__fill{
     background: #175ade !important;
+  }
+  .section-subtitle{
+    text-align: center !important;
+  }
+  .footer-copyright-text{
+    text-align: center;
   }
 </style>
    <head>
@@ -205,9 +182,10 @@
 online <br/>boekhouding van bolbooks. </p>
             <a data-request-account-btn="true" href="#" class="button w-hidden-main w-hidden-medium w-hidden-small w-button custom_btn">Nu starten</a>
             <div class="w-form">
-               <form id="" name="" data-name="" method="get" class="w-hidden-tiny">
+               <form method="post" action="{{route('SubscribedUser')}}" class="w-hidden-tiny">
+                    {{csrf_field()}}
                   <div class="email-capture-product-left w-clearfix">
-                      <input type="email" class="email-capture-field w-input" maxlength="256" name="email-3"  placeholder="Vul je emailadres in" id="" required=""/><input type="submit" value="Nu starten"  id="" class="button button-rounded w-button"/></div>
+                      <input type="email" class="email-capture-field w-input" maxlength="256" name="email"  placeholder="Vul je emailadres in" id="" required=""/><input type="submit" value="Nu starten"  id="" class="button button-rounded w-button"/></div>
                </form>
                <div class="modal-form-success-product w-form-done">
                   <div>Securing your account...</div>
@@ -250,7 +228,7 @@ online <br/>boekhouding van bolbooks. </p>
                   </div>
                </div>
             </div>
-            <a data-request-account-btn="true" href="#" class="button w-button" style="border-radius: 25px">Nu starten</a>
+            <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px">Nu starten</a>
          </div>
       </div>
       <div class="white-section-slanted">
@@ -318,7 +296,7 @@ online <br/>boekhouding van bolbooks. </p>
                   <p class="section-description"></p>
 
                   <p class="section-description">Met de slimme automatiseringen van Bolbooks heb je direct inzichten in je resultaten en hoef je enkel je kosten in te voeren.<br/><br/>Als jij focust op verkopen dan zorgen wij voor de rest.</p>
-                  <a data-request-account-btn="true" href="#" class="button button-rounded w-button">Nu starten</a>
+                  <a data-request-account-btn="true" href="{{route('register')}}" class="button button-rounded w-button">Nu starten</a>
                </div>
             </div>
          </div>
@@ -472,7 +450,7 @@ online <br/>boekhouding van bolbooks. </p>
                   </div>
                </div>
             </div>
-            <a data-request-account-btn="true" href="#" class="button w-button" style="border-radius: 25px;">Nu starten</a>
+            <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px;">Nu starten</a>
          </div>
       </div>
       <!-- <div class="gray-section-slanted gray-section-slanted-global">
@@ -556,7 +534,7 @@ online <br/>boekhouding van bolbooks. </p>
           <div class="testimonial-div" style="text-align: center;height: 300px;margin-top: 100px;">
             <br/>
             <div class="section-subtitle pricing_info section-description">
-              Bekijk wat jouw tarief is door middel van je bol.com omzet.
+              <span>Bekijk wat jouw tarief is door middel van je bol.com omzet.</span>
             </div>
             <br/>
 
@@ -570,7 +548,7 @@ online <br/>boekhouding van bolbooks. </p>
             </div>
 
           </div>
-          <a data-request-account-btn="true" href="#" class="button w-button" style="border-radius: 25px;margin-top: 50px;" >Nu starten</a>
+          <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px;margin-top: 50px;" >Nu starten</a>
          </div>
        </div>
       <div class="white-section-slanted" id="pricing-section">
@@ -579,8 +557,8 @@ online <br/>boekhouding van bolbooks. </p>
 
             <h2 class="section-headline-green section-headline-green-center">Probeer Bolbooks vandaag nog.</h2>
 
-            <div class="section-subtitle">With “1 week voor slechts €1.</div>
-            <a data-request-account-btn="true" href="#" class="button w-button" style="border-radius: 25px;">Nu starten</a>
+            <div class="section-subtitle">1 week voor slechts €1.</div>
+            <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px;">Nu starten</a>
          </div>
       </div>
       <div id="footer" class="footer">
@@ -668,9 +646,11 @@ online <br/>boekhouding van bolbooks. </p>
             <div class="footer-div">
                <div class="w-container">
                   <div class="footer-copyright-text">
+                    <span>
                     ©2019 Bolbooks.
                     <br/>
                     <a href="terms.html" class="footer-text-link">Algemene voorwaarden – Disclaimer</a>
+                    </span>
                   </div>
                   
                </div>

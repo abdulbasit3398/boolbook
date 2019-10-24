@@ -96,4 +96,15 @@ class RegisterController extends Controller
         return $user;
     }
 
+    public function subscribed_user(Request $request)
+    {
+        if($request->email == '')
+        {
+            return redirect()->route('register');
+        }
+        $subscribed_user_mail = $request->email;
+        $db = DB::table('subscribed_user')->insert(['user_email' => $subscribed_user_mail]);
+        return view('auth.register',compact('subscribed_user_mail'));
+    }
+
 }

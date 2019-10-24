@@ -2,6 +2,8 @@
 
 @section('head_section')
 <link href="{{asset('ui/assets/plugins/morrisjs/morris.css')}}" rel="stylesheet">
+<link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
+
 <script src="{{asset('ui/assets/plugins/Chart.js/chartjs.init.js')}}"></script>
 <script src="{{asset('ui/assets/plugins/Chart.js/Chart.min.js')}}"></script>
 @endsection
@@ -18,146 +20,7 @@
 
 
 @section('main_content')
-<style>
-* {
-  box-sizing: border-box;
-}
 
-@media only screen and (max-width: 600px) {
-  
-  .card_pading
-  {
-    padding-left: 0px;
-  }
-  
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-  
-  .card_pading
-  {
-    padding-left: 0px;
-  }
-  
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-  .card_pading
-  {
-    padding-left:45px !important;
-  }
-  
-} 
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-  .modal-dialog{
-    max-width: 675px;
-  }
-  .card_pading
-  {
-    padding-left:45px !important;
-  }
-  
-} 
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-  .modal-dialog{
-    max-width: 675px;
-  }
-  .card_pading
-  {
-    padding-left:45px !important;
-  }
-  
-}
-
-#regForm {
-  padding: 3% 5%;
-  min-width: 300px;
-}
-
-h1 {
-  text-align: center;  
-}
-
-/* Mark input boxes that gets an error on validation: */
-input.invalid {
-  background-color: #175ade54;
-}
-
-/* Hide all steps by default: */
-.tab {
-  display: none;
-}
-
-/* Make circles that indicate the steps of the form: */
-.step {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #175ade;
-  border: none;  
-  border-radius: 50%;
-  display: inline-block;
-  opacity: 0.5;
-}
-
-.step.active {
-  opacity: 1;
-}
-
-/* Mark the steps that are finished and valid: */
-.step.finish {
-  background-color: #4CAF50;
-}
-iframe{
-  width: 100%;
-  height: 100%;
-}
-.mollie_payment{
-  margin-top: 20px;
-  background-color: #175ade;
-  color: white;
-  border: 2px solid white;
-  border-radius: 25px;
-  padding: 10px 20px;
-  font-size: 17px;
-  cursor: pointer;
-}
-/*.mollie_div{
-  border-top: 4px solid white;
-  border-bottom: 4px solid white;
-  color: white;
-  background-color: #175ade;
-  width: 100%;
-  text-align: center;
-  padding: 35px 0px;
-}*/
-.iframe_div{
-  width: 90%;
-  margin-left: 4%;
-  height: 310px;
-  margin-bottom: 30px;
-}
-.text-muted {
-  color: #6d6d6d !important;
-}
-.step{
-  display: none;
-}
-form input{
-  padding: .375rem .75rem !important;
-}
-.model_head{
-  text-align: center;
-  display: block;
-  padding: 2px 5px 10px 5px !important;
-}
-</style>
 @if(Auth::user()->client_id == '')
   <div class="modal fade" id="MymodalPreventScript">
    <div class="modal-dialog">

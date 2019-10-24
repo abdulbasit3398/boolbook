@@ -22,3 +22,12 @@
   @section('head_section')
     @show
 </head>
+<style type="text/css">
+  .form-material .form-control, .form-material .form-control.focus, .form-material .form-control:focus{
+    background-image: linear-gradient(#175ade, #175ade), linear-gradient(#d9d9d9, #d9d9d9) !important;
+  }
+  .align_center{
+    text-align: center;
+  }
+  
+</style>

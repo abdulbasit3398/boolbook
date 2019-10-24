@@ -50,9 +50,6 @@
   .page-wrapper{
     background: #fbfcfc !important;
   }
-  .form-material .form-control, .form-material .form-control.focus, .form-material .form-control:focus{
-    background-image: linear-gradient(#175ade, #175ade), linear-gradient(#d9d9d9, #d9d9d9) !important;
-  }
   .table td{
     font-size: 14px !important;
     color: #6d6d6d !important;
@@ -141,7 +138,7 @@
           @include('include.m_footer')
         </div>
       </div>
-
+        
       @include('include.m_scripts')
     </body>
 

@@ -1,6 +1,16 @@
 <?php
 
 // Auth::routes(['verify' => true]);
+Route::post('/SubscribedUser',[
+    'uses' => 'Auth\RegisterController@subscribed_user',
+    'as' => 'SubscribedUser'
+]);
+
+Route::get('/SubscribedUser',[
+    'uses' => 'Auth\RegisterController@subscribed_user',
+    'as' => 'SubscribedUser'
+]);
+
 Route::post('/user_feedback', [
     'uses' => 'FeedbackController@user_feedback',
     'as'   => 'user_feedback'

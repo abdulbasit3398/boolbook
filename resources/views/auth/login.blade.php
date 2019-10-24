@@ -1,7 +1,7 @@
 @include('include.m_head')
 <style type="text/css">
   body {
-    background-color: white !important;
+    background-color: #fbfcfc !important;
   }
   .btn-secondary, .btn-secondary.disabled{
     background: #175ade !important;
@@ -24,23 +24,37 @@
     padding-bottom: 8px;
     margin-bottom: 15px;
   }
+  .form-control{
+    font-size: 14px !important;
+  }
+  .form_container{
+    display: table;
+    height: 90%;
+    text-align: -webkit-center;
+  }
+  .form_div{
+    display: table-cell;
+    vertical-align: middle;
+  }
 </style>
 
-<br/>
-<div class="container">
+<div class="container" style="height: 10%">
   <div class="row justify-content-center">
-    <div class="col-md-3" style="text-align: center;">
-      <img src="{{asset('images/logo.gif')}}" style="width: 150px;">
+    <div class="col-md-3 align_center">
+      <img src="{{asset('images/logo.png')}}" style="width: 150px;margin-top: 40px">
     </div>
   </div>
+</div>
+<div class="container form_container">
+  
   <br/>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center form_div">
     <div class="col-md-7">
       <div class="card">
 
         <div class="card-body">
-          <div class="row card_head">
-            <div class="col-md-9" style="padding-top: 8px">
+          <div class="row card_head align_center">
+            <div class="col-md-12" style="padding-top: 8px">
               <h5 style="color: black">Login op je account.</h5>
             </div>
 
@@ -66,10 +80,10 @@
                 @enderror
               </div>
 
-              <div class="form-group ">
+              <div class="form-group align_center">
                   <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="submit">Inloggen</button>
                   @if (Route::has('password.request'))
-                    <a style="margin-left: 16px;" href="{{ route('password.request') }}" class="btn waves-effect waves-light btn-rounded btn-secondary_white">{{ __('Password Forgotten?') }}</span>
+                    <a style="margin-left: 16px;" href="{{ route('password.request') }}" class="btn waves-effect waves-light btn-rounded btn-secondary_white">{{ __('Wachtwoord vergeten?') }}</span>
                       
                       <!-- <button class="btn btn-primary" >
                         

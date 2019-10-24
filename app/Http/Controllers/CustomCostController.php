@@ -71,6 +71,15 @@ class CustomCostController extends Controller
         }
         else
         {
+          $cost_amount = $request->cost_amount;
+          $cost_amount = str_replace(',', '.', $cost_amount);
+          $tax_amount = $request->tax_amount;
+          $tax_amount = str_replace(',', '.', $tax_amount);
+          // dd($cost_amount);
+          if(!is_numeric($cost_amount) || !is_numeric($tax_amount))
+          {
+            return redirect()->back()->with('error','Vul alsjeblieft alleen getallen in.');
+          }
           $user_id = Auth::user()->id;
           $month = substr($request->for_month,0,2);
           $year = substr($request->for_month,2);

@@ -1,0 +1,76 @@
+/* Extra small devices (phones, 600px and down) */
+  @media only screen and (max-width: 600px) {
+    .padding_left{
+      padding-left: 0;
+    }
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up)  */
+  @media only screen and (min-width: 600px) {
+    .padding_left{
+      padding-left: 0;
+    }
+  }
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .padding_left{
+      padding-left: 14%;
+    }
+  } 
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .padding_left{
+      padding-left: 14%;
+    }
+  } 
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .padding_left{
+      padding-left: 14%;
+    }
+  }
+
+
+  .custom-select{
+    border-radius: 25px;
+    padding: 10px 20px 10px 0px !important;
+    height: 50px;
+    font-weight: 300;
+    font-size: smaller;
+  }
+  .amount_div{
+    position: relative;
+  }
+  .alert-info{
+    color: #73777a;
+    background-color: #f8fafb;
+    border-color: #f5f7f9;
+  }
+  input{
+    font-weight: 500 !important;
+  }
+  .custom-control{
+    padding-left: 0.5rem;
+  }
+  .mdi:hover{
+    color: #175ade !important;
+  }
+  .form-control{
+    color: #6d6d6d !important;
+    font-size: 13px !important;
+  }
+  input {
+    font-weight: 300 !important;
+  }
+  .custom-control-label{
+    font-weight: 300 !important;
+  }
+  .padding_left{
+    padding-left: 13px !important;
+  }
+  .custom-radio{
+    left: -12px !important;
+  }

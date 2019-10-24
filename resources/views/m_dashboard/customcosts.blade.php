@@ -1,86 +1,11 @@
 @extends('layouts.m_app')
 
+@section('head_section')
+<link href="{{asset('css/customcosts.css')}}" rel="stylesheet">
+@endsection
 
 @section('main_content')
-<style type="text/css">
-  /* Extra small devices (phones, 600px and down) */
-  @media only screen and (max-width: 600px) {
-    .padding_left{
-      padding-left: 0;
-    }
-  }
 
-  /* Small devices (portrait tablets and large phones, 600px and up)  */
-  @media only screen and (min-width: 600px) {
-    .padding_left{
-      padding-left: 0;
-    }
-  }
-
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-    .padding_left{
-      padding-left: 14%;
-    }
-  } 
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    .padding_left{
-      padding-left: 14%;
-    }
-  } 
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-    .padding_left{
-      padding-left: 14%;
-    }
-  }
-
-
-  .custom-select{
-    border-radius: 25px;
-    padding: 10px 20px 10px 0px !important;
-    height: 50px;
-    font-weight: 300;
-    font-size: smaller;
-  }
-  .amount_div{
-    position: relative;
-  }
-  .alert-info{
-    color: #73777a;
-    background-color: #f8fafb;
-    border-color: #f5f7f9;
-  }
-  input{
-    font-weight: 500 !important;
-  }
-  .custom-control{
-    padding-left: 0.5rem;
-  }
-  .mdi:hover{
-    color: #175ade !important;
-  }
-  .form-control{
-    color: #6d6d6d !important;
-    font-size: 13px !important;
-  }
-  input {
-    font-weight: 300 !important;
-  }
-  .custom-control-label{
-    font-weight: 300 !important;
-  }
-  .padding_left{
-    padding-left: 13px !important;
-  }
-  .custom-radio{
-    left: -12px !important;
-  }
-  
-</style>
 <?php 
 
 $current_month_year = $data['invoice_for_year'].$data['invoice_for_month'];
@@ -103,31 +28,7 @@ for($i=0; $i<=11; $i++)
   $previous_month_num[$i] = $date->format("m");
   $previous_year[$i] = $date->format("Y");
   $dateObj = DateTime::createFromFormat('!m', $previous_month_num[$i]);
-  $previous_month_name[$i] = $dateObj->format('F');
-  
-    // echo $previous_month_num[$i]."<br>";
-    // echo $previous_month_name[$i]."<br>";
-    // echo $previous_year[$i]."<br>";
-    // $interval = new DateInterval("P".$i."M");
-    // var_dump($interval);
-    // $MonthsEarlier = $date->sub($interval);
-    // var_dump($MonthsEarlier);
-    // $date=date_create("2013-03-31");
-    // date_add($date,date_interval_create_from_date_string("30 days"));
-    // echo date_format($date,"Y-m-d");
-    // $date = new DateTime('now');
-    // $date->modify('-15 DAYS'); 
-    // $date = $date->format('Y-m-d h:i:s');
-    // echo $date;
-    // echo date("Y-m-01", strtotime($date));
-    // echo date('d',strtotime(date("Y-m-01", strtotime($date))));
-  
-    // $previous_year[$i] = $MonthsEarlier->format("Y");
-    // $previous_month_num[$i] = $MonthsEarlier->format("m");
-
-    // $dateObj = DateTime::createFromFormat('!m', $previous_month_num[$i]);
-    // $previous_month_name[$i] = $dateObj->format('F');
-  
+  $previous_month_name[$i] = $dateObj->format('F');  
 }
 
 $for_month = 0;
@@ -210,7 +111,10 @@ $total_val_tax_arr = $total_tax_arr = [];
                         €<?= number_format($total_tax_arr[$category->id][$custom_cost->for_month],2,",",".");?>
                       </td>
                       <td>
-                        <i data-toggle="collapse" data-target="#collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>" class="mdi mdi-eye"></i>
+                        <a href="#" style="color: #6d6d6d" data-toggle="tooltip" data-original-title="Alle kosten bekijken.">
+                          <i data-toggle="collapse" data-target="#collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>" class="mdi mdi-eye"></i>
+                        </a>
+                        
 
                         <form id="delete-form-{{$custom_cost->for_month}}" method="post" style="display: none;" action="{{route('delete_all_cost_in_month')}}">
                           {{csrf_field()}}
@@ -228,7 +132,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                           }
 
                         ">
-                          <i class="mdi mdi-close-circle"></i>
+                          <i class="mdi mdi-close-circle" data-toggle="tooltip" data-original-title="Deze kosten verwijderen."></i>
                         </a>
                       </td>
                     </tr>
@@ -267,7 +171,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                           }
 
                         ">
-                          <i class="mdi mdi-close-circle"></i>
+                          <i class="mdi mdi-close-circle" data-toggle="tooltip" data-original-title="Deze kosten verwijderen."></i>
                         </a>
                         
                       </td>
@@ -309,7 +213,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                           }
 
                         ">
-                          <i class="mdi mdi-close-circle"></i>
+                          <i class="mdi mdi-close-circle" data-toggle="tooltip" data-original-title="Deze kosten verwijderen."></i>
                         </a>
                         
                       </td>
@@ -325,7 +229,7 @@ $total_val_tax_arr = $total_tax_arr = [];
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
       </div>
     </div>
   </div>
@@ -684,8 +588,14 @@ $total_val_tax_arr = $total_tax_arr = [];
     var cost_amount_opt = $('input[name="cost_amount_opt"]:checked').val();
     var tax_amount_opt = $('input[name="tax_amount_opt"]:checked').val();
 
-    var cost_amount = parseFloat($('#cost_amount').val());
-    var tax_amount = parseFloat($('#tax_amount').val());
+    var cost_amount = $('#cost_amount').val();
+    var tax_amount = $('#tax_amount').val();
+
+    var newchar = '.';
+    cost_amount = cost_amount.split(',').join(newchar);
+    cost_amount = parseFloat(cost_amount);
+    tax_amount = tax_amount.split(',').join(newchar);
+    tax_amount = parseFloat(tax_amount);
 
     var select_month_year = $('#for_month').val();
     var custom_category_id = $('#custom_category').val();

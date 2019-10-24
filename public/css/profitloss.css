@@ -1,0 +1,181 @@
+@media only screen and (max-width: 600px) {
+    .custom-select
+    {
+      clear: both;
+    }
+    .card_pading
+    {
+      padding-left: 0px;
+    }
+    .outer_row{
+      font-size: small;
+    }
+    .form_value{
+      color: #6d6d6d;
+      font-size: small;
+      font-weight: 300;
+      float: right;
+    }
+    .form_total1{
+      color: #34373c;
+      font-size: small;
+      font-weight: 500;
+      float: right;
+    }
+    .val_name span{
+      font-size: small;
+      margin: 0px;
+    }
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    .custom-select
+    {
+      clear: both;
+    }
+    .card_pading
+    {
+      padding-left: 0px;
+    }
+    .outer_row
+    {
+      font-size: small;
+    }
+    .form_value{
+      color: #6d6d6d;
+      font-size: small;
+      font-weight: 300;
+      float: right;
+    }
+    .form_total1{
+      color: #34373c;
+      font-size: small;
+      font-weight: 500;
+      float: right;
+    }
+    .val_name span{
+      font-size: small;
+      margin: 0px;
+    }
+  }
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .custom-select
+    {
+      float: right; 
+      width: 200px; 
+      clear: both;
+    }
+    .card_pading
+    {
+      padding-left:45px !important;
+    }
+    .outer_row{
+      font-size: large;
+    }
+    .form_value{
+      color: #6d6d6d;
+      font-size: 14px;
+      font-weight: 300;
+      margin: 0px;
+      float: right;
+    }
+    .form_total1{
+      color: #34373c;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .val_name span{
+      font-size: 14px;
+      margin: 0px;
+    }
+  } 
+
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .custom-select
+    {
+      float: right; 
+      width: 200px; 
+      clear: both;
+    }
+    .card_pading
+    {
+      padding-left:45px !important;
+    }
+    .outer_row{
+      font-size: large;
+    }
+    .form_value{
+      color: #6d6d6d;
+      font-size: 14px;
+      font-weight: 300;
+      margin: 0px;
+      float: right;
+    }
+    .form_total1{
+      color: #34373c;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .val_name span{
+      font-size: 14px;
+      margin: 0px;
+    }
+  } 
+
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    .custom-select
+    {
+      float: right; 
+      width: 200px; 
+      clear: both;
+    }
+    .card_pading
+    {
+      padding-left:45px !important;
+    }
+    .outer_row{
+      font-size: large;
+    }
+    .form_value{
+      color: #6d6d6d;
+      font-size: 14px;
+      font-weight: 300;
+      margin: 0px;
+      float: right;
+    }
+    .form_total1{
+      color: #34373c;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .val_name span{
+      font-size: 14px;
+      margin: 0px;
+    }
+  }
+  .blue_div{
+    background-color: white;
+    color: #175ade;
+    width: 150px;
+    padding: 10px 6px 10px 15px;
+    font-weight: 500;
+    margin-left: 20px;
+  }
+  
+  .custom_hr{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid blue;
+  }
+  .val_name_row{
+    margin-left: 5px;
+    margin-right: 10px;
+    padding: 10px 0px 10px 0px;
+    border-bottom: 1px solid #dee2e6;
+  }
