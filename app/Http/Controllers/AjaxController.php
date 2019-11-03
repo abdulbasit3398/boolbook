@@ -37,6 +37,12 @@ class AjaxController extends Controller
     $user = User::find($user_id);
     $client_id = $request->client_id;
     $client_secret = $request->client_secret;
+
+    $prev_user = User::where('client_id',$client_id)->first();
+    if($prev_user != '')
+    {
+      return 2;
+    }
     $client = new Client();
     $result = $client->request('post','https://login.bol.com/token?', [
       'headers' => [
@@ -56,8 +62,11 @@ class AjaxController extends Controller
       $user->client_id = $client_id;
       $user->client_secret = $client_secret;
       $user->save();
+      return 1;
+    }else{
+      return 0;
     }
-    return $json->access_token;
+    
   }
 
   public function calculate_tax_report_quarterly(Request $request)
@@ -88,6 +97,10 @@ class AjaxController extends Controller
 
     $data['thirdMonthCustomCosts'] = AllCosts::where([['user_id',$user_id],['for_month',$thirdMonthM],['for_year',$thirdMonthY],['custom_cost','!=','0'],])->get();
 
+    // $data['user_id'] = $user_id;
+    // $data['date'] = $date;
+    // $data['firstMonthM'] = $firstMonthM;
+    // $data['query'] = $firstMonthY;
     return $data;
   }
 }

@@ -12,7 +12,13 @@ $current_month_year = $data['invoice_for_year'].$data['invoice_for_month'];
 $previous_month_num = $previous_month_name = $previous_year = [];
   // var_dump($data['invoice_for_month']);
   // die();
+
+//go to previous month and get it's first date, then subtract 1 day from it
 $date = DateTime::createFromFormat("Ym", $current_month_year);
+$date = $date->format('Y-m-d h:i:s');
+$date = date("Y-m-01", strtotime($date));
+$date = DateTime::createFromFormat("Y-m-d", $date);
+$date->modify('-1 DAYS');
 
 $invoice_for_month = $data['invoice_for_month'];
 $invoice_for_year = $data['invoice_for_year'];
@@ -22,20 +28,24 @@ $invoice_for_month_name = $dateObj->format('F');
 for($i=0; $i<=11; $i++)
 {
   $date = $date->format('Y-m-d h:i:s');
+
   $date = date("Y-m-01", strtotime($date));
   $date = DateTime::createFromFormat("Y-m-d", $date);
+
   $date->modify('-1 DAYS');
   $previous_month_num[$i] = $date->format("m");
   $previous_year[$i] = $date->format("Y");
   $dateObj = DateTime::createFromFormat('!m', $previous_month_num[$i]);
   $previous_month_name[$i] = $dateObj->format('F');  
+  
 }
 
-$for_month = 0;
+
 $total_val_tax_arr = $total_tax_arr = [];
 //to calculate total of amount_val and tax_val in model
   //fetch all custom category of user
   foreach($data['custom_category'] as $category){
+    $for_month = 0;
     //fetch all custom cost of the user
     foreach($data['custom_costs'] as $custom_cost){
       //check the category id with all cost custom_cost

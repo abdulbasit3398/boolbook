@@ -1,6 +1,11 @@
 <?php
 
 // Auth::routes(['verify' => true]);
+Route::get('/check_user_access',[
+    'uses' => 'PaymentController@check_user_access',
+    'as' => 'check_user_access'
+]);
+
 Route::post('/SubscribedUser',[
     'uses' => 'Auth\RegisterController@subscribed_user',
     'as' => 'SubscribedUser'
@@ -83,6 +88,11 @@ Route::post('/first_user_data', [
     'as'   => 'first_user_data'
 ]);
 
+Route::post('/fetch_data_again', [
+    'uses' => 'API\ApiController@fetch_data_again',
+    'as'   => 'fetch_data_again'
+]);
+
 Route::post('/calculate_tax_report_quarterly', [
     'uses' => 'AjaxController@calculate_tax_report_quarterly',
     'as'   => 'calculate_tax_report_quarterly'
@@ -162,7 +172,6 @@ Route::get('/refresh-result', [
     'uses' => 'BackendController@refreshResult',
     'as'   => 'refresh-result'
 ]);
-
 
 Route::get('/setting', function () {
     return view('dashboard.setting');

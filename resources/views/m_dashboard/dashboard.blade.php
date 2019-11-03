@@ -14,13 +14,19 @@
 <script src="{{asset('ui/assets/plugins/raphael/raphael.min.js')}}"></script>
 <script src="{{asset('ui/assets/plugins/morrisjs/morris.js')}}"></script>
 <script src="{{asset('ui/js/morris-data.js')}}"></script>
+<script src="{{asset('js/progressbar.js')}}"></script>
 
- 
+
 @endsection
 
 
 @section('main_content')
-
+<style type="text/css">
+  .mollie_payment{
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+</style>
 @if(Auth::user()->client_id == '')
   <div class="modal fade" id="MymodalPreventScript">
    <div class="modal-dialog">
@@ -36,8 +42,22 @@
           </h4>
         </div>
         <div class="mollie_div">
-          <br/>
-          <span>Wij zorgen ervoor dat jouw boekhouding simpel & overzichtelijk wordt.</span>
+          @if($payment['exists'] == 0)
+            <br/>
+          @else
+            @if($payment['paid'] == 0)
+            <div class="alert alert-danger alert-dismissible fade show" style="margin: 10px 0px 13px 0px;padding: .50rem 0.50rem;">
+              De betaling is mislukt, probeer het nog eens.
+            </div>
+            @else
+            <div class="alert alert-success alert-dismissible fade show" style="margin: 10px 0px 13px 0px;padding: .50rem 0.50rem;">
+              Je betaling is gelukt
+            </div>
+            @endif
+          @endif
+          
+          <h6>Wij zorgen ervoor dat jouw boekhouding simpel & overzichtelijk wordt.</h6>
+          <h6>Voor slechts €1 kun je onze app een week uitproberen!</h6>
 
           <!-- if user does not go to Mollie -->
           @if($payment['exists'] == 0)
@@ -45,26 +65,35 @@
           <a href="{{route('molli_payment')}}">
             <button class="mollie_payment">Nu Starten</button>
           </a>
-          
+          <br/>
+          <br/>
+          <span style="color: #175ade;font-size: 14px;font-weight: 400;">
+            <i>Na betaling wordt jouw omgeving binnen enkele seconde geladen.</i>
+          </span>
 
           @else
           <!-- if payment status is not 'paid' -->
             @if($payment['paid'] == 0)
-            <p style="margin: 11px 0px -1px 0px;">De betaling is mislukt, probeer het nog eens.</p>
             <a href="{{route('molli_payment')}}">
-              <button class="mollie_payment">Nu Starten</button>
+              <button class="mollie_payment">Opnieuw proberen</button>
             </a>
-            
+            <br/>
+            <br/>
+            <span style="color: #175ade;font-size: 14px;font-weight: 400;">
+              <i>Na betaling wordt jouw omgeving binnen enkele seconde geladen.</i>
+            </span>
             @else
-            <button class="mollie_payment" type="button" id="mollie_tab_btn">Starten!</button>
+            <button class="mollie_payment" type="button" id="mollie_tab_btn">Volgende stap</button>
+            <br/>
+            <br/>
+            <span style="color: #175ade;font-size: 14px;font-weight: 400;">
+              <i>We gaan direct jouw omgeving laden.</i>
+            </span>
             @endif
           @endif
-          <p style="margin-top: 20px;">Voor slechts €1 kun je onze app een week uitproberen!</p>
+          
         </div>
-        <br/>
-        <span style="color: #175ade;font-size: 14px;font-weight: 400;">
-          <i>Na betaling wordt jouw omgeving binnen enkele seconde geladen.</i>
-        </span>
+        
       </div>
       
       <div class="tab">
@@ -74,16 +103,18 @@
           </h4>
         </div>
         <form id="regForm" class=" form-material">
-          <p style="text-align: center;">We hebben jouw API-keys nodig om jouw gegevens te laden.<br/> Bekijk in de video waar je ze vindt.</p>
+          <h6>We hebben jouw API-keys nodig om jouw gegevens te laden.</h6>
+          <h6> Bekijk in de video waar je ze vindt.</h6>
           <div class="iframe_div">
             <!-- <iframe src="https://player.vimeo.com/video/184862361?autoplay=1" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe> -->
-            <iframe src="//www.youtube.com/embed/3tRw8eRHwgA?autoplay=1" frameborder="0" allowfullscreen></iframe>
+            
+            <iframe id="firstIframe" src="https://player.vimeo.com/video/368792771" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
           </div>
           <div style="margin-left: 20px">
             <span style="color: red;display: none;" id="error">
-              De API gegevens kloppen niet.
+              
             </span>
-            <input type="hidden" id="user_id" value="{{Auth::user()->id}}">
+            
             <p><input id="client_id" class="form-control" placeholder="Typ hier je Client ID" ></p>
             <p><input id="client_secret" class="form-control" placeholder="Typ hier je Secret ID"></p>
           </div>
@@ -98,9 +129,11 @@
             We zijn bijna klaar!
           </h4>
         </div>
-        <p style="padding: 18px 20px;">We laden jouw gegevens, dat duurt ongeveer 2 minuten,<br/>bekijk in de tussentijd hieronder hoe de webapp werkt.</p>
+        <h6>We laden jouw gegevens, dat duurt ongeveer 2 minuten,<h6/>
+        <h6>bekijk in de tussentijd hieronder hoe de webapp werkt.</h6>
         <div class="iframe_div">
-          <iframe src="//www.youtube.com/embed/3tRw8eRHwgA?autoplay=1" frameborder="0" allowfullscreen></iframe>
+
+          <iframe id="secondIframe" src="https://player.vimeo.com/video/368973766" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
         <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="button" style="display: none;"  id="refresh_page" data-dismiss="modal">Starten</button>
         <br/> <br/>
@@ -131,8 +164,46 @@
    </div>                                                                       
    </div>                                          
   </div>
+  @elseif(Auth::user()->client_id != '' && Auth::user()->new_user == 0 && $payment['paid'] != 0 && $payment['user_invoice'] == 0)
+
+  <div class="modal fade" id="CallAgainApi">
+   <div class="modal-dialog" style="max-width: 516px;">
+   <div class="modal-content" style="margin-top: 36%;">
+    
+    <div class="modal-body" style="text-align: center;">
+      
+      <!-- One "tab" for each step in the form: -->
+      
+        <div class="modal-header model_head">
+          <h4 class="modal-title">
+            Geen gegevens, klopt dat?
+          </h4>
+        </div>
+        <div class="mollie_div">
+          <br/>
+          <h6>Als je nog geen uitbetaling van bol.com hebt gehad, klik dan op sluiten. Heb je dat al wel? Klik dan op data ophalen.</h6>
+          <!-- <h6>If you want to fetch data then click!</h6> -->
+
+          <!-- if user does not go to Mollie -->
+          
+
+          <a href="#" id="fetch_data_again" data-dismiss="modal">
+            <button class="mollie_payment" >Data ophalen</button>
+          </a>
+          <a href="#" id="new_user">
+            <button class="btn waves-effect waves-light btn-rounded btn-secondary_white">Sluiten</button>
+          </a>
+          <br/>
+          <br/>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
   @endif
 
+<input type="hidden" id="user_id" value="{{Auth::user()->id}}">
 <div class="row">
   <!-- Column -->
   <div class="col-lg-4 col-md-6">
@@ -146,6 +217,7 @@
           </div>
       </div>
   </div>
+
   <!-- Column -->
   <!-- Column -->
   <div class="col-lg-4 col-md-6">
@@ -204,7 +276,7 @@
     </div>
   </div>
 </div>
-
+<!-- <input type="hidden" name="recurring" id="recurring" value="{{$payment['recurring']}}"> -->
 <!-- <div class="row">
   <div class="col-md-12 grid-margin">
     <div class="card" >
@@ -218,19 +290,86 @@
 
 <script>
   $(document).ready(function(){
-    var recurring = $("#recurring").val();
-    if(recurring < 0)
-    {
+    $('#fetch_data_again').click(function(){
+      var user_id = $("#user_id").val();
+      
+      var bar = new ProgressBar.Line(container, {
+        strokeWidth: 4,
+        easing: 'easeInOut',
+        duration: 90000,
+        color: '#175ade',
+        trailColor: '#eee',
+        trailWidth: 1,
+        svgStyle: {width: '100%', height: '100%'},
+        text: {
+          style: {
+            // Text color.
+            // Default: same as stroke color (options.color)
+            color: '#ffff',
+            position: 'absolute',
+            right: '40%',
+            top: '30px',
+            padding: 0,
+            margin: '25px 0px',
+            transform: null,
+          },
+          autoStyleContainer: false
+        },
+        from: {color: '#FFEA82'},
+        to: {color: '#ED6A5A'},
+        step: (state, bar) => {
+          bar.setText(Math.round(bar.value() * 100) + ' %');
+        }
+
+      });
+
+      bar.animate(1.0);
+      // sleep(2000);
+      
+      // 
       $.ajax({
         method: 'POST',
-        url: '{{route("recuring_payment")}}',
-        data: {"_token":"{{csrf_token()}}",recurring:recurring},
+        url: '{{route("fetch_data_again")}}',
+        data: {"_token":"{{csrf_token()}}",user_id:user_id},
+        beforeSend: function(){
+          document.getElementById("overlay").style.display = "block";
+        },
         success: function(response)
         {
-          console.log(response);
+          location.reload();
+        },
+        error: function(){
+          // location.reload();
         }
       });
-    }
+    });
+    $('#new_user').click(function(){
+      var user_id = $("#user_id").val();
+      var new_user = 1;
+      $.ajax({
+        method: 'POST',
+        url: '{{route("fetch_data_again")}}',
+        data: {"_token":"{{csrf_token()}}",new_user:new_user,user_id:user_id},
+        async: false,
+        success: function(response)
+        {
+          $('#CallAgainApi').modal('toggle');
+        }
+      });
+    });
+    // var recurring = $("#recurring").val();
+    // if(recurring < 0)
+    // {
+    //   $.ajax({
+    //     method: 'POST',
+    //     url: '{{route("recuring_payment")}}',
+    //     data: {"_token":"{{csrf_token()}}",recurring:recurring},
+    //     success: function(response)
+    //     {
+    //       console.log(response);
+    //     }
+    //   });
+    // }
     <?php if(Auth::user()->client_id == ''){ ?>
     fixStepIndicator(0);
     <?php } ?>
@@ -240,14 +379,17 @@
        keyboard: false
    });
     $('#MymodalPreventScript').modal('show');
+    $('#CallAgainApi').modal('show');
     $('#mollie_tab_btn').click(function(){
       var x = document.getElementsByClassName("tab");
       x[0].style.display = "none";
       x[1].style.display = "block";
+      $('#firstIframe').attr('src','https://player.vimeo.com/video/368792771?autoplay=1&autopause=0');
       fixStepIndicator(1);
     });
 
     $('#form_submit').click(function(){
+      $("#error").html('');
       $("#error").hide();
       var x = y = not_valid = 0;
       x = document.getElementsByClassName("tab");
@@ -283,12 +425,19 @@
       async: false,
       success: function(response)
       {
-        if(response != ''){
+        console.log(response[0]);
+        if(response[0] == 2){
+          $("#error").html("These credentials are already registered.");
+          $("#error").show();
+          
+        }else if(response[0] == 1){
           var x = document.getElementsByClassName("tab");
           x[1].style.display = "none";
           x[2].style.display = "block";
+          $('#secondIframe').attr('src','https://player.vimeo.com/video/368973766?autoplay=1&autopause=0');
           fixStepIndicator(2);
-        }else{
+        }else if(response[0] == 0){
+          $("#error").html("De API gegevens kloppen niet.");
           $("#error").show();
         }
       }

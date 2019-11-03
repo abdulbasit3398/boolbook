@@ -15,7 +15,13 @@ $current_month_year = $data['invoice_for_year'].$data['invoice_for_month'];
 $previous_month_num = $previous_month_name = $previous_year = [];
   // var_dump($data['invoice_for_month']);
   // die();
+
+//go to previous month and get it's first date, then subtract 1 day from it
 $date = DateTime::createFromFormat("Ym", $current_month_year);
+$date = $date->format('Y-m-d h:i:s');
+$date = date("Y-m-01", strtotime($date));
+$date = DateTime::createFromFormat("Y-m-d", $date);
+$date->modify('-1 DAYS');
 
 $invoice_for_month = $data['invoice_for_month'];
 $invoice_for_year = $data['invoice_for_year'];

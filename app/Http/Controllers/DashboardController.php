@@ -26,7 +26,6 @@ class DashboardController extends Controller
 	public function index()
 	{
 		$user_id = Auth::user()->id;
-
 		$first_date_last_month = new Carbon('first day of this month');
 		$data['invoice_for_month'] = date('m',strtotime($first_date_last_month));
 		$data['invoice_for_year'] = date('Y',strtotime($first_date_last_month));
@@ -265,37 +264,47 @@ class DashboardController extends Controller
 			$dashboard['second_graph'][] = round($second_graph,2);
 			// echo $total_costs.'<br>';
 		}
-		$payment['exists'] = $payment['paid'] = 0;
+		$payment['exists'] = $payment['paid'] = $payment['user_invoice'] = 0;
 		$pay = Payment::where('user_id',$user_id)->first();
 		$payment['exists'] = count($pay);
 
 		$pay = Payment::where([['user_id',$user_id],['status','paid']])->first();
 		$payment['paid'] = count($pay);
 
+		$user_invoice = User_invoice::where('user_id',$user_id)->get();
+		$payment['user_invoice'] = count($user_invoice);
 		//check user has trial or recurring status
 		$user = User::find($user_id);
-		$interval = 0;
-		if($user->access_type == 'trial')
+		// $interval = 0;
+		// if($user->access_type == 'trial')
+		// {
+		// 	$trial_ends_at = $user->trial_ends_at;
+		// 	if($trial_ends_at != '')
+		// 	{
+		// 		$today = date('Y-m-d');
+		// 		$trial_ends_at = new DateTime($trial_ends_at);
+		// 		$today = new DateTime($today);
+		// 		$interval = $today->diff($trial_ends_at);
+		// 		$interval = $interval->format('%R%a');
+		// 	}
+		// }
+		// else if($user->access_type == 'recurring'){
+		// 	$access_ends_at = $user->access_ends_at;
+		// 	$today = date('Y-m-d');
+		// 	$access_ends_at = new DateTime($access_ends_at);
+		// 	$today = new DateTime($today);
+		// 	$interval = $today->diff($access_ends_at);
+		// 	$interval = $interval->format('%R%a');
+		// }
+		// $payment['recurring'] = $interval;
+
+		//check if user data didn't fetch after payment
+		if(Auth::user()->client_id != '' && Auth::user()->new_user == 0 && $payment['paid'] != 0 && $payment['user_invoice'] == 0)
 		{
-			$trial_ends_at = $user->trial_ends_at;
-			if($trial_ends_at != '')
-			{
-				$today = date('Y-m-d');
-				$trial_ends_at = new DateTime($trial_ends_at);
-				$today = new DateTime($today);
-				$interval = $today->diff($trial_ends_at);
-				$interval = $interval->format('%R%a');
-			}
+			$user_payment = Payment::where([['user_id',$user_id],['status','paid'],['payment_for','first_api_data']])->first();
+			$user_payment->api_call = 1;
+			$user_payment->save();
 		}
-		else if($user->access_type == 'recurring'){
-			$access_ends_at = $user->access_ends_at;
-			$today = date('Y-m-d');
-			$access_ends_at = new DateTime($access_ends_at);
-			$today = new DateTime($today);
-			$interval = $today->diff($access_ends_at);
-			$interval = $interval->format('%R%a');
-		}
-		$payment['recurring'] = $interval;
 		return view('m_dashboard.dashboard',compact('dashboard','payment'));
 		// return view('dashboard.dashboard',compact('dashboard','payment'));
 	}
@@ -361,106 +370,107 @@ class DashboardController extends Controller
 		return redirect($payment->getCheckoutUrl(), 303);
 	}
 
-	public function recuring_payment(Request $request)
-	{
-		$user_id = Auth::user()->id;
-		$customerId = Auth::user()->mollie_customer_id;
-		$first_date_last_month = new Carbon('first day of last month');
-		$last_month = date('m',strtotime($first_date_last_month));
-		$user_costs = AllCosts::where([['user_id',$user_id],['custom_cost',0],['for_month',$last_month]])->get();
+	// public function recuring_payment(Request $request)
+	// {
+	// 	die();
+	// 	$user_id = Auth::user()->id;
+	// 	$customerId = Auth::user()->mollie_customer_id;
+	// 	$first_date_last_month = new Carbon('first day of last month');
+	// 	$last_month = date('m',strtotime($first_date_last_month));
+	// 	$user_costs = AllCosts::where([['user_id',$user_id],['custom_cost',0],['for_month',$last_month]])->get();
 
-		for($i = 0; $i < count($user_costs); $i++)
-		{
-			if($user_costs[$i]['cost_name'] == 'CORRECTION_TURNOVER')
-			{
-				$correction_turnover_line_ext_val = $user_costs[$i]['line_ext_val'];
-				$correction_turnover_tax_amnt_val = $user_costs[$i]['tax_amount_val'];
-			}
-			if($user_costs[$i]['cost_name'] == 'TURNOVER')
-			{
-				$turnover_line_ext_val = $user_costs[$i]['line_ext_val'];
-				$turnover_tax_amnt_val = $user_costs[$i]['tax_amount_val'];
-			}
-		}
+	// 	for($i = 0; $i < count($user_costs); $i++)
+	// 	{
+	// 		if($user_costs[$i]['cost_name'] == 'CORRECTION_TURNOVER')
+	// 		{
+	// 			$correction_turnover_line_ext_val = $user_costs[$i]['line_ext_val'];
+	// 			$correction_turnover_tax_amnt_val = $user_costs[$i]['tax_amount_val'];
+	// 		}
+	// 		if($user_costs[$i]['cost_name'] == 'TURNOVER')
+	// 		{
+	// 			$turnover_line_ext_val = $user_costs[$i]['line_ext_val'];
+	// 			$turnover_tax_amnt_val = $user_costs[$i]['tax_amount_val'];
+	// 		}
+	// 	}
 
-		$total_revenue = ($turnover_line_ext_val * (-1)) + ($correction_turnover_line_ext_val * (-1));
-		$total_revenue = round($total_revenue,2);
-		if($total_revenue > 0 && $total_revenue < 2000)
-		{
-			$amount_val = 5.99;
-		}
-		else if($total_revenue > 2000 && $total_revenue < 5000)
-		{
-			$amount_val = 24.14;
-		}
-		else if($total_revenue > 5000 && $total_revenue < 10000)
-		{
-			$amount_val = 36.24;
-		}
-		else if($total_revenue > 10000 && $total_revenue < 30000)
-		{
-			$amount_val = 48.34;
-		}
-		else if($total_revenue > 30000)
-		{
-			$amount_val = 84.64;
-		}
+	// 	$total_revenue = ($turnover_line_ext_val * (-1)) + ($correction_turnover_line_ext_val * (-1));
+	// 	$total_revenue = round($total_revenue,2);
+	// 	if($total_revenue > 0 && $total_revenue < 2000)
+	// 	{
+	// 		$amount_val = 5.99;
+	// 	}
+	// 	else if($total_revenue > 2000 && $total_revenue < 5000)
+	// 	{
+	// 		$amount_val = 24.14;
+	// 	}
+	// 	else if($total_revenue > 5000 && $total_revenue < 10000)
+	// 	{
+	// 		$amount_val = 36.24;
+	// 	}
+	// 	else if($total_revenue > 10000 && $total_revenue < 30000)
+	// 	{
+	// 		$amount_val = 48.34;
+	// 	}
+	// 	else if($total_revenue > 30000)
+	// 	{
+	// 		$amount_val = 84.64;
+	// 	}
 
-		$amount_val = strval($amount_val);
-		// $customer = Mollie::api()->customers()->get('cst_C2Mt2bTHWA');
+	// 	$amount_val = strval($amount_val);
+	// 	// $customer = Mollie::api()->customers()->get('cst_C2Mt2bTHWA');
 		
-		// $name = Auth::user()->name.' '.Auth::user()->last_name;
-		// $email = Auth::user()->email;
-		// $user_id = Auth::user()->id;
+	// 	// $name = Auth::user()->name.' '.Auth::user()->last_name;
+	// 	// $email = Auth::user()->email;
+	// 	// $user_id = Auth::user()->id;
 
-		// $customer = Mollie::api()->customers()->create([
-		// 	"name" => $name,
-		// 	"email" => $email,
-		// ]);
-		// $customerId = $customer->id;
+	// 	// $customer = Mollie::api()->customers()->create([
+	// 	// 	"name" => $name,
+	// 	// 	"email" => $email,
+	// 	// ]);
+	// 	// $customerId = $customer->id;
 
-		$payment = Mollie::api()->payments()->create([
-			'amount' => [
-				'currency' => 'EUR',
-        'value' => $amount_val, // You must send the correct number of decimals, thus we enforce the use of strings
-      ],
-      "customerId" => $customerId,
-      "sequenceType" => 'recurring',
-      "description" => "Payment for month of ".$last_month,
-      //"method"      => ['ideal'],//['ideal','creditcard']
-      // "redirectUrl" => "https://bolbooks.nl/dashboard",
-      'webhookUrl' =>	 "https://bolbooks.nl/recuring_payment_status",
-    ]);
-		$payment = Mollie::api()->payments()->get($payment->id);
+	// 	$payment = Mollie::api()->payments()->create([
+	// 		'amount' => [
+	// 			'currency' => 'EUR',
+ //        'value' => $amount_val, // You must send the correct number of decimals, thus we enforce the use of strings
+ //      ],
+ //      "customerId" => $customerId,
+ //      "sequenceType" => 'recurring',
+ //      "description" => "Payment for month of ".$last_month,
+ //      //"method"      => ['ideal'],//['ideal','creditcard']
+ //      // "redirectUrl" => "https://bolbooks.nl/dashboard",
+ //      'webhookUrl' =>	 "https://bolbooks.nl/recuring_payment_status",
+ //    ]);
+	// 	$payment = Mollie::api()->payments()->get($payment->id);
 
-		// dd($payment->amount);
-		$user_payment = new Payment;
-		$user_payment->user_id = $user_id;
-		$user_payment->payment_id = $payment->id;
-		$user_payment->amount_val = $payment->amount->value;
-		$user_payment->amount_currency = $payment->amount->currency;
-		$user_payment->description = $payment->description;
-		$user_payment->method = $payment->method;
-		$user_payment->status = $payment->status;
-		$user_payment->createdAt = $payment->createdAt;
-		$user_payment->sequenceType = $payment->sequenceType;
-		$user_payment->customerId = $customerId;
-		$user_payment->payment_for = 'first_api_data';
-		$user_payment->save();
-		// return redirect($payment->getCheckoutUrl(), 303);
+	// 	// dd($payment->amount);
+	// 	$user_payment = new Payment;
+	// 	$user_payment->user_id = $user_id;
+	// 	$user_payment->payment_id = $payment->id;
+	// 	$user_payment->amount_val = $payment->amount->value;
+	// 	$user_payment->amount_currency = $payment->amount->currency;
+	// 	$user_payment->description = $payment->description;
+	// 	$user_payment->method = $payment->method;
+	// 	$user_payment->status = $payment->status;
+	// 	$user_payment->createdAt = $payment->createdAt;
+	// 	$user_payment->sequenceType = $payment->sequenceType;
+	// 	$user_payment->customerId = $customerId;
+	// 	$user_payment->payment_for = 'first_api_data';
+	// 	$user_payment->save();
+	// 	// return redirect($payment->getCheckoutUrl(), 303);
 
-		// $mandate = $mollie->customers->get($customerId)->createMandate([
-		//    "method" => \Mollie\Api\Types\MandateMethod::DIRECTDEBIT,
-		//    "testmode" => true,
-		//    "consumerName" => "John Doe",
-		//    "consumerAccount" => "NL55INGB0000000000",
-		//    "consumerBic" => "INGBNL2A",
-		//    "signatureDate" => "2018-05-07",
-		//    "mandateReference" => "YOUR-COMPANY-MD13804",
-		// ]);
-		// $mandates = Mollie::api()->mandates()->listFor($customer);
-		// dd($mandates);
-	}
+	// 	// $mandate = $mollie->customers->get($customerId)->createMandate([
+	// 	//    "method" => \Mollie\Api\Types\MandateMethod::DIRECTDEBIT,
+	// 	//    "testmode" => true,
+	// 	//    "consumerName" => "John Doe",
+	// 	//    "consumerAccount" => "NL55INGB0000000000",
+	// 	//    "consumerBic" => "INGBNL2A",
+	// 	//    "signatureDate" => "2018-05-07",
+	// 	//    "mandateReference" => "YOUR-COMPANY-MD13804",
+	// 	// ]);
+	// 	// $mandates = Mollie::api()->mandates()->listFor($customer);
+	// 	// dd($mandates);
+	// }
 
 	public function delete_all_cost_in_month(Request $request)
 	{

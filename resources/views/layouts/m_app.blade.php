@@ -100,13 +100,27 @@
     font-size: 14px;
     color: #6d6d6d !important;
   }
+  .btn-secondary_white {
+    background: white !important;
+    border: 1px solid #175ade !important;
+    color: #175ade;
+  }
+  .btn-secondary_white:hover{
+    background: #175ade !important;
+    border: 1px solid #175ade !important;
+    color: white;
+  }
 </style>
 
-<body class="fix-header fix-sidebar card-no-border">
+<body class="fix-header fix-sidebar card-no-border has-overlay">
   <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
       <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
     </div>
+
+    
+
+    
 
     <div id="main-wrapper">
 
@@ -140,6 +154,16 @@
       </div>
         
       @include('include.m_scripts')
+      <script>
+        
+function on() {
+  document.getElementById("overlay").style.display = "block";
+}
+
+function off() {
+   
+}
+</script>
     </body>
 
     </html>

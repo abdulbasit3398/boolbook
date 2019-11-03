@@ -91,6 +91,10 @@
 </style>
 
 <header class="topbar" style="background: white">
+  <!-- Dark overlay when loading -->
+  <div id="overlay" onclick="off()">
+      <div id="text"><div id="container"></div></div>
+    </div>
   <nav class="navbar top-navbar navbar-expand-md navbar-light">
     <!-- ============================================================== -->
     <!-- Logo -->

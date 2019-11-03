@@ -15,18 +15,31 @@ use Illuminate\Support\Facades\Cache;
 class TaxReportController extends Controller
 {
 	public function __construct()
-  {
-    $this->middleware('auth');
-    $this->middleware('firstPayment');
-  }
+	{
+		$this->middleware('auth');
+		$this->middleware('firstPayment');
+	}
 	public function index()
 	{
+		$day = date('d');
+		
 		$quarter = 0;
 		$sub = -1;
 		while ($quarter != 1) 
 		{
-			$monthYear = date("d-m-Y", strtotime($sub." months"));
-			$month = date("m", strtotime($sub." months"));
+			if($day == 31)
+			{
+				$monthYear = date("d-m-Y", strtotime("-31 days"));
+				$month = date("m", strtotime("-31 days"));
+				$day == 0;
+			}
+			else
+			{
+				$monthYear = date("d-m-Y", strtotime($sub." months"));
+				$month = date("m", strtotime($sub." months"));
+			}
+			
+
 			if($month % 3 == 0)
 				$quarter = 1;
 			$sub --;
