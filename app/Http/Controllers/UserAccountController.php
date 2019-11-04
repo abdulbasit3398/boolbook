@@ -68,7 +68,10 @@ class UserAccountController extends Controller
     elseif($vat_number)
       $user->vat_number = $vat_number;
     elseif($account_iban)
+    {
+      $account_iban = strtoupper($account_iban);
       $user->account_iban = $account_iban;
+    }
     
     $user->save();
     return redirect()->back();

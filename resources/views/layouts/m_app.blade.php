@@ -156,13 +156,8 @@
       @include('include.m_scripts')
       <script>
         
-function on() {
-  document.getElementById("overlay").style.display = "block";
-}
 
-function off() {
-   
-}
+
 </script>
     </body>
 

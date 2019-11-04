@@ -9,7 +9,7 @@ return [
 	'CORRECTION_COMMISSION' => 'CORRECTION COMMISSION',
 	'CORRECTION_CORRECTION' => 'Correctie(s)',
 	'COMPENSATION_LOST_GOODS' => 'Compensatie zoekgeraakte artikelen',
-	'FIRST_MILE' => 'FIRST MILE',
+	'FIRST_MILE' => 'Overige bol.com kosten',
 	'INBOUND' => 'Aanleverdienst',
 	'LOGISTICAL_CHARGE' => 'Logistieke kosten',
 	'NCK_STOCK' => 'Onverkoopbare voorraadkosten',

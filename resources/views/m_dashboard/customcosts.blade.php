@@ -15,10 +15,15 @@ $previous_month_num = $previous_month_name = $previous_year = [];
 
 //go to previous month and get it's first date, then subtract 1 day from it
 $date = DateTime::createFromFormat("Ym", $current_month_year);
-$date = $date->format('Y-m-d h:i:s');
-$date = date("Y-m-01", strtotime($date));
-$date = DateTime::createFromFormat("Y-m-d", $date);
-$date->modify('-1 DAYS');
+
+$day = date('d');
+if($day == 31)
+{
+  $date = $date->format('Y-m-d h:i:s');
+  $date = date("Y-m-01", strtotime($date));
+  $date = DateTime::createFromFormat("Y-m-d", $date);
+  $date->modify('-1 DAYS');
+}
 
 $invoice_for_month = $data['invoice_for_month'];
 $invoice_for_year = $data['invoice_for_year'];
@@ -642,12 +647,13 @@ $total_val_tax_arr = $total_tax_arr = [];
     $('#summary_month').html(monthName);
     $('#summary_category').html(custom_category_name);
     var summary_add_cost = cost+tax;
-    $('#summary_add_cost').html(number_format(summary_add_cost, 2, ',', '.'));
-    $('#summary_tax_amnt').html(number_format(tax, 0, ',', '.'));
+    $('#summary_add_cost').html(currencyFormatDE(summary_add_cost));
+    $('#summary_tax_amnt').html(currencyFormatDE(tax));
 
     $('#result_cost').val(cost.toFixed(2));
     $('#result_tax').val(tax.toFixed(2));
   }
+  
   function GetMonthName(monthNumber) {
       var months = [
                     "<?= __('translate.January') ?>",
