@@ -6,12 +6,12 @@ Route::get('/check_user_access',[
     'as' => 'check_user_access'
 ]);
 
-Route::post('/SubscribedUser',[
+Route::post('/registreren-email',[
     'uses' => 'Auth\RegisterController@subscribed_user',
     'as' => 'SubscribedUser'
 ]);
 
-Route::get('/SubscribedUser',[
+Route::get('/registreren-email',[
     'uses' => 'Auth\RegisterController@subscribed_user',
     'as' => 'SubscribedUser'
 ]);
@@ -26,7 +26,7 @@ Route::post('/delete_all_cost_in_month', [
     'as'   => 'delete_all_cost_in_month'
 ]);
 
-Route::get('/manage_subscription', [
+Route::get('/abonnement', [
     'uses' => 'UserAccountController@manage_subscription',
     'as'   => 'manage_subscription'
 ]);
@@ -36,17 +36,17 @@ Route::get('/download_invoice/{id}', [
     'as'   => 'download_invoice'
 ]);
 
-Route::get('/affiliate_program', [
+Route::get('/affiliate', [
     'uses' => 'UserAccountController@affiliate_program',
     'as'   => 'affiliate_program'
 ]);
 
-Route::get('/bol_account_detail', [
+Route::get('/bol-account', [
     'uses' => 'UserAccountController@bol_account_detail',
     'as'   => 'bol_account_detail'
 ]);
 
-Route::get('/view_invoice', [
+Route::get('/facturen', [
     'uses' => 'UserAccountController@view_invoice',
     'as'   => 'view_invoice'
 ]);
@@ -56,12 +56,12 @@ Route::post('/update_profile', [
     'as'   => 'update_profile'
 ]);
 
-Route::get('/edit_profile', [
+Route::get('/profiel', [
     'uses' => 'UserAccountController@edit_profile',
     'as'   => 'edit_profile'
 ]);
 
-Route::get('/user_account', [
+Route::get('/account', [
     'uses' => 'UserAccountController@index',
     'as'   => 'user_account'
 ]);
@@ -81,7 +81,8 @@ Route::get('/get_user_shipment_id','GetShipmentIdController@get_user_shipment_id
 
 Route::resource('/customcategory','CustomCategoryController');
 
-Route::resource('/customcost','CustomCostController');
+Route::resource('/kosten','CustomCostController');
+
 
 Route::post('/first_user_data', [
     'uses' => 'API\ApiController@first_user_data',
@@ -113,28 +114,28 @@ Route::get('/apicontroller', [
     'as'   => 'apicontroller'
 ]);
 
-Route::get('/taxreport', [
+Route::get('/btw-aangifte', [
     'uses' => 'TaxReportController@index',
     'as'   => 'taxreport'
 ]);
 
-Route::get('/profitloss', [
+Route::get('/resultaat', [
     'uses' => 'ProfitLossController@index',
     'as'   => 'profitloss'
 ]);
 
-Route::get('/help', [
-    'uses' => 'BackendController@help',
-    'as'   => 'help'
-]);
+// Route::get('/help', [
+//     'uses' => 'BackendController@help',
+//     'as'   => 'help'
+// ]);
 
 // Route::get('/', function () {
 //     return view('index');
 // });
 
-Route::get('/dash', function () {
-    return view('dashboard.dash');
-});
+// Route::get('/dash', function () {
+//     return view('dashboard.dash');
+// });
 
 Route::get('/dashboard', [
     'uses' => 'DashboardController@index',
@@ -143,35 +144,35 @@ Route::get('/dashboard', [
 
 
 
-Route::post('/get-token', [
-    'uses' => 'BackendController@getToken',
-    'as'   => 'get-token'
-]);
+// Route::post('/get-token', [
+//     'uses' => 'BackendController@getToken',
+//     'as'   => 'get-token'
+// ]);
 
-Route::get('/stock', [
-    'uses' => 'BackendController@stock',
-    'as'   => 'stock'
-]);
+// Route::get('/stock', [
+//     'uses' => 'BackendController@stock',
+//     'as'   => 'stock'
+// ]);
 
-Route::get('/almost-time/{days}', [
-    'uses' => 'BackendController@almostTime',
-    'as'   => 'almost-time'
-]);
+// Route::get('/almost-time/{days}', [
+//     'uses' => 'BackendController@almostTime',
+//     'as'   => 'almost-time'
+// ]);
 
-Route::get('/lead-times', [
-    'uses' => 'BackendController@leadTimes',
-    'as'   => 'lead-times'
-]);
+// Route::get('/lead-times', [
+//     'uses' => 'BackendController@leadTimes',
+//     'as'   => 'lead-times'
+// ]);
 
-Route::post('/leadtimes-save', [
-    'uses' => 'BackendController@leadTimesSave',
-    'as'   => 'leadtimes-save'
-]);
+// Route::post('/leadtimes-save', [
+//     'uses' => 'BackendController@leadTimesSave',
+//     'as'   => 'leadtimes-save'
+// ]);
 
-Route::get('/refresh-result', [
-    'uses' => 'BackendController@refreshResult',
-    'as'   => 'refresh-result'
-]);
+// Route::get('/refresh-result', [
+//     'uses' => 'BackendController@refreshResult',
+//     'as'   => 'refresh-result'
+// ]);
 
 Route::get('/setting', function () {
     return view('dashboard.setting');
@@ -182,6 +183,12 @@ Route::get('/logout', function(){
     return App::call('\App\Http\Controllers\Auth\LoginController@logout');
 });
 
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('/');
+
+// Route::get('/',function(){
+//     return App::call('\App\Http\Controllers\Auth\LoginController@login');
+// });
+

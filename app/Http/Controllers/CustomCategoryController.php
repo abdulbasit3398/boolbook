@@ -60,7 +60,7 @@ class CustomCategoryController extends Controller
       }
       elseif (count($custom_category) > 0)
       {
-        return redirect()->back()->with('error','Category name is already added.');
+        return redirect()->back()->with('error','Deze naam bestaat al.');
       }
       else
       {
@@ -68,7 +68,9 @@ class CustomCategoryController extends Controller
         $custom_category->user_id = $user_id;
         $custom_category->category_name = $category_name;
         $custom_category->save();
-        return redirect(route('customcost.index'))->with('message','Kostenpost succesvol toegevoegd.');
+        // session(['message' => 'Kostenpost succesvol toegevoegd.']);
+        // return redirect()->route('kosten.index');
+        return redirect(route('kosten.index'))->with('message','Kostenpost succesvol toegevoegd.');
       }
       
       
@@ -126,8 +128,9 @@ class CustomCategoryController extends Controller
         $custom_cost->cost_name = $category_name;
         $custom_cost->save();
       }
-
-      return redirect(route('customcost.index'))->with('message','Kostenpost succesvol gewijzigd.');
+      // session(['message' => 'Kostenpost succesvol gewijzigd.']);
+      // return redirect()->route('kosten.index');
+      return redirect(route('kosten.index'))->with('message' => 'Kostenpost succesvol gewijzigd.');
     }
 
     /**
@@ -141,6 +144,7 @@ class CustomCategoryController extends Controller
       $user_id = Auth::user()->id;
       $custom_category = AllCosts::where([['user_id',$user_id],['custom_cost',$customCategory],])->delete();
       CustomCategory::where('id',$customCategory)->delete();
+
       return redirect()->back()->with('message','Kostenpost succesvol verwijderd.');
       
         // if(count($custom_category) > 0)

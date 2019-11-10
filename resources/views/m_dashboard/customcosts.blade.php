@@ -170,7 +170,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                       </td>
                       <td>
                         <i class="mdi mdi-information" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
-                        <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('customcost.destroy',$custom_cost->id)}}">
+                        <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('kosten.destroy',$custom_cost->id)}}">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
                         </form>
@@ -212,7 +212,7 @@ $total_val_tax_arr = $total_tax_arr = [];
                       </td>
                       <td>
                         <i class="mdi mdi-information" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
-                        <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('customcost.destroy',$custom_cost->id)}}">
+                        <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('kosten.destroy',$custom_cost->id)}}">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
                         </form>
@@ -410,7 +410,7 @@ $total_val_tax_arr = $total_tax_arr = [];
         </div>
         <div class="row">
           <div class="col-md-9" >
-        <form class="form-material" method="post"  action="{{route('customcost.store')}}">
+        <form class="form-material" method="post"  action="{{route('kosten.store')}}">
           {{ csrf_field() }}
           <div class="row" style="padding-left: 14px">
             <div class="form-group col-md-6">

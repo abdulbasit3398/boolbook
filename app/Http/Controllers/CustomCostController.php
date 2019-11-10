@@ -36,7 +36,6 @@ class CustomCostController extends Controller
       //Fetch custom costs group by for_month
       $data['custom_costs_group'] = AllCosts::where([['user_id',$user_id],['custom_cost','!=','0']])->groupBy('for_month')->orderBy('for_year','desc')->orderBy('for_month','desc')->get();
 
-      // return view('dashboard.customcosts',compact('data'));
       return view('m_dashboard.customcosts',compact('data'));
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use DB;
 use Auth;
+use Cookie;
+use Session;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -60,7 +62,14 @@ class RegisterController extends Controller
             'agrement' => ['accepted'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ],
+        [
+            'email.unique' => 'Dit emailadres wordt al gebruikt.',
+            'password.min:8' => 'Het wachtwoord moet minstens 8 tekens bevatten.',
+            'password.confirmed' => 'De wachtwoorden komen niet overeen.',
+            'agrement.accepted' => 'Accepteren is vereist voor registratie.',
+        ]
+    );
 
     }
 
@@ -98,6 +107,8 @@ class RegisterController extends Controller
 
     public function subscribed_user(Request $request)
     {
+        // $value = request()->cookie('name');
+        // dd($value);
         if($request->email == '')
         {
             return redirect()->route('register');

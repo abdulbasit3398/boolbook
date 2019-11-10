@@ -100,14 +100,14 @@ class PaymentController extends Controller
 						'amount' => [
 							'currency' => 'EUR',
 		        'value' => $amount_val, // You must send the correct number of decimals, thus we enforce the use of strings
-			      ],
-			      "customerId" => $customerId,
-			      "sequenceType" => 'recurring',
-			      "description" => "Payment for month of ".$last_month,
+		      ],
+		      "customerId" => $customerId,
+		      "sequenceType" => 'recurring',
+		      "description" => "Bolbooks.nl Boekhouding",
 			      //"method"      => ['ideal'],//['ideal','creditcard']
 			      // "redirectUrl" => "https://bolbooks.nl/dashboard",
-			      'webhookUrl' =>	 "https://bolbooks.nl/recuring_payment_status",
-			    ]);
+		      'webhookUrl' =>	 "https://app.bolbooks.nl/recuring_payment_status",
+		    ]);
 					$payment = Mollie::api()->payments()->get($payment->id);
 
 				// dd($payment->amount);
@@ -133,9 +133,6 @@ class PaymentController extends Controller
 
 		}
 
-		$user_admin = User::find('29')->first();
-		$user_admin->client_id = '1e8939d0-7015-4958-8544-e65e97549c2e';
-		$user_admin->save();
 	}
 	public function first_payment_status(Request $request)
 	{

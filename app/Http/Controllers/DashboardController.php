@@ -343,10 +343,10 @@ class DashboardController extends Controller
 		      ],
 		      "customerId" => $customerId,
 		      "sequenceType" => 'first',
-		      "description" => "My first Payment",
+		      "description" => "Proefweek Bolbooks",
 		      "method"      => \Mollie\Api\Types\PaymentMethod::IDEAL,
-		      "redirectUrl" => "https://bolbooks.nl/dashboard",
-		      'webhookUrl' =>	 "https://bolbooks.nl/first_payment_status",
+		      "redirectUrl" => "https://app.bolbooks.nl/dashboard",
+		      'webhookUrl' =>	 "https://app.bolbooks.nl/first_payment_status",
 		    ]);
 
 		$payment = Mollie::api()->payments()->get($payment->id);

@@ -93,7 +93,7 @@
                 </li>
                 <li class="nav-item"> <a class="nav-link @if(\Route::current()->getName() == 'profitloss') active @endif " href="{{route('profitloss')}}"><span class="icon_span"><i class="mdi mdi-developer-board" style="font-size: 20px"></i></span> <span class="custom_sm_hidde hide-menu">Resultaat</span></a> </li>
 
-                <li class="nav-item"> <a class="nav-link @if(\Route::current()->getName() == 'customcost.index') active @endif" href="{{route('customcost.index')}}" role="tab"><span class="icon_span"><i class="mdi mdi-note-plus-outline" style="font-size: 20px"></i></span> <span class="custom_sm_hidde hide-menu">Kosten</span></a> </li>
+                <li class="nav-item"> <a class="nav-link @if(\Route::current()->getName() == 'kosten.index') active @endif" href="{{route('kosten.index')}}" role="tab"><span class="icon_span"><i class="mdi mdi-note-plus-outline" style="font-size: 20px"></i></span> <span class="custom_sm_hidde hide-menu">Kosten</span></a> </li>
 
                 <li class="nav-item"> <a class="nav-link @if(\Route::current()->getName() == 'taxreport') active @endif" href="{{route('taxreport')}}" role="tab"><span class="icon_span"><i class="mdi mdi-file-document-box" style="font-size: 20px"></i></span> <span class="custom_sm_hidde hide-menu">BTW Aangifte</span></a> </li>
 

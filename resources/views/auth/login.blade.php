@@ -1,4 +1,5 @@
 @include('include.m_head')
+
 <style type="text/css">
   body {
     background-color: #fbfcfc !important;
@@ -79,7 +80,6 @@
                 </span>
                 @enderror
               </div>
-
               <div class="form-group align_center">
                   <button class="btn waves-effect waves-light btn-rounded btn-secondary" type="submit">Inloggen</button>
                   @if (Route::has('password.request'))

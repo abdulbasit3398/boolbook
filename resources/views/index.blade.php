@@ -125,7 +125,7 @@
                <nav role="navigation" class="nav-menu-2 w-nav-menu">
                   <div data-delay="0" class="nav-dropdown-button w-dropdown">
                      <div id="nav-bar-button-product" class="nav-dropdown-toggle w-dropdown-toggle">
-                        <div><a href="#features-section" style="color: #4c525a">FEATURES</a></div>
+                        <div><a href="#features" style="color: #4c525a">FEATURES</a></div>
                         <!-- <div class="w-icon-dropdown-toggle"></div> -->
                      </div>
                      <!-- <nav class="dropdown-list w-dropdown-list"><a href="#" class="nav-dropdown-link w-dropdown-link">PROPOSALS</a>
@@ -141,7 +141,7 @@
                   <div data-delay="0" class="nav-dropdown-button w-dropdown">
                      <div id="nav-bar-button-resources" class="nav-dropdown-toggle w-dropdown-toggle">
                       <div>
-                        <a href="#pricing-section" style="color: #4c525a">TARIEVEN
+                        <a href="#tarieven" style="color: #4c525a">TARIEVEN
                         </a>
                       </div>
                         <!-- <div class="w-icon-dropdown-toggle"></div> -->
@@ -358,7 +358,7 @@ online <br/>boekhouding van bolbooks. </p>
             </div>
          </div>
       </div>
-      <div id="features-section" class="white-section-slanted">
+      <div id="features" class="white-section-slanted">
          <div class="container-slanted container-slanted-center w-container">
             <h2 class="section-headline-gray">Ontdek Bolbooks.</h2>
             <div data-duration-in="300" data-duration-out="100" class="features-section-tabs w-tabs">
@@ -526,7 +526,7 @@ online <br/>boekhouding van bolbooks. </p>
             </div>
          </div>
       </div> -->
-      <div class="gray-section-slanted" id="pricing-section">
+      <div class="gray-section-slanted" id="tarieven">
          <div class="container-slanted container-slanted-center w-container">
           <h2 class="section-headline-green section-headline-green-center">
             Onze transparante tarieven.
@@ -551,7 +551,7 @@ online <br/>boekhouding van bolbooks. </p>
           <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px;margin-top: 50px;" >Nu starten</a>
          </div>
        </div>
-      <div class="white-section-slanted" id="pricing-section">
+      <div class="white-section-slanted" id="tarieven">
          <div class="container-slanted container-slanted-center w-container">
           
 

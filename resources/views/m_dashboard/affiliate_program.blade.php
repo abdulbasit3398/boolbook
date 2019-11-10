@@ -2,6 +2,7 @@
 
 
 @section('main_content')
+
 <style type="text/css">
 	
 	.amount_div{

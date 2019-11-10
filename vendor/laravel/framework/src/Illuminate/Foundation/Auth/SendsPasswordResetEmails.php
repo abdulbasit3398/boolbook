@@ -70,7 +70,7 @@ trait SendsPasswordResetEmails
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        return back()->with('status', trans($response));
+        return back()->with('status', 'We hebben je een mail gestuurd om je wachtwoord opnieuw in te stellen!');
     }
 
     /**

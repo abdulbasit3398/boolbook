@@ -100,6 +100,12 @@
     display: table-cell;
     vertical-align: middle;
   }
+  .invalid-feedback1{
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
 </style>
 
 <div class="container" style="height: 15%">
@@ -219,7 +225,7 @@
               </div>
             </div>
             <br/>
-            <div class="form-group">
+            <div class="form-group" style="overflow: inherit">
               <div class="align_center" style="height: 42px;">
                 <!-- <label class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input">
@@ -236,8 +242,9 @@
                     
                     <i class="input-helper"></i></label>
                   </div> -->
+                  <br/>
                   @error('agrement')
-                  <span class="invalid-feedback" role="alert">
+                  <span class="invalid-feedback1" role="alert">
                     <strong>{{ $message }}</strong>
                   </span>
                   @enderror
@@ -257,7 +264,7 @@
           <div class="row" style="border-top: 1px solid gainsboro;padding: 26px 0px 7px 0px">
             <br/>
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-              <span class="footer_text"><i class="mdi mdi-trophy-variant"></i>&nbsp;1 WEEK VOOR $1 UITPROBEREN.</span>
+              <span class="footer_text"><i class="mdi mdi-trophy-variant"></i>&nbsp;1 WEEK VOOR €1 UITPROBEREN.</span>
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
               <span class="footer_text"><i class="mdi mdi-trophy-variant"></i>&nbsp;DIRECT TOEGANG TOT JE ACCOUNT.</span>
