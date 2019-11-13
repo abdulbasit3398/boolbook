@@ -28,6 +28,6 @@ class userfeedback extends Mailable
      */
     public function build()
     {
-        return $this->view('email');
+        return $this->view('mail.email');
     }
 }

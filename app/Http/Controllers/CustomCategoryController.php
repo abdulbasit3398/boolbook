@@ -130,7 +130,7 @@ class CustomCategoryController extends Controller
       }
       // session(['message' => 'Kostenpost succesvol gewijzigd.']);
       // return redirect()->route('kosten.index');
-      return redirect(route('kosten.index'))->with('message' => 'Kostenpost succesvol gewijzigd.');
+      return redirect(route('kosten.index'))->with('message','Kostenpost succesvol gewijzigd.');
     }
 
     /**

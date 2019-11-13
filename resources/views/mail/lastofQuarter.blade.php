@@ -3,7 +3,7 @@
 
 
 <head>
- <title>Wachtwoord vergeten</title>
+ <title>Let op! Laatste dag om aangifte te doen</title>
 
 
  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -60,6 +60,10 @@
 
 
   }
+
+
+
+
   u + #body a {
 
 
@@ -82,6 +86,10 @@
 
 
   }
+
+
+
+
   #MessageViewBody a {
 
 
@@ -104,6 +112,12 @@
 
 
   }
+
+
+
+
+
+
   a { color: #175ADE; font-weight: 600; text-decoration: underline; }
 
 
@@ -111,6 +125,11 @@
 
 
   a.button:hover { color: #ffffff !important; background-color: #0949C6 !important; }
+
+
+
+
+
 
   @media screen and (min-width:600px) {
 
@@ -122,24 +141,71 @@
 
 
   }
+
+
 </style>
+
+
 </head>
+
+
 <body style="margin: 0 !important; padding: 0 !important;">
+
+
+
+
   <div role="article" aria-label="Een email van Bolbooks" lang="nl" style="background-color: white; color: #2b2b2b; font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; font-size: 18px; font-weight: 400; line-height: 28px; margin: 0 auto; max-width: 720px; padding: 40px 20px 40px 20px;">
+
+
+
+
+
+
     <header>
+
+
+
+
       <a href="https://bolbooks.nl">
+
+
         <center><img src="https://bolbooks.nl/images/logo.png" alt="" height="50" width="110"></center>
+
+
       </a>
+
+
+
+
+
+
       <h1 style="color: #000000; font-size: 32px; font-weight: 800; line-height: 32px; margin: 48px 0; text-align: center;">
-        Wachtwoord vergeten
+
+
+        De laatste dag
+
+
       </h1>
+
+
     </header>
+
+
+
+
     <main>
-      <a href="https://bolbooks.nl"><img alt="" src="https://bolbooks.nl/media/img/wachtwoord-vergeten" width="600" border="0" style="border-radius: 4px; display: block; max-width: 100%; min-width: 100px; width: 100%;"></a>
+      
+      <a href="https://bolbooks.nl"><img alt="" src="https://bolbooks.nl/media/img/Laatste-dag" width="600" border="0" style="border-radius: 4px; display: block; max-width: 100%; min-width: 100px; width: 100%;"></a>
+
+
+
+
+
+
       <h2 style="color: #000000; font-size: 28px; font-weight: 600; line-height: 32px; margin: 48px 0 24px 0; text-align: center;">
 
 
-        Stel je nieuwe wachtwoord in
+        De laatste herinnering aan je aangifte
 
 
       </h2>
@@ -147,21 +213,72 @@
 
       <p>
 
-        We hebben voor jouw account een verzoek ontvangen om het wachtwoord opnieuw in stellen. Was jij dit? Klik dan op de button hieronder om je nieuwe wachtwoord direct in te stellen.
+
+        Het is de laatste dag van de maand, uiterlijk vandaag moet je de aangifte insturen en het te betalen bedrag op de rekening van de belastingdienst staan.
         <br>
         <br>
-        Was jij dit niet? Negeer deze mail dan. Als je deze mail vaker ontvangt zonder dat je zelf je wachtwoord opnieuw wil instellen. Meld het dan aan ons!
+        Gelukkig hanteert de belastingdienst een coulancetermijn, als je niet langer dan 7 dagen te laat bent ontvang je geen boete. Let wel op, dit mag geen 2 keer achter elkaar gebeuren. Dan zul je alsnog een boete ontvangen.
 
 
       </p>
+
+
+
+
+
+
       <center>
-        <div style="margin: 48px 0;">
-          <a class="button" href="{{$actionUrl}}" style="background-color:#175ade;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:18px;font-weight:bold;line-height:60px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;">Opnieuw instellen</a>
-          </div>
-      </center>
-    </main>
+
+
+                <div style="margin: 48px 0;"><!--[if mso]>
+
+
+                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://litmus.com/community" style="height:60px;v-text-anchor:middle;width:300px;" arcsize="10%" stroke="f" fillcolor="#B200FD">
+
+
+                <w:anchorlock/>
+
+
+                <center>
+
+
+                <![endif]-->
+
+
+                <a class="button" href="https://app.bolbooks.nl/dashboard"
+
+
+                style="background-color:#175ade;border-radius:4px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:18px;font-weight:bold;line-height:60px;text-align:center;text-decoration:none;width:300px;-webkit-text-size-adjust:none;">Naar het dashboard</a>
+
+
+                <!--[if mso]>
+
+
+                </center>
+
+
+                </v:roundrect>
+
+
+              <![endif]--></div>
+
+
+            </center>
+
+
+          </main>
+
+
+
+
           <footer bgcolor="#000000">
+
+
+
+
             <center>
+
+
               <tr>
                 <td bgcolor="#fff">
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -193,8 +310,23 @@
                   </table>
                 </td>
               </tr>
+
+
+
+
             </center>
+
+
+
           </footer>
+
+
+
+
+
+
         </div>
       </body>
-    </html>
+
+
+      </html>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Carbon\Carbon;
 use DB;
+use Mail;
 use Auth;
 use App\User;
 use App\Model\Turnover;
@@ -19,13 +20,10 @@ use Illuminate\Support\Facades\Cache;
 
 class ApiController extends Controller
 {
-  // public function __construct()
-  // {
-  //     $this->middleware('auth');
-  // }
-  // public $successStatus = 200;
+
   public function getResponse()
   {
+
     $first_date_last_month = new Carbon('first day of last month');
         // $start_date = date('Y-m-d',strtotime($first_date_last_month));
     $start_date = date('Y-m-01');
@@ -45,7 +43,7 @@ class ApiController extends Controller
     $users = User::all();
     foreach ($users as $user)
     {
-      if($user->client_id)
+      if($user->client_id && $user->user_access == 1)
       {
         $user_id = $user->id;
         $client_id = $user->client_id;
@@ -119,15 +117,32 @@ class ApiController extends Controller
           $all_cost->line_ext_val = $json_invoic_detail->InvoiceLine[$i]->LineExtensionAmount->value;
           $all_cost->tax_amount_val = $json_invoic_detail->InvoiceLine[$i]->TaxTotal[0]->TaxAmount->value;
           $all_cost->save();
+
         }
+        
       }
     }
+
+    $users = User::all();
+    foreach ($users as $user)
+    {
+      if($user->client_id && $user->user_access == 1)
+      {
+        $email = $user->email;
+        Mail::send('mail.apiDataFetched',
+          array(
+          ), function($message) use ($email)
+          {
+            // $message->from('abdulbasit3398@gmail.com');
+            $message->to($email, 'Admin')->subject('Factuur opgehaald');
+        });
+      }
+    }
+
   }
   public function to_test_command()
   {
     $now_date = date('Y-m-d h:i:s A');
-    var_dump($now_date);
-    die();
     $data = array(
       'id' => 1,
       'name' => $now_date,
@@ -352,4 +367,60 @@ class ApiController extends Controller
     $payment->save();
     return 'success';
   }
+
+  public function email_first_of_quarter()
+  {
+    $month = date('m');
+    $day = date('d');
+
+    if($month != 1 && $month != 4 && $month != 7 && $month != 10)
+      die();
+    if($day != 1)
+      die();
+
+    $users = User::all();
+    foreach ($users as $user)
+    {
+      if($user->client_id && $user->user_access == 1)
+      {
+        $email = $user->email;
+        Mail::send('mail.firstofQuarter',
+          array(
+          ), function($message) use ($email)
+          {
+            // $message->from('abdulbasit3398@gmail.com');
+            $message->to($email, 'Admin')->subject('Tijd voor de btw-aangifte!');
+        });
+      }
+    }
+  }
+
+  public function email_last_of_quarter()
+  {
+    $month = date('m');
+    $tomorrow = strtotime('tomorrow');
+    $tomorrow_day = date("d", $tomorrow);
+
+    if($month != 1 && $month != 4 && $month != 7 && $month != 10)
+      die();
+    if($tomorrow_day != 1)
+      die();
+
+    $users = User::all();
+    foreach ($users as $user)
+    {
+      if($user->client_id && $user->user_access == 1)
+      {
+        $email = $user->email;
+        Mail::send('mail.lastofQuarter',
+          array(
+          ), function($message) use ($email)
+          {
+            // $message->from('abdulbasit3398@gmail.com');
+            $message->to($email, 'Admin')->subject('Let op! Laatste dag om aangifte te doen');
+        });
+      }
+    }
+  }
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use DB;
+use Mail;
 use Auth;
 use DateTime;
 use App\User;
@@ -74,19 +75,23 @@ class PaymentController extends Controller
 
 					$total_revenue = ($turnover_line_ext_val * (-1)) + ($correction_turnover_line_ext_val * (-1));
 					$total_revenue = round($total_revenue,2);
-					if($total_revenue > 0 && $total_revenue < 2000)
+					if($total_revenue > 0 && $total_revenue <= 700)
 					{
 						$amount_val = 5.99;
 					}
-					else if($total_revenue > 2000 && $total_revenue < 5000)
+					else if($total_revenue > 700 && $total_revenue <= 2000)
+					{
+						$amount_val = 12.04;
+					}
+					else if($total_revenue > 2000 && $total_revenue <= 5000)
 					{
 						$amount_val = 24.14;
 					}
-					else if($total_revenue > 5000 && $total_revenue < 10000)
+					else if($total_revenue > 5000 && $total_revenue <= 10000)
 					{
 						$amount_val = 36.24;
 					}
-					else if($total_revenue > 10000 && $total_revenue < 30000)
+					else if($total_revenue > 10000 && $total_revenue <= 30000)
 					{
 						$amount_val = 48.34;
 					}
@@ -167,6 +172,15 @@ class PaymentController extends Controller
 			$payment->status = 'paid';
 			$payment->api_call = 1;
 			$payment->save();
+
+			$email = $user->email;
+	        Mail::send('mail.newUserMail',
+	          array(
+	          ), function($message) use ($email)
+	          {
+	            // $message->from('abdulbasit3398@gmail.com');
+	            $message->to($email, 'Admin')->subject('Welkom bij Bolbooks');
+	        });
 		}
 	}
 

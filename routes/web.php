@@ -83,6 +83,15 @@ Route::resource('/customcategory','CustomCategoryController');
 
 Route::resource('/kosten','CustomCostController');
 
+Route::get('/email_first_of_quarter', [
+    'uses' => 'API\ApiController@email_first_of_quarter',
+    'as'   => 'email_first_of_quarter'
+]);
+
+Route::get('/email_last_of_quarter', [
+    'uses' => 'API\ApiController@email_last_of_quarter',
+    'as'   => 'email_last_of_quarter'
+]);
 
 Route::post('/first_user_data', [
     'uses' => 'API\ApiController@first_user_data',
@@ -124,55 +133,10 @@ Route::get('/resultaat', [
     'as'   => 'profitloss'
 ]);
 
-// Route::get('/help', [
-//     'uses' => 'BackendController@help',
-//     'as'   => 'help'
-// ]);
-
-// Route::get('/', function () {
-//     return view('index');
-// });
-
-// Route::get('/dash', function () {
-//     return view('dashboard.dash');
-// });
-
 Route::get('/dashboard', [
     'uses' => 'DashboardController@index',
     'as'   => 'dashboard'
 ]);
-
-
-
-// Route::post('/get-token', [
-//     'uses' => 'BackendController@getToken',
-//     'as'   => 'get-token'
-// ]);
-
-// Route::get('/stock', [
-//     'uses' => 'BackendController@stock',
-//     'as'   => 'stock'
-// ]);
-
-// Route::get('/almost-time/{days}', [
-//     'uses' => 'BackendController@almostTime',
-//     'as'   => 'almost-time'
-// ]);
-
-// Route::get('/lead-times', [
-//     'uses' => 'BackendController@leadTimes',
-//     'as'   => 'lead-times'
-// ]);
-
-// Route::post('/leadtimes-save', [
-//     'uses' => 'BackendController@leadTimesSave',
-//     'as'   => 'leadtimes-save'
-// ]);
-
-// Route::get('/refresh-result', [
-//     'uses' => 'BackendController@refreshResult',
-//     'as'   => 'refresh-result'
-// ]);
 
 Route::get('/setting', function () {
     return view('dashboard.setting');

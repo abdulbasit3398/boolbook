@@ -57,7 +57,7 @@
         <div class="card-body">
           <div class="row card_head align_center">
             <div class="col-md-12" style="padding-top: 8px">
-              <h5 style="color: black">{{ __('Reset Password') }}</h5>
+              <h5 style="color: black">{{ __('Wachtwoord opnieuw instellen') }}</h5>
             </div>
 
           </div>
@@ -91,7 +91,7 @@
               </div>
               <div class="form-group align_center">
                 <button type="submit" class="btn waves-effect waves-light btn-rounded btn-secondary">
-                  {{ __('Reset Password') }}
+                  {{ __('Bevestigen') }}
                 </button>
 
 

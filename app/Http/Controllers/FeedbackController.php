@@ -34,7 +34,7 @@ class FeedbackController extends Controller
 			$comment_option = 'Top software';
 		}
 
-		Mail::send('email',
+		Mail::send('mail.userFeedback',
 			array(
 				'user_name' => $user_name,
 				'comment_option' => $comment_option,
