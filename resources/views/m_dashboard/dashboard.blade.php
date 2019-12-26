@@ -4,8 +4,8 @@
 <link href="{{asset('ui/assets/plugins/morrisjs/morris.css')}}" rel="stylesheet">
 <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
 
-<script src="{{asset('ui/assets/plugins/Chart.js/chartjs.init.js')}}"></script>
-<script src="{{asset('ui/assets/plugins/Chart.js/Chart.min.js')}}"></script>
+<!-- <script src="{{asset('ui/assets/plugins/Chart.js/chartjs.init.js')}}"></script> -->
+<!-- <script src="{{asset('ui/assets/plugins/Chart.js/Chart.min.js')}}"></script> -->
 @endsection
 
 @section('page_title','Dashboard')
@@ -14,7 +14,7 @@
 <script src="{{asset('ui/assets/plugins/raphael/raphael.min.js')}}"></script>
 <script src="{{asset('ui/assets/plugins/morrisjs/morris.js')}}"></script>
 <script src="{{asset('ui/js/morris-data.js')}}"></script>
-<script src="{{asset('js/progressbar.js')}}"></script>
+<!-- <script src="{{asset('js/progressbar.js')}}"></script> -->
 
 
 @endsection
@@ -247,7 +247,7 @@
   <!-- Column -->
 </div>
 <div class="row">
-	<div class="col-md-12 grid-margin">
+  <div class="col-md-12 grid-margin">
     <!-- <div class="card" >
       <div class="card-body">
         <canvas id="line-chart" width="800" height="350"></canvas>

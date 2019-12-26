@@ -88,6 +88,13 @@ for($i=0; $i<=11; $i++)
           <input type="hidden" name="invoice_for_month" id="invoice_for_month" value="{{$data['invoice_for_month']}}">
           <input type="hidden" name="invoice_for_year" id="invoice_for_year" value="{{$data['invoice_for_year']}}">
           <input type="hidden" name="base_url" id="base_url" value="{{url('/')}}">
+        
+        <div class="row" id="message_div">
+          <div class="blue_div" style="width: auto;" data-toggle="tooltip" data-original-title="Omdat de maand nog niet is afgelopen kunnen we je gegevens nog niet ophalen bij bol.com. Op de 1e of 2e van de volgende maand worden je gegevens ingeladen! ;)">
+            <i class="mdi mdi-information" style="font-size: 19px;"></i>
+            <span>Waarom zie ik geen omzet?</span>
+          </div>
+        </div>
         <br/>
         <div class=" row">
           <div class="blue_div">
@@ -295,6 +302,44 @@ for($i=0; $i<=11; $i++)
 </div>
 
 <script type="text/javascript">
+  $(document).ready(function(){
+    $('#select_month').change(function(){
+      var value = $(this).val();
+      month = value.slice(0, 2);
+      month = month - 1;
+      year = value.slice(2, 6);
+
+      var current_date = new Date();
+      var current_month = current_date.getMonth();
+      var previous_month = current_month - 1;
+      var current_year = current_date.getFullYear();
+      var current_day = current_date.getDate();
+
+      if(current_year == year)
+      {
+        if(current_month == month)
+        {
+          $('#message_div').show();
+        }
+        else if(previous_month == month)
+        {
+          if(current_day == 1 || current_day == 2)
+            $('#message_div').show();
+          else
+            $('#message_div').hide();        
+        }
+        else
+        {
+          $('#message_div').hide();
+        }
+      }
+      else{
+        $('#message_div').hide();
+      }
+      
+
+    });
+  });
   function GetMonthName(monthNumber) {
       var months = [
                   "<?= __('translate.January') ?>",

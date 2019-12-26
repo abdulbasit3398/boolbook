@@ -1,6 +1,11 @@
 <?php
 
 // Auth::routes(['verify' => true]);
+Route::get('/help',[
+    'uses' => 'DashboardController@help',
+    'as' => 'help'
+]);
+
 Route::get('/check_user_access',[
     'uses' => 'PaymentController@check_user_access',
     'as' => 'check_user_access'

@@ -13,9 +13,9 @@
   <!-- Bootstrap Core CSS -->
   <link href="{{asset('ui/assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <!-- Custom CSS -->
-  <link href="{{asset('css/style.css')}}" rel="stylesheet">
+  <link href="{{asset('css/style.min.css')}}" rel="stylesheet">
 
-
+  
   <!-- You can change the theme colors from here -->
    
   <link href="{{asset('css/colors/blue.css')}}" id="theme" rel="stylesheet">
@@ -62,6 +62,18 @@
   </noscript>
   <!-- End Facebook Pixel Code -->
 </head>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151726843-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151726843-2');
+</script>
+
+
 <style type="text/css">
   .form-material .form-control, .form-material .form-control.focus, .form-material .form-control:focus{
     background-image: linear-gradient(#175ade, #175ade), linear-gradient(#d9d9d9, #d9d9d9) !important;

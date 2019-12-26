@@ -56,7 +56,7 @@ var invoice_for_month = $('#invoice_for_month').val();
           response_custom_cost = response['custom_costs'];
           response = response['all_costs'];
           
-          var set_correction_pick_pack = set_pick_pack = set_correction_outbound = set_outbound = set_turnover = set_correction_turnover = set_correction_commission = set_commission = total_costs = custom_cost_tax_amount_val = correction_correction_tax = shipment_label_tax = stock_tax = nck_stock_tax = plaza_return_shipping_label_tax = logistical_charge_tax = commission_tax = pick_pack_tax = outbound_tax = total_revenue = 0;
+          var set_correction_pick_pack = set_pick_pack = set_correction_outbound = set_outbound = set_turnover = set_correction_turnover = set_correction_commission = set_commission = total_costs = custom_cost_tax_amount_val = correction_correction_tax = shipment_label_tax = stock_tax = nck_stock_tax = plaza_return_shipping_label_tax = logistical_charge_tax = commission_tax = pick_pack_tax = outbound_tax = total_revenue = correction_pick_pack_line_ext_val = correction_pick_pack_tax_amnt_val = pick_pack_line_ext_val = pick_pack_tax_amnt_val = correction_outbound_line_ext_val = correction_outbound_tax_amnt_val = outbound_line_ext_val = outbound_tax_amnt_val = stock_line_ext_val = stock_tax_amnt_val = nck_stock_line_ext_val = nck_stock_tax_amnt_val = correction_turnover_line_ext_val = correction_turnover_tax_amnt_val = turnover_line_ext_val = turnover_tax_amnt_val = correction_commission_line_ext_val = correction_commission_tax_amnt_val = 0;
           if (response.length == 0)
           {
 
@@ -236,14 +236,14 @@ var invoice_for_month = $('#invoice_for_month').val();
               console.log(first_mile);
             }
           }
-          if(set_correction_turnover == 1 && set_turnover == 1)
+          if(set_correction_turnover == 1 || set_turnover == 1)
           {
             total_revenue = (turnover_line_ext_val * (-1)) + (correction_turnover_line_ext_val * (-1));
             $('#total_revenue').html(currencyFormatDE(total_revenue));
             $('#total_revenue1').html(currencyFormatDE(total_revenue));
           }
 
-          if(set_correction_commission == 1 && set_commission == 1)
+          if(set_correction_commission == 1 || set_commission == 1)
           {
             var commission = (commission_line_ext_val + commission_tax_amnt_val) + (correction_commission_line_ext_val + correction_commission_tax_amnt_val);
             commission_tax = (commission/121)*21;
@@ -254,7 +254,7 @@ var invoice_for_month = $('#invoice_for_month').val();
           }
 
 
-          if(set_correction_pick_pack == 1 && set_pick_pack == 1)
+          if(set_correction_pick_pack == 1 || set_pick_pack == 1)
           {
             pick_pack = (correction_pick_pack_line_ext_val + correction_pick_pack_tax_amnt_val) + (pick_pack_line_ext_val + pick_pack_tax_amnt_val);
             pick_pack_tax = (pick_pack/121)*21;
@@ -264,7 +264,7 @@ var invoice_for_month = $('#invoice_for_month').val();
             $('#pick_pack').html(currencyFormatDE(pick_pack));
           }
 
-          if(set_correction_outbound == 1 && set_outbound == 1)
+          if(set_correction_outbound == 1 || set_outbound == 1)
           {
             outbound = (correction_outbound_line_ext_val + correction_outbound_tax_amnt_val) + (outbound_line_ext_val + outbound_tax_amnt_val);
             outbound_tax = (outbound/121)*21;

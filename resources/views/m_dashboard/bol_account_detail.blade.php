@@ -46,7 +46,7 @@
 	@media only screen and (min-width: 992px) {
 
 		.exclamation_p{
-			width: 100%;
+			width: 95%;
 			font-weight: 300;
 			font-size: 14px;
 			margin-left: 10px;
@@ -59,7 +59,7 @@
 	@media only screen and (min-width: 1200px) {
 		
 		.exclamation_p{
-			width: 100%;
+			width: 96%;
 			font-weight: 300;
 			font-size: 14px;
 			margin-left: 10px;

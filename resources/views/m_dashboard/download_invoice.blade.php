@@ -184,7 +184,13 @@ tr.border_bottom td {
     </table>
   </div>
   <div class="info">
-    <span class="text-medium" style="font-size: 16px; position: absolute; margin: 25px 0;">BETALING VOLDAAN OP {{date('d-m-Y',strtotime($payment->paidAt))}}</span>
+    <span class="text-medium" style="font-size: 16px; position: absolute; margin: 25px 0;">BETALING VOLDAAN OP 
+      @if($payment->sequenceType == 'first')
+      {{date('d-m-Y',strtotime($payment->createdAt))}}
+      @else
+      {{date('d-m-Y',strtotime($payment->paidAt))}}
+      @endif
+    </span>
     <hr style="margin-bottom: -35px; margin-top: 40px; width: 440; margin-left: 0">
     <span class="text-bold" style="margin-top: -40px;">BEDANKT</span>
     <span class="text-italic" style="margin: 0 10px">voor</span>

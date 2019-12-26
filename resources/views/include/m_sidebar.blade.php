@@ -106,6 +106,7 @@
                   \Route::current()->getName() == 'view_invoice' ||
                   \Route::current()->getName() == 'bol_account_detail'
                    ) active @endif" href="{{route('user_account')}}" role="tab"><span class="icon_span"><i class="mdi mdi-account" style="font-size: 20px"></i></span> <span class="custom_sm_hidde hide-menu">Account</span></a> </li>
+                   <li class="nav-item"> <a class="nav-link @if(\Route::current()->getName() == 'help') active @endif" href="{{route('help')}}" role="tab"><span class="icon_span"><i class="mdi mdi-help" style="font-size: 20px"></i></span> <span class="custom_sm_hidde hide-menu">Help</span></a> </li>
 
                    <li class="nav-item"> <a class="nav-link" href="{{route('logout')}}" role="tab"><span class="icon_span"><i class="mdi mdi-power" style="font-size: 20px"></i></span> <span class="custom_sm_hidde hide-menu">Uitloggen</span></a> </li>
             </ul>

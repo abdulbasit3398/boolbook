@@ -236,6 +236,8 @@ class PaymentController extends Controller
 		}
 		elseif($status != 'pending')
 		{
+			$payment->status = $json->status;
+			$payment->save();
 			$user->user_access = 0;
 			$user->save();
 		}

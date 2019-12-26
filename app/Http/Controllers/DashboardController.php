@@ -38,7 +38,7 @@ class DashboardController extends Controller
 
 		for($j=0; $j< 12; $j++)
 		{
-			$total_costs_tax = $custom_cost_tax_amount_val = $correction_correction_tax = $shipment_label_tax = $stock_tax = $nck_stock_tax = $plaza_return_shipping_label_tax = $logistical_charge_tax = $commission_tax = $pick_pack_tax = $outbound_tax = $total_revenue_tax = $total_revenue = $total_profit_and_tax = $profit_before_tax = $taxes_to_pay = $total_costs = $total_custom_costs = $second_graph = 0;
+			$total_costs_tax = $custom_cost_tax_amount_val = $correction_correction_tax = $shipment_label_tax = $stock_tax = $nck_stock_tax = $plaza_return_shipping_label_tax = $logistical_charge_tax = $commission_tax = $pick_pack_tax = $outbound_tax = $total_revenue_tax = $total_revenue = $total_profit_and_tax = $profit_before_tax = $taxes_to_pay = $total_costs = $total_custom_costs = $second_graph = $custom_cost_name = $custom_cost_val = $correction_correction_line_ext_val = $correction_correction_tax_amnt_val = $shipment_label_post_line_ext_val = $shipment_label_post_tax_amnt_val = $shipment_label_line_ext_val = $shipment_label_tax_amnt_val = $correction_pick_pack_line_ext_val = $correction_pick_pack_tax_amnt_val = $pick_pack_line_ext_val = $pick_pack_tax_amnt_val = $correction_outbound_line_ext_val = $correction_outbound_tax_amnt_val = $outbound_line_ext_val = $outbound_tax_amnt_val = $stock_line_ext_val = $stock_tax_amnt_val = $correction_turnover_line_ext_val = $correction_turnover_tax_amnt_val = $turnover_line_ext_val = $turnover_tax_amnt_val = $correction_commission_line_ext_val = $correction_commission_tax_amnt_val = $commission_line_ext_val = $commission_tax_amnt_val = 0;
 
 			$date = $date->format('Y-m-d h:i:s');
 			$date = date("Y-m-01", strtotime($date));
@@ -162,7 +162,6 @@ class DashboardController extends Controller
 					$compensation = $compensation_line_ext_val + $compensation_tax_amnt_val;
 					$total_costs += $compensation;
 
-
 				}
 				else if($user_costs[$i]['cost_name'] == 'CORRECTION_TURNOVER')
 				{
@@ -208,7 +207,7 @@ class DashboardController extends Controller
 				}
 			}
 
-			if($set_correction_turnover == 1 && $set_turnover == 1)
+			if($set_correction_turnover == 1 || $set_turnover == 1)
 			{
 				$total_revenue = ($turnover_line_ext_val * (-1)) + ($correction_turnover_line_ext_val * (-1));
 
@@ -218,7 +217,7 @@ class DashboardController extends Controller
 				$total_revenue = 0;
 			}
 
-			if($set_correction_commission == 1 && $set_commission == 1)
+			if($set_correction_commission == 1 || $set_commission == 1)
 			{
 				$commission = ($commission_line_ext_val + $commission_tax_amnt_val) + ($correction_commission_line_ext_val + $correction_commission_tax_amnt_val);
 				$commission_tax = ($commission/121)*21;
@@ -228,7 +227,7 @@ class DashboardController extends Controller
 			}
 
 
-			if($set_correction_pick_pack == 1 && $set_pick_pack == 1)
+			if($set_correction_pick_pack == 1 || $set_pick_pack == 1)
 			{
 				$pick_pack = ($correction_pick_pack_line_ext_val + $correction_pick_pack_tax_amnt_val) + ($pick_pack_line_ext_val + $pick_pack_tax_amnt_val);
 				$pick_pack_tax = ($pick_pack/121)*21;
@@ -237,7 +236,7 @@ class DashboardController extends Controller
 				$set_correction_pick_pack = $set_pick_pack = 0;
 			}
 
-			if($set_correction_outbound == 1 && $set_outbound == 1)
+			if($set_correction_outbound == 1 || $set_outbound == 1)
 			{
 				$outbound = ($correction_outbound_line_ext_val + $correction_outbound_tax_amnt_val) + ($outbound_line_ext_val + $outbound_tax_amnt_val);
 				$outbound_tax = ($outbound/121)*21;
@@ -418,7 +417,7 @@ class DashboardController extends Controller
 
 	// 	$amount_val = strval($amount_val);
 	// 	// $customer = Mollie::api()->customers()->get('cst_C2Mt2bTHWA');
-		
+
 	// 	// $name = Auth::user()->name.' '.Auth::user()->last_name;
 	// 	// $email = Auth::user()->email;
 	// 	// $user_id = Auth::user()->id;
@@ -482,6 +481,11 @@ class DashboardController extends Controller
 
 		$delete = AllCosts::where([['for_month',$for_month],['user_id',$user_id],['custom_cost','!=','0']])->delete();
 		return redirect()->back()->with('message','Deleted successfully.');;
+	}
+
+	public function help()
+	{
+		return view('m_dashboard.help');
 	}
 	
 }

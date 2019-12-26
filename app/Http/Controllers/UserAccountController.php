@@ -163,7 +163,7 @@ class UserAccountController extends Controller
     ];
     // dd($data);
         $pdf = PDF::loadView('m_dashboard.download_invoice',compact('payment'),$data);
-        return $pdf->download('Factuur {invoicenumer}.pdf');
+        return $pdf->download('Factuur '.$invoice_no.'.pdf');
     // $pdf = PDF::loadView('dashboard.download_invoice');
     // return $pdf->stream('invoice.pdf');
     // return $pdf->download('invoice.pdf');
