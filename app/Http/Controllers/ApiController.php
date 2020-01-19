@@ -142,8 +142,16 @@ class ApiController extends Controller
   }
   public function to_test_command()
   {
+    Mail::send('mail.newUserMail',
+            array(
+            ), function($message) use ($email)
+            {
+              // $message->from('abdulbasit3398@gmail.com');
+              $message->to('abdulbasit3398@gmail.com', 'Admin')->subject('Welkom bij Bolbooks');
+          });
     $now_date = date('Y-m-d h:i:s A');
     $data = array(
+      'id' => 1,
       'name' => $now_date,
     );
     DB::table('test')->insert($data);

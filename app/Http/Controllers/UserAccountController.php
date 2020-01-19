@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use PDF;
+use Hash;
 use Auth;
 use DateTime;
 use App\User;
@@ -46,7 +47,7 @@ class UserAccountController extends Controller
     $company_name = $request->company_name;
     $vat_number = $request->vat_number;
     $account_iban = $request->account_iban;
-
+    
     $user_id = Auth::user()->id;
 
     $user = User::find($user_id);
@@ -72,7 +73,29 @@ class UserAccountController extends Controller
       $account_iban = strtoupper($account_iban);
       $user->account_iban = $account_iban;
     }
-    
+    elseif($request->old_password){
+      if(Hash::check($request->old_password,$user->password))
+      {
+        if($request->password == $request->confirm_password)
+        {
+          $password = $request->password;
+          $password = Hash::make($password);
+          $user->password = $password;
+          $user->save();
+          return redirect()->back()->with('message','Je wachtwoord is gewijzigd.');
+        }
+        else
+        {
+          return redirect()->back()->with('error','De wachtwoorden komen niet overeen.');
+        }
+      }
+      else
+      {
+        return redirect()->back()->with('error','Je huidige wachtwoord is niet correct.');
+      }
+      
+    }
+
     $user->save();
     return redirect()->back();
   }

@@ -1,185 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<style type="text/css">
-  /*.gray-section-slanted{
-    background-color: white !important;
-  }
-  .white-section-slanted{
-    background-color: #fafafa !important;
-  }*/
-  @media only screen and (max-width: 600px) {
-    
-    .custom_btn{
-      width: 43% !important;
-      border-radius: 25px !important;
-      margin-left: 24% !important;
-    }
-    .pricing_info{
-      margin-top: 30px !important;
-    }
-  }
+@extends('layouts.app')
 
-  /*Small devices (portrait tablets and large phones, 600px and up)  */
-  @media only screen and (min-width: 600px) {
-    
-    .custom_btn{
-      width: 43% !important;
-      border-radius: 25px !important;
-      margin-left: 24% !important;
-    }
-    .pricing_info{
-      margin-top: 30px !important;
-    }
-  }
+@section('page_script')
 
-  /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (min-width: 768px) {
-    
-  } 
-
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    
-  } 
-
-  /* Extra large devices (large laptops and desktops, 1200px and up) */
-  @media only screen and (min-width: 1200px) {
-    
-  }
-  .nav-bar-all, .nav-bar-all.nav-bar-non-scrolling.nav-bar-gray{
-    background-color: white !important;
-  }
-  .w-nav{
-    background: white !important;
-  }
-  .footer {
-    padding-top: 0px !important;
-  }
+<script>
   
-  #nav-bar-button-login{
-    color: #175ade !important;
+  $(function() {
+  var $document = $(document);
+  var selector = '[data-rangeslider]';
+  var $element = $(selector);
+  // For ie8 support
+  var textContent = ('textContent' in document) ? 'textContent' : 'innerText';
+  // Example functionality to demonstrate a value feedback
+  function valueOutput(element) {
+      var value = element.value;
+      var output = element.parentNode.getElementsByTagName('output')[0] || element.parentNode.parentNode.getElementsByTagName('output')[0];
+      output[textContent] = value;
   }
-  #nav-bar-button-login:hover{
-    background-color: #175ade;
-    color: #ffffff !important;
-  }
-  .nav-bar-all{
-    border-bottom: 1px solid #dadada;
-  }
-  .w-container{
-    font-size: 12px;
-  } 
-  .rangeslider__fill{
-    background: #175ade !important;
-  }
-  .section-subtitle{
-    text-align: center !important;
-  }
-  .footer-copyright-text{
-    text-align: center;
-  }
-</style>
-   <head>
-      <meta charset="utf-8"/>
-      <title>Bolbooks</title>
-      <link rel="icon" href="{{asset('images/favicon.png')}}" type="image/gif" sizes="16x16">
-      <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  $document.on('input', 'input[type="range"], ' + selector, function(e) {
+      valueOutput(e.target);
+      var output = $('#js-output').html();
+      if(output >= 0 && output <= 699)
+      {
+        $('#price_range').html('4.95');
+      }
+      else if(output >= 700 && output <= 1999)
+      {
+        $('#price_range').html('9.95');
+      }
+      else if(output >= 2000 && output <= 4999)
+      {
+        $('#price_range').html('19.95');
+      }
+      else if(output >= 5000 && output <= 9999)
+      {
+        $('#price_range').html('29.95');
+      }
+      else if(output >= 10000 && output <= 30000)
+      {
+        $('#price_range').html('39.95');
+      }
+      else if(output > 30000)
+      {
+        $('#price_range').html('59.95');
+      }
+      
+  });
+  // Example functionality to demonstrate disabled functionality
+  $document .on('click', '#js-example-disabled button[data-behaviour="toggle"]', function(e) {
+      var $inputRange = $(selector, e.target.parentNode);
+      if ($inputRange[0].disabled) {
+          $inputRange.prop("disabled", false);
+      }
+      else {
+          $inputRange.prop("disabled", true);
+      }
+      $inputRange.rangeslider('update');
+  });
+  // Example functionality to demonstrate programmatic value changes
+  $document.on('click', '#js-example-change-value button', function(e) {
+      var $inputRange = $(selector, e.target.parentNode);
+      var value = $('input[type="number"]', e.target.parentNode)[0].value;
+      $inputRange.val(value).change();
+  });
+  // Example functionality to demonstrate programmatic attribute changes
+  $document.on('click', '#js-example-change-attributes button', function(e) {
+      var $inputRange = $(selector, e.target.parentNode);
+      var attributes = {
+              min: $('input[name="min"]', e.target.parentNode)[0].value,
+              max: $('input[name="max"]', e.target.parentNode)[0].value,
+              step: $('input[name="step"]', e.target.parentNode)[0].value
+          };
+      $inputRange.attr(attributes);
+      $inputRange.rangeslider('update', true);
+  });
+  // Example functionality to demonstrate destroy functionality
+  $document
+      .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
+          $(selector, e.target.parentNode).rangeslider('destroy');
+      })
+      .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
+          $(selector, e.target.parentNode).rangeslider({ polyfill: false });
+      });
+  // Example functionality to test initialisation on hidden elements
+  $document
+      .on('click', '#js-example-hidden button[data-behaviour="toggle"]', function(e) {
+          var $container = $(e.target.previousElementSibling);
+          $container.toggle();
+      });
+  // Basic rangeslider initialization
+  $element.rangeslider({
+      // Deactivate the feature detection
+      polyfill: false,
+      // Callback function
+      onInit: function() {
+          valueOutput(this.$element[0]);
+      },
+      // Callback function
+      onSlide: function(position, value) {
+          console.log('onSlide');
+          console.log('position: ' + position, 'value: ' + value);
+      },
+      // Callback function
+      onSlideEnd: function(position, value) {
+          console.log('onSlideEnd');
+          console.log('position: ' + position, 'value: ' + value);
+      }
+  });
+});
+</script>
 
-      <link href="{{asset('home/css/style.min.css')}}" rel="stylesheet" type="text/css"/>
-      <link href="{{asset('home/css/rangeslider.css')}}" rel="stylesheet" type="text/css"/>
-      <script src="{{asset('home/js/libs/webfont/1.6.26/webfont.js')}}" type="text/javascript"></script>
-      <script type="text/javascript">
-        WebFont.load({
-        google: {  
-                families: ["Poppins:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic","PT Serif:400,400italic,700,700italic"]
-            }
-        });
-     </script>
-     
-        <script type="text/javascript">
-                !function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
-        </script>
-      <script src="{{asset('home/js/libs/jquery/1.9.1/jquery.min.js')}}"></script>
-      <script>  
-         $(document).ready(function(){
-           var navBarButtonProduct = "#nav-bar-button-product";
-           var navBarButtonResources = "#nav-bar-button-resources";
-           var navBarButtonHiring = "#nav-bar-button-hiring";
-           var navBarButtonLogin = "#nav-bar-button-login";
-           
-           var url = window.location.href;
-           if(url.search('promo=true') != -1){
-             $(navBarButtonProduct).hide();
-             $(navBarButtonResources).hide();
-             $(navBarButtonHiring).hide();
-             $(navBarButtonLogin).hide();
-           }  
-         });
-      </script>
-   </head>
-   <body class="body">
-      <div>
-         <div data-collapse="medium" data-animation="default" data-duration="400" data-easing2="ease-in" class="nav-bar-all w-nav">
-            <div id="nav-bar" class="w-container">
-               <a href="index.html" class="brand-freelancer w-nav-brand w--current"><img style="max-width: 75%;" src="{{asset('home/images/logo.gif')}}" width="160" alt="Logo"/></a>
-               <nav role="navigation" class="nav-menu-2 w-nav-menu">
-                  <div data-delay="0" class="nav-dropdown-button w-dropdown">
-                     <div id="nav-bar-button-product" class="nav-dropdown-toggle w-dropdown-toggle">
-                        <div><a href="#features" style="color: #4c525a">FEATURES</a></div>
-                        <!-- <div class="w-icon-dropdown-toggle"></div> -->
-                     </div>
-                     <!-- <nav class="dropdown-list w-dropdown-list"><a href="#" class="nav-dropdown-link w-dropdown-link">PROPOSALS</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">CONTRACTS</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">TIME TRACKING</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">PROJECTS</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">EXPENSES</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">INVOICES &amp; PAYMENTS</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">RECURRING PAYMENTS <span class="nav-dropdown-link-badge-new">NEW</span></a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">REPORTING</a>
-                    </nav> -->
-                  </div>
-                  <div data-delay="0" class="nav-dropdown-button w-dropdown">
-                     <div id="nav-bar-button-resources" class="nav-dropdown-toggle w-dropdown-toggle">
-                      <div>
-                        <a href="#tarieven" style="color: #4c525a">TARIEVEN
-                        </a>
-                      </div>
-                        <!-- <div class="w-icon-dropdown-toggle"></div> -->
-                     </div>
-                     <!-- <nav class="dropdown-list w-dropdown-list"><a href="#" class="nav-dropdown-link w-dropdown-link">FREELANCE BLOG</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">FREELANCE RATES</a><a href="#" class="nav-dropdown-link w-dropdown-link">FREELANCE RESOURCES</a>
-                        <a href="#" class="nav-dropdown-link w-dropdown-link">TOOLS DIRECTORY</a>
-                    </nav> -->
-                  </div>
-                  <a href="
-                    @auth
-                      {{route('dashboard')}}
-                    @else
-                      {{route('login')}}
-                    @endauth" data-login-btn="true" id="nav-bar-button-login" class="navlink linkbtn w-nav-link" style="border-radius: 25px;padding: 10px 20px 10px 20px;">
-                    @auth
-                      Dashboard
-                    @else
-                      LOG IN
-                    @endauth
-                  </a>
-                  @auth
-                  @else
-                  <a data-sign-up-btn="true" href="{{route('register')}}" id="nav-bar-button-signup" class="navlink linkbtn sign-up sign-up-menu w-nav-link" style="border-radius: 25px;color: white !important;">Nu starten</a>
-                  @endauth
-               </nav>
-               <div class="menu-button w-nav-button">
-                  <div class="w-icon-nav-menu"></div>
-               </div>
-            </div>
-         </div>
-      </div>
+@endsection
+
+@section('main_content')
+
       <div id="1" class="gray-section-header" style="background-color: white">
          <img src="{{asset('home/images/ipad-dashboard-2.png')}}" width="707" srcset="{{asset('home/images/ipad-dashboard-2.png')}} 500w, {{asset('home/images/ipad-dashboard-2.png')}} 1537w" sizes="(max-width: 479px) 100vw, (max-width: 767px) 80vw, 750px" alt="" class="dashboard-image-right"/>
          <div class="w-container">
             <h1 class="section-headline-green">Simpel boekhouden <br/>voor bol-verkopers.</h1>
-            <p class="section-description">Bespaar tijd & geld met de 
-online <br/>boekhouding van bolbooks. </p>
+            <p class="section-description">Bespaar tijd & geld met de online <br/>boekhouding van bolbooks. </p>
             <a data-request-account-btn="true" href="#" class="button w-hidden-main w-hidden-medium w-hidden-small w-button custom_btn">Nu starten</a>
             <div class="w-form">
                <form method="post" action="{{route('SubscribedUser')}}" class="w-hidden-tiny">
@@ -228,7 +166,7 @@ online <br/>boekhouding van bolbooks. </p>
                   </div>
                </div>
             </div>
-            <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px">Nu starten</a>
+            <a data-request-account-btn="true" href="https://app.bolbooks.nl/register" class="button w-button" style="border-radius: 25px">Nu starten</a>
          </div>
       </div>
       <div class="white-section-slanted">
@@ -296,7 +234,7 @@ online <br/>boekhouding van bolbooks. </p>
                   <p class="section-description"></p>
 
                   <p class="section-description">Met de slimme automatiseringen van Bolbooks heb je direct inzichten in je resultaten en hoef je enkel je kosten in te voeren.<br/><br/>Als jij focust op verkopen dan zorgen wij voor de rest.</p>
-                  <a data-request-account-btn="true" href="{{route('register')}}" class="button button-rounded w-button">Nu starten</a>
+                  <a data-request-account-btn="true" href="https://app.bolbooks.nl/register" class="button button-rounded w-button">Nu starten</a>
                </div>
             </div>
          </div>
@@ -380,7 +318,7 @@ online <br/>boekhouding van bolbooks. </p>
                   <div data-w-tab="Tab 1" class="w-tab-pane w--tab-active">
                      <div class="feature-description-container w-row">
                         <div class="w-col w-col-6 w-col-small-small-stack w-col-stack">
-                           <div class="screen-container"><img src="{{asset('home/images/screenshot-proposal-p-500.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
+                           <div class="screen-container"><img src="{{asset('home/images/dashboard-bolbooks.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
                            <div class="screen-description"></div>
                         </div>
                         <div class="features-section-description w-col w-col-6 w-col-small-small-stack w-col-stack">
@@ -394,7 +332,7 @@ online <br/>boekhouding van bolbooks. </p>
                   <div data-w-tab="Tab 2" class="w-tab-pane">
                      <div class="feature-description-container w-row">
                         <div class="w-col w-col-6">
-                           <div class="screen-container"><img src="{{asset('home/images/features-contract-p-500.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
+                           <div class="screen-container"><img src="{{asset('home/images/resultaat-bolbooks.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
                            <div class="screen-description"></div>
                         </div>
                         <div class="features-section-description w-col w-col-6">
@@ -411,7 +349,7 @@ online <br/>boekhouding van bolbooks. </p>
                   <div data-w-tab="Tab 3" class="w-tab-pane">
                      <div class="feature-description-container w-row">
                         <div class="w-col w-col-6">
-                            <div class="screen-container"><img src="{{asset('home/images/screenshot-timetracking-p-500.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
+                            <div class="screen-container"><img src="{{asset('home/images/kosteninzicht-bolbooks.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
                            <div class="screen-description"></div>
                         </div>
                         <div class="features-section-description w-col w-col-6">
@@ -424,7 +362,7 @@ online <br/>boekhouding van bolbooks. </p>
                   <div data-w-tab="Tab 4" class="w-tab-pane">
                      <div class="feature-description-container w-row">
                         <div class="w-col w-col-6">
-                            <div class="screen-container"><img src="{{asset('home/images/screenshot-invoicing-p-500.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
+                            <div class="screen-container"><img src="{{asset('home/images/btw-aangifte-bolbooks.png')}}" sizes="(max-width: 479px) 63vw, (max-width: 767px) 73vw, (max-width: 991px) 75vw, 376px" alt="" class="features-screenshot"/></div>
                            <div class="screen-description"></div>
                         </div>
                         <div class="features-section-description w-col w-col-6">
@@ -450,7 +388,7 @@ online <br/>boekhouding van bolbooks. </p>
                   </div>
                </div>
             </div>
-            <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px;">Nu starten</a>
+            <a data-request-account-btn="true" href="https://app.bolbooks.nl/register" class="button w-button" style="border-radius: 25px;">Nu starten</a>
          </div>
       </div>
       <!-- <div class="gray-section-slanted gray-section-slanted-global">
@@ -534,7 +472,9 @@ online <br/>boekhouding van bolbooks. </p>
           <div class="testimonial-div" style="text-align: center;height: 300px;margin-top: 100px;">
             <br/>
             <div class="section-subtitle pricing_info section-description">
-              <span>Bekijk wat jouw tarief is door middel van je bol.com omzet.</span>
+              <span>Eike maand berekenen we je tarief op basis van de bol.com omzet van je varige maand.</span>
+              <br/>
+              <span>Bekijk zelf welke tarief bij je past.</span>
             </div>
             <br/>
 
@@ -542,13 +482,13 @@ online <br/>boekhouding van bolbooks. </p>
            <br/>
             <div class="section-subtitle pricing_info">
               <span class="section-description">
-                Bij een omzet van <span style="color: #175ade">€<output id="js-output"></output></span> reken we <span style="color: #175ade">€<span id="price_range">4.95</span></span> per maand.
+                Bij een omzet van <span style="color: #175ade">€<output id="js-output"></output></span> reken we <span style="color: #175ade">€<span id="price_range">19.95</span></span> per maand.
               </span>
               
             </div>
 
           </div>
-          <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px;margin-top: 50px;" >Nu starten</a>
+          <a data-request-account-btn="true" href="https://app.bolbooks.nl/register" class="button w-button" style="border-radius: 25px;margin-top: 50px;" >Nu starten</a>
          </div>
        </div>
       <div class="white-section-slanted" id="tarieven">
@@ -558,221 +498,8 @@ online <br/>boekhouding van bolbooks. </p>
             <h2 class="section-headline-green section-headline-green-center">Probeer Bolbooks vandaag nog.</h2>
 
             <div class="section-subtitle">1 week voor slechts €1.</div>
-            <a data-request-account-btn="true" href="{{route('register')}}" class="button w-button" style="border-radius: 25px;">Nu starten</a>
+            <a data-request-account-btn="true" href="https://app.bolbooks.nl/register" class="button w-button" style="border-radius: 25px;">Nu starten</a>
          </div>
       </div>
-      <div id="footer" class="footer">
-         <!-- <div class="footer-container w-container">
-            <div class="w-row">
-               <div class="footer-col w-col w-col-4">
-                  <div class="footer-tilte">SOLUTION</div>
-                  <div class="footer-subtitle">Product</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Proposals</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Contracts</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Time Tracking</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Expense Tracking</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Invoicing &amp; Payments</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Recurring Payments</a></li>
-                  </ul>
-                  <div class="footer-subtitle">Templates</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Freelance Contract</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Freelance Invoice</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">W9 Form</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Expenses Spreadsheet</a></li>
-                  </ul>
-                  <div class="footer-subtitle"><a href="#" class="footer-subtitle">Pricing</a></div>
-               </div>
-               <div class="footer-col w-col w-col-4">
-                  <div class="footer-tilte">RESOURCES</div>
-                  <div class="footer-subtitle">Research</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Freelance rates</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Best Freelance Tools</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Best Freelance Websites</a></li>
-                  </ul>
-                  <div class="footer-subtitle">Insights</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Freelance Blog by Bonsai</a></li>
-                  </ul>
-                  <div class="footer-subtitle">Ebooks</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Freelance Tax Guide</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Guide to Freelancing</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Creative Entrepreneurs Starter Pack</a></li>
-                  </ul>
-                  <div class="footer-subtitle">Others</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Freelance Tax Calculator</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">PayPal Invoice Fee Calculator</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Stripe Fee Calculator</a></li>
-                  </ul>
-               </div>
-               <div class="footer-col w-col w-col-4">
-                  <div class="footer-tilte">Bonsai</div>
-                  <div class="footer-subtitle">Company</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">About Us</a></li>
-                     <li class="footer-list-item"><a href="#" target="_blank" class="footer-sub-link">Careers</a></li>
-                  </ul>
-                  <div class="footer-subtitle">Support</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"><a href="#" target="_blank" class="footer-sub-link">FAQ</a></li>
-                     <li class="footer-list-item"><a href="#" class="footer-sub-link">Email</a></li>
-                  </ul>
-                  <div class="footer-subtitle">Social</div>
-                  <ul class="footer-list w-list-unstyled">
-                     <li class="footer-list-item"><img src="{{asset('home/images/linkedin-icon.png')}}" width="13" alt="Icon LinkedIn" class="footer-icon"/><a href="#" target="_blank" class="footer-sub-link">LinkedIn</a></li>
-                     <li class="footer-list-item"><img src="{{asset('home/images/twitter-icon.png')}}" width="17" alt="Icon Twitter" class="footer-icon"/><a href="#" target="_blank" class="footer-sub-link">Twitter</a></li>
-                  </ul>
-                  <div class="footer-subtitle"><a href="#" class="footer-subtitle">Affiliate Program</a></div>
-                  <div class="footer-subtitle"><a href="#" class="footer-subtitle">Write for us</a></div>
-               </div>
-            </div>
-         </div> -->
-         <!-- <div>
-            <div class="footer-div sub">
-               <div class="w-container">
-                  <div class="footer-copyright-text"><a href="#" class="footer-text-link">Xero Vs. QuickBooks Vs. Bonsai</a> - <a href="#" class="footer-text-link">FreshBooks Vs. QuickBooks Vs. Bonsai</a> - <a href="#" class="footer-text-link">Wave Vs. QuickBooks Vs. Bonsai</a> - <a href="#" class="footer-text-link">QuickBooks Alternative</a> - <a href="#" class="footer-text-link">FreshBooks Alternative</a></div>
-               </div>
-            </div>
-         </div> -->
-
-
-         <div>
-            <div class="footer-div">
-               <div class="w-container">
-                  <div class="footer-copyright-text">
-                    <span>
-                    ©2019 Bolbooks.
-                    <br/>
-                    <a href="terms.html" class="footer-text-link">Algemene voorwaarden – Disclaimer</a>
-                    </span>
-                  </div>
-                  
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- <script src="{{asset('home/js/libs/jquery/3.4.1/jquery-3.4.1.min.js')}}" type="text/javascript"></script> -->
-      <script src="{{asset('home/js/libs/flow/webflow.js')}}" type="text/javascript"></script>
-      <script src="{{asset('home/js/rangeslider.js')}}" type="text/javascript"></script>
-      <script>
-
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='{{asset("home/js/twak.js")}}';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-        })();
-
-        $(function() {
-        var $document = $(document);
-        var selector = '[data-rangeslider]';
-        var $element = $(selector);
-        // For ie8 support
-        var textContent = ('textContent' in document) ? 'textContent' : 'innerText';
-        // Example functionality to demonstrate a value feedback
-        function valueOutput(element) {
-            var value = element.value;
-            var output = element.parentNode.getElementsByTagName('output')[0] || element.parentNode.parentNode.getElementsByTagName('output')[0];
-            output[textContent] = value;
-        }
-        $document.on('input', 'input[type="range"], ' + selector, function(e) {
-            valueOutput(e.target);
-            var output = $('#js-output').html();
-            if(output >= 50 && output <= 1999)
-            {
-              $('#price_range').html('4.95');
-            }
-            if(output >= 2000 && output <= 4999)
-            {
-              $('#price_range').html('19.95');
-            }
-            if(output >= 5000 && output <= 9999)
-            {
-              $('#price_range').html('29.95');
-            }
-            if(output >= 10000 && output <= 30000)
-            {
-              $('#price_range').html('39.95');
-            }
-            if(output > 30000)
-            {
-              $('#price_range').html('69.95');
-            }
-            
-        });
-        // Example functionality to demonstrate disabled functionality
-        $document .on('click', '#js-example-disabled button[data-behaviour="toggle"]', function(e) {
-            var $inputRange = $(selector, e.target.parentNode);
-            if ($inputRange[0].disabled) {
-                $inputRange.prop("disabled", false);
-            }
-            else {
-                $inputRange.prop("disabled", true);
-            }
-            $inputRange.rangeslider('update');
-        });
-        // Example functionality to demonstrate programmatic value changes
-        $document.on('click', '#js-example-change-value button', function(e) {
-            var $inputRange = $(selector, e.target.parentNode);
-            var value = $('input[type="number"]', e.target.parentNode)[0].value;
-            $inputRange.val(value).change();
-        });
-        // Example functionality to demonstrate programmatic attribute changes
-        $document.on('click', '#js-example-change-attributes button', function(e) {
-            var $inputRange = $(selector, e.target.parentNode);
-            var attributes = {
-                    min: $('input[name="min"]', e.target.parentNode)[0].value,
-                    max: $('input[name="max"]', e.target.parentNode)[0].value,
-                    step: $('input[name="step"]', e.target.parentNode)[0].value
-                };
-            $inputRange.attr(attributes);
-            $inputRange.rangeslider('update', true);
-        });
-        // Example functionality to demonstrate destroy functionality
-        $document
-            .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
-                $(selector, e.target.parentNode).rangeslider('destroy');
-            })
-            .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
-                $(selector, e.target.parentNode).rangeslider({ polyfill: false });
-            });
-        // Example functionality to test initialisation on hidden elements
-        $document
-            .on('click', '#js-example-hidden button[data-behaviour="toggle"]', function(e) {
-                var $container = $(e.target.previousElementSibling);
-                $container.toggle();
-            });
-        // Basic rangeslider initialization
-        $element.rangeslider({
-            // Deactivate the feature detection
-            polyfill: false,
-            // Callback function
-            onInit: function() {
-                valueOutput(this.$element[0]);
-            },
-            // Callback function
-            onSlide: function(position, value) {
-                console.log('onSlide');
-                console.log('position: ' + position, 'value: ' + value);
-            },
-            // Callback function
-            onSlideEnd: function(position, value) {
-                console.log('onSlideEnd');
-                console.log('position: ' + position, 'value: ' + value);
-            }
-        });
-    });
-      </script>
-
-
-   </body>
-</html>
+      
+@endsection

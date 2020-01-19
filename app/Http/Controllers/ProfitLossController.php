@@ -24,7 +24,8 @@ class ProfitLossController extends Controller
     // $first_date_last_month = new Carbon('first day of last month');
     // $data['invoice_for_month'] = date('m',strtotime($first_date_last_month));
     // $data['invoice_for_year'] = date('Y',strtotime($first_date_last_month));
-
+    $data['costs_years'] = AllCosts::where('user_id',Auth::id())->groupBy('for_year')->orderBy('for_year','DESC')->limit(7)->get();
+    $data['costs_months'] = AllCosts::where('user_id',Auth::id())->groupBy('for_month')->get();
     $data['invoice_for_month'] = date('m');
     $data['invoice_for_year'] = date('Y');
     $data['monthName'] = date("F", mktime(0, 0, 0, $data['invoice_for_month'], 10));
@@ -34,14 +35,14 @@ class ProfitLossController extends Controller
 
         // $dateObj   = DateTime::createFromFormat('!m', $month);
         // $data['monthName'] = $dateObj->format('F');
-    	// $user_id = Auth::user()->id;
-    	// $data['all_costs'] = AllCosts::where([['user_id',$user_id],['for_month',$invoice_for_month],])->get();
-    	// foreach ($all_costs as $key) {
-    	// 	var_dump($key['cost_name']);
-    	// }
-    	// var_dump($data['all_costs']);
-    	// die();
-    // return view('dashboard.profitloss',compact('data'));
+      // $user_id = Auth::user()->id;
+      // $data['all_costs'] = AllCosts::where([['user_id',$user_id],['for_month',$invoice_for_month],])->get();
+      // foreach ($all_costs as $key) {
+      //  var_dump($key['cost_name']);
+      // }
+      // var_dump($data['all_costs']);
+      // die();
+    // return view('m_dashboard.profitloss_backup',compact('data'));
     return view('m_dashboard.profitloss',compact('data'));
   }
 }

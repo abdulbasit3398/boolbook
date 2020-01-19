@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 use App\User;
+use App\Model\AllCosts;
 use App\Model\UserShipmentId;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -53,6 +54,7 @@ class TaxReportController extends Controller
 		$data['thirdQuarterY'] = date("Y", strtotime("-9 months",strtotime($monthYear)));
 		$data['fourthQuarterM'] = date("m", strtotime("-12 months",strtotime($monthYear)));
 		$data['fourthQuarterY'] = date("Y", strtotime("-12 months",strtotime($monthYear)));
+		$data['costs_years'] = AllCosts::where('user_id',Auth::id())->groupBy('for_year')->orderBy('for_year','DESC')->limit(7)->get();
 		if($data['firstQuarterM'] == '12')
 			$data['firstQuarterNum'] = 1;
 		else if($data['firstQuarterM'] == '03')

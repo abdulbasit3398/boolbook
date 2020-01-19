@@ -87,7 +87,7 @@
           <div class="card-title">
             Naar de hulp-artikelen
           </div>
-          Less onze hulp-artikelen om over elk onderwerp de informatie te vinden die jij zoekt!
+          Lees onze hulp-artikelen om over elk onderwerp de informatie te vinden die jij zoekt!
         </div>
       </div>
     </a>

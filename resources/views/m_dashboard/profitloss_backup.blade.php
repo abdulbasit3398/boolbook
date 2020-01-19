@@ -50,119 +50,38 @@ for($i=0; $i<=11; $i++)
   $previous_month_name[$i] = $dateObj->format('F');
 }
 
-foreach($data['costs_months'] as $month)
-{
-  $dateObj = DateTime::createFromFormat('!m', $month->for_month);
-  $month_num[] = $month->for_month;
-  $month_name[] = $dateObj->format('F');
-}
-
 ?>
 <style type="text/css">
-  @media only screen and (min-width: 768px) {
-    .modal-content{
-      width: 110%;
-    }
-  }
-  @media only screen and (max-width: 768px) {
-    .modal-content{
-      width: 90%;
-    }
-  }
-
-.tax_to_pay_description:hover{
-  color: #175ade;
-  cursor: pointer;
-}
-.close-btn{
-  border-radius: 25px;
-}
-.black_hr{
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  border: 0.5px solid black;
-}
+  
+  
 </style>
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style="margin-top: 10%">
-    <div class="modal-content">
-      <div class="modal-header" style="text-align: center;">
-        <h5 class="modal-title" id="exampleModalLabel" style="width: 100%;">
-          Wat is “Te betalen belasting”?
-        </h5>
-
-      </div>
-      <div class="modal-body" style="padding: 0px 30px 0px 30px;">
-        <br/>
-        <p style="text-align: justify;">
-          Bij het verkopen op Bol.com ontvang je btw van de klant. Deze btw dien
-          je te betalen aan de belastingdienst, maar over de kosten die je maakt
-          kun je de btw terugvragen. Bolbooks rekent uit hoeveel btw je ontvangt
-          en hoeveel btw je kan terugvragen. Vervolgens halen we de btw die je
-          nog kan terugvragen van je ontvangen btw af. Dit is wat jij te zien krijgt
-          bij “te betalen belasting”. 
-
-        </p>
-        <hr class="black_hr">
-        <h5 class="modal-title" id="exampleModalLabel" style="width: 100%;text-align: center;">
-          Een handige tip van ons!
-        </h5>
-        <br/>
-        <p style="text-align: justify;">
-          Aan het eind van het kwartaal doe je btw-aangifte en betaal je de
-          belasting. Jij kan elke maand zien wat je moet gaan betalen. Het is
-          dus slim om dat bedrag alvast apart te houden. Zo zijn er geen
-          verrassingen aan het eind van het kwartaal!
-          <br/><br/>
-          Wil je meer handige tips? Lees al onze hulp-artikelen <a href="https://help.bolbooks.nl/" target="blank">hier</a>.
-
-        </p>
-        <br/>
-        <div style="width: 100%;text-align: center;">
-          <button type="button" class="btn btn-secondary close-btn" data-dismiss="modal">Ik snap het</button>
-        </div>
-        <br/>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
       <div class="card-body">
         <div class="row" style="border-bottom: 1px solid gainsboro;padding-left: 13px;padding-bottom: 16px;margin-bottom: 15px">
-            <div class="col-md-6" style="padding: 8px 0px 0px 22px;">
-              <h5>Dit is je resultaat in 
+            <div class="col-md-7" style="padding: 8px 0px 0px 22px;">
+              <h5>
+                Dit is je resultaat in 
                 <span id="monthName">{{ __('translate.'.$data["monthName"])}}</span> 
                 <span id="year">{{$data['invoice_for_year']}}</span></h5>
 
             </div>
-            <div class="col-md-3" style="padding-right: 4px;">
-              <select class="form-control col-md-11" id="select_year" name="select_year" style="width: 65%;float: right;">
-                  <option value="">Selecteer jaar</option>
-                  @foreach($data['costs_years'] as $year)
-                    <option value="{{$year->for_year}}">{{$year->for_year}}</option>
-                  @endforeach
-              </select>
-            </div>
-            <div class="col-md-3" style="padding-left: 0px;">
-              <select class="form-control col-md-11" id="select_month" name="select_month" style="width: 75%;">
+            <div class="col-md-5">
+              <select class="form-control col-md-9" id="select_month" name="select_month" style="float: right;">
                   <option value="">{{ __('translate.Select Month')}}</option>
-                  <option value="01">Januari</option>
-                  <option value="02">Februari</option>
-                  <option value="03">Maart</option>
-                  <option value="04">April</option>
-                  <option value="05">Mei</option>
-                  <option value="06">Juni</option>
-                  <option value="07">Juli</option>
-                  <option value="08">Augustus</option>
-                  <option value="09">September</option>
-                  <option value="10">Oktober</option>
-                  <option value="11">November</option>
-                  <option value="12">December</option>
+                  <option value="<?= $invoice_for_month.$invoice_for_year ?>">
+                    <?= __('translate.'.$invoice_for_month_name).' '.$invoice_for_year ?>
+                  </option>
+                  <?php for($i=0; $i< count($previous_month_num); $i++): ?>
+                    
+                    <option value="<?= $previous_month_num[$i].$previous_year[$i] ?>">
+                      <?= __('translate.'.$previous_month_name[$i]).' '.$previous_year[$i] ?>
+                    </option>
+
+                  <?php endfor; ?>
+
               </select>
             </div>
           </div>
@@ -170,13 +89,14 @@ foreach($data['costs_months'] as $month)
           <input type="hidden" name="invoice_for_month" id="invoice_for_month" value="{{$data['invoice_for_month']}}">
           <input type="hidden" name="invoice_for_year" id="invoice_for_year" value="{{$data['invoice_for_year']}}">
           <input type="hidden" name="base_url" id="base_url" value="{{url('/')}}">
-        
-        <div class="row" id="message_div">
+
+          <div class="row" id="message_div">
           <div class="blue_div" style="width: auto;" data-toggle="tooltip" data-original-title="Omdat de maand nog niet is afgelopen kunnen we je gegevens nog niet ophalen bij bol.com. Op de 1e of 2e van de volgende maand worden je gegevens ingeladen! ;)">
             <i class="mdi mdi-information" style="font-size: 19px;"></i>
             <span>Waarom zie ik geen omzet?</span>
           </div>
         </div>
+
         <br/>
         <div class=" row">
           <div class="blue_div">
@@ -365,9 +285,7 @@ foreach($data['costs_months'] as $month)
         </div>
         <div class="val_name_row row">
           <div class="val_name col-md-7">
-            <span class="tax_to_pay_description" data-toggle="modal" data-target="#exampleModal">
-              {{ __('cost_name.TAXES_TO_PAY')}}&nbsp;&nbsp;<i class="mdi mdi-help-circle"></i> 
-            </span>
+            <span>{{ __('cost_name.TAXES_TO_PAY')}}</span>
             <p class="form_value">€ <span id="taxes_to_pay_div"></span></p>
           </div>
         </div>

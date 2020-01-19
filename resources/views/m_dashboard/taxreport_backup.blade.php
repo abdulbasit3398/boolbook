@@ -84,27 +84,23 @@
             <div class="col-md-7" style="padding-top: 12px">
               <h5>Dit is de informatie die je nodig hebt om je BTW-aangifte in te vullen.</h5>
             </div>
-            <div class="col-md-2" style="padding-right: 1px;">
-              <select class="form-control" id="select_year" name="select_year" style="padding-left: 8px;width: 92%;float: right;">
-                <option value="">Selecteer jaar</option>
-                  @foreach($data['costs_years'] as $year)
-                    <option value="{{$year->for_year}}">{{$year->for_year}}</option>
-                  @endforeach
-              </select>
-            </div>
-            <div class="col-md-3" style="padding-left: 4px;">
+            <div class="col-md-5">
               <input type="hidden" name="firstQuarterM" id="firstQuarterM" value="{{$data['firstQuarterM']}}">
               <input type="hidden" name="firstQuarterY" id="firstQuarterY" value="{{$data['firstQuarterY']}}">
 
-              <select class="form-control col-md-9" id="select_month" name="select_month">
-                <option value="09">
-                  Kwartaal 4                </option>
-                <option value="06">
-                  Kwartaal 3                </option>
-                <option value="03">
-                  Kwartaal 2                </option>
-                <option value="12">
-                  Kwartaal 1                </option>
+              <select class="form-control col-md-9" id="select_month" name="select_month" style="float: right;">
+                <option value="{{$data['firstQuarterM'].$data['firstQuarterY']}}">
+                  {{__('translate.Quarter')}} <?= $data['firstQuarterNum']; ?>
+                </option>
+                <option value="{{$data['secondQuarterM'].$data['secondQuarterY']}}">
+                  {{__('translate.Quarter')}} <?= $data['secondQuarterNum']; ?>
+                </option>
+                <option value="{{$data['thirdQuarterM'].$data['thirdQuarterY']}}">
+                  {{__('translate.Quarter')}} <?= $data['thirdQuarterNum']; ?>
+                </option>
+                <option value="{{$data['fourthQuarterM'].$data['fourthQuarterY']}}">
+                  {{__('translate.Quarter')}} <?= $data['fourthQuarterNum']; ?>
+                </option>
               </select>
             </div>
           </div>
@@ -195,10 +191,8 @@
 
     $("#select_month").change(function(){
       var select_month_year = $(this).val();
-      var month = $("#select_month").val();
-      // var month = select_month_year.substr(0,2);
-      var year = $('#select_year').val();
-      // var year = select_month_year.substr(-4);
+      var month = select_month_year.substr(0,2);
+      var year = select_month_year.substr(-4);
       var monthName = GetMonthName(month);
 
       $('#monthName').html(monthName);
@@ -336,28 +330,26 @@
                 first_first_mile = first_mile_line_ext_val + first_mile_tax_amnt_val;
               }
             }
-            if(set_correction_turnover == 1 || set_turnover == 1)
+            if(set_correction_turnover == 1 && set_turnover == 1)
             {
               first_revenue = (turnover_line_ext_val * (-1)) + (correction_turnover_line_ext_val * (-1));
               set_correction_turnover = set_turnover = 0;
             }
-            if(set_correction_commission == 1 || set_commission == 1)
+            if(set_correction_commission == 1 && set_commission == 1)
             {
               first_commission = (commission_line_ext_val + commission_tax_amnt_val) + (correction_commission_line_ext_val + correction_commission_tax_amnt_val);
               set_correction_commission = set_commission = 0;
             }
-            if(set_correction_pick_pack == 1 || set_pick_pack == 1)
+            if(set_correction_pick_pack == 1 && set_pick_pack == 1)
             {
               first_pick_pack = (correction_pick_pack_line_ext_val + correction_pick_pack_tax_amnt_val) + (pick_pack_line_ext_val + pick_pack_tax_amnt_val);
               set_correction_pick_pack = set_pick_pack = 0;
             }
-            if(set_correction_outbound == 1 || set_outbound == 1)
+            if(set_correction_outbound == 1 && set_outbound == 1)
             {
               first_outbound = (correction_outbound_line_ext_val + correction_outbound_tax_amnt_val) + (outbound_line_ext_val + outbound_tax_amnt_val);
               set_correction_outbound = set_outbound = 0;
             }
-
-            turnover_line_ext_val = correction_turnover_line_ext_val = commission_line_ext_val = commission_tax_amnt_val = correction_commission_line_ext_val = correction_commission_tax_amnt_val = correction_pick_pack_line_ext_val = correction_pick_pack_tax_amnt_val = pick_pack_line_ext_val = pick_pack_tax_amnt_val = correction_outbound_line_ext_val = correction_outbound_tax_amnt_val = outbound_line_ext_val = outbound_tax_amnt_val = 0;
 
             for(var i = 0; i < response['secondMonthCosts'].length; i++)
             {
@@ -471,28 +463,26 @@
               }
 
             }
-            if(set_correction_turnover == 1 || set_turnover == 1)
+            if(set_correction_turnover == 1 && set_turnover == 1)
             {
               second_revenue = (turnover_line_ext_val * (-1)) + (correction_turnover_line_ext_val * (-1));
               set_correction_turnover = set_turnover = 0;
             }
-            if(set_correction_commission == 1 || set_commission == 1)
+            if(set_correction_commission == 1 && set_commission == 1)
             {
               second_commission = (commission_line_ext_val + commission_tax_amnt_val) + (correction_commission_line_ext_val + correction_commission_tax_amnt_val);
               set_correction_commission = set_commission = 0;
             }
-            if(set_correction_pick_pack == 1 || set_pick_pack == 1)
+            if(set_correction_pick_pack == 1 && set_pick_pack == 1)
             {
               second_pick_pack = (correction_pick_pack_line_ext_val + correction_pick_pack_tax_amnt_val) + (pick_pack_line_ext_val + pick_pack_tax_amnt_val);
               set_correction_pick_pack = set_pick_pack = 0;
             }
-            if(set_correction_outbound == 1 || set_outbound == 1)
+            if(set_correction_outbound == 1 && set_outbound == 1)
             {
               second_outbound = (correction_outbound_line_ext_val + correction_outbound_tax_amnt_val) + (outbound_line_ext_val + outbound_tax_amnt_val);
               set_correction_outbound = set_outbound = 0;
             }
-
-            turnover_line_ext_val = correction_turnover_line_ext_val = commission_line_ext_val = commission_tax_amnt_val = correction_commission_line_ext_val = correction_commission_tax_amnt_val = correction_pick_pack_line_ext_val = correction_pick_pack_tax_amnt_val = pick_pack_line_ext_val = pick_pack_tax_amnt_val = correction_outbound_line_ext_val = correction_outbound_tax_amnt_val = outbound_line_ext_val = outbound_tax_amnt_val = 0;
 
             for(var i = 0; i < response['thirdMonthCosts'].length; i++)
             {
@@ -606,23 +596,22 @@
               }
 
             }
-            if(set_correction_turnover == 1 || set_turnover == 1)
+            if(set_correction_turnover == 1 && set_turnover == 1)
             {
               third_revenue = (turnover_line_ext_val * (-1)) + (correction_turnover_line_ext_val * (-1));
               set_correction_turnover = set_turnover = 0;
             }
-            console.log('set_correction_commission'+set_correction_commission+'set_commission'+set_commission+'commission_line_ext_val'+commission_line_ext_val+'commission_tax_amnt_val'+commission_tax_amnt_val+'correction_commission_line_ext_val'+correction_commission_line_ext_val+'correction_commission_tax_amnt_val'+correction_commission_tax_amnt_val);
-            if(set_correction_commission == 1 || set_commission == 1)
+            if(set_correction_commission == 1 && set_commission == 1)
             {
               third_commission = (commission_line_ext_val + commission_tax_amnt_val) + (correction_commission_line_ext_val + correction_commission_tax_amnt_val);
               set_correction_commission = set_commission = 0;
             }
-            if(set_correction_pick_pack == 1 || set_pick_pack == 1)
+            if(set_correction_pick_pack == 1 && set_pick_pack == 1)
             {
               third_pick_pack = (correction_pick_pack_line_ext_val + correction_pick_pack_tax_amnt_val) + (pick_pack_line_ext_val + pick_pack_tax_amnt_val);
               set_correction_pick_pack = set_pick_pack = 0;
             }
-            if(set_correction_outbound == 1 || set_outbound == 1)
+            if(set_correction_outbound == 1 && set_outbound == 1)
             {
               third_outbound = (correction_outbound_line_ext_val + correction_outbound_tax_amnt_val) + (outbound_line_ext_val + outbound_tax_amnt_val);
               set_correction_outbound = set_outbound = 0;

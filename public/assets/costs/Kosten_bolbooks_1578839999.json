@@ -1,0 +1,2629 @@
+{
+	"info": {
+		"_postman_id": "76905e61-46de-411a-aa6e-182aff7e3613",
+		"name": "bol.com retailer API v3.0 public",
+		"description": "Example collection for retailer API v3.0.\nMore information can be found at https://developers.bol.com/",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Commissions",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get all commissions and reductions by EAN",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/commission/0000000000000?condition=NEW&price=666",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"commission",
+										"0000000000000"
+									],
+									"query": [
+										{
+											"key": "condition",
+											"value": "NEW"
+										},
+										{
+											"key": "price",
+											"value": "666"
+										}
+									]
+								},
+								"description": "Retrieves all commissions and reductions per single EAN."
+							},
+							"response": []
+						},
+						{
+							"name": "Get all commissions and reductions by EAN in bulk",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/vnd.retailer.v3+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"commissionQueries\": [\r\n    {\r\n      \"ean\": \"0000000000000\",\r\n      \"condition\": \"NEW\",\r\n      \"price\": 10.99\r\n    }\r\n  ]\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/commission/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"commission",
+										""
+									]
+								},
+								"description": "Retrieves all commissions and reductions by EAN in a bulk overview."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "aca9eaa0-4fcc-4831-b162-9a87d10a43dd",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef9fe5f3-fffd-4e8e-80bf-9629726552f3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Invoices",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get all invoices",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/invoices?period-start=&period-end=",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"invoices"
+									],
+									"query": [
+										{
+											"key": "period-start",
+											"value": ""
+										},
+										{
+											"key": "period-end",
+											"value": ""
+										}
+									]
+								},
+								"description": "Retrieves all invoices."
+							},
+							"response": []
+						},
+						{
+							"name": "Get invoice by invoice id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "54ceb620-7c8d-42db-9be1-aa9af9cd2636",
+										"exec": [
+											"tests[\"Status code is 202\"] = responseCode.code === 202;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/invoices/0000000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"invoices",
+										"0000000000000"
+									]
+								},
+								"description": "Retrieves a single invoice by invoice id."
+							},
+							"response": []
+						},
+						{
+							"name": "Get invoice specification by invoice id",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/invoices/0000000000000/specification",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"invoices",
+										"0000000000000",
+										"specification"
+									]
+								},
+								"description": "Retrives the specification of an invoice by invoice id."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Offers",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get single offer",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers/00000000-0000-0000-00000-000000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers",
+										"00000000-0000-0000-00000-000000000000"
+									]
+								},
+								"description": "Retrieves the data of a single offer."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single offer",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers/00000000-0000-0000-00000-000000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers",
+										"00000000-0000-0000-00000-000000000000"
+									]
+								},
+								"description": "Deletes a single offer."
+							},
+							"response": []
+						},
+						{
+							"name": "Create single offer",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/vnd.retailer.v3+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"ean\": \"0000000000000\",\r\n  \"condition\": {\r\n    \"name\": \"NEW\"\r\n  },\r\n  \"referenceCode\": \"ReferenceCodeHere\",\r\n  \"onHoldByRetailer\": false,\r\n  \"unknownProductTitle\": \"Additional text\",\r\n  \"pricing\": {\r\n    \"bundlePrices\": [\r\n      {\r\n        \"quantity\": 1,\r\n        \"price\": 29.99\r\n      }\r\n    ]\r\n  },\r\n  \"stock\": {\r\n    \"amount\": 1,\r\n    \"managedByRetailer\": false\r\n  },\r\n  \"fulfilment\": {\r\n    \"type\": \"FBR\",\r\n    \"deliveryCode\": \"24uurs-23\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers"
+									]
+								},
+								"description": "Creates a single offer."
+							},
+							"response": []
+						},
+						{
+							"name": "Create offer export",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"format\": \"CSV\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers/export",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers",
+										"export"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update single offer",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"referenceCode\": \"ReferenceHere\",\r\n  \"onHoldByRetailer\": false,\r\n  \"unknownProductTitle\": \"You can add some text here\",\r\n  \"fulfilment\": {\r\n    \"type\": \"FBR\",\r\n    \"deliveryCode\": \"24uurs-23\"\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers/00000000-0000-0000-00000-000000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers",
+										"00000000-0000-0000-00000-000000000000"
+									]
+								},
+								"description": "Updates a single offer in its entirety."
+							},
+							"response": [
+								{
+									"name": "Upsert Offers JSON",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/vnd.retailer.v3+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"RetailerOffer\": [\r\n      {\r\n        \"Ean\": \"8718712021740\",\r\n        \"Condition\": \"NEW\",\r\n        \"Price\": 131,\r\n        \"DeliveryCode\": \"24uurs-21\",\r\n        \"QuantityInStock\": 44,\r\n        \"Publish\": 1,\r\n        \"ReferenceCode\": \"1\",\r\n        \"Description\": \"1\",\r\n        \"Title\": \" \"\r\n      },\r\n      {\r\n        \"Ean\": \"8718712021740\",\r\n        \"Condition\": \"GOOD\",\r\n        \"Price\": 121,\r\n        \"DeliveryCode\": \"24uurs-21\",\r\n        \"QuantityInStock\": 44,\r\n        \"Publish\": 0,\r\n        \"ReferenceCode\": \"1\",\r\n        \"Description\": \"1\",\r\n        \"Title\": \" \"\r\n      }\r\n      ]\r\n}"
+										},
+										"url": {
+											"raw": "{{base_url}}/retailer/offers",
+											"host": [
+												"{{base_url}}"
+											],
+											"path": [
+												"retailer",
+												"offers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "Update stock for single offer",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"amount\": 6,\r\n  \"managedByRetailer\": false\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers/00000000-0000-0000-00000-000000000000/stock",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers",
+										"00000000-0000-0000-00000-000000000000",
+										"stock"
+									]
+								},
+								"description": "Updates solely the stock for a single order."
+							},
+							"response": []
+						},
+						{
+							"name": "Update price for single offer",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"pricing\": {\r\n    \"bundlePrices\": [\r\n      {\r\n        \"quantity\": 1,\r\n        \"price\": 9.99\r\n      }\r\n    ]\r\n  }\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers/00000000-0000-0000-00000-000000000000/price",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers",
+										"00000000-0000-0000-00000-000000000000",
+										"price"
+									]
+								},
+								"description": "Updates solely the price for a single offer."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "CSV",
+					"item": [
+						{
+							"name": "Get offer export",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+csv",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/offers/export/00000000-0000-0000-0000-000000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"offers",
+										"export",
+										"00000000-0000-0000-0000-000000000000"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Reductions",
+			"item": [
+				{
+					"name": "CSV",
+					"item": [
+						{
+							"name": "Get all reductions",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+csv"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/reductions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"reductions"
+									]
+								},
+								"description": "Retrieves all reductions."
+							},
+							"response": []
+						},
+						{
+							"name": "Get latest reductions filename",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+csv"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/reductions/latest",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"reductions",
+										"latest"
+									]
+								},
+								"description": "Retrieves the filename of the file containing the latest reductions."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get all open orders",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/orders?fulfilment-method=FBR",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "fulfilment-method",
+											"value": "FBR"
+										}
+									]
+								},
+								"description": "Retrieves all open orders."
+							},
+							"response": []
+						},
+						{
+							"name": "Get single order",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/orders/0000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"orders",
+										"0000000000"
+									]
+								},
+								"description": "Retrieves a single order based on order id."
+							},
+							"response": []
+						},
+						{
+							"name": "Ship a single order item",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9cffceff-a417-424c-94ae-2f80f6495d73",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"shipmentReference\": \"You can add a reference here\",\n  \"transport\": {\n    \"transporterCode\": \"BRIEFPOST\",\n    \"trackAndTrace\": \"\"\n  }\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/orders/0000000000/shipment",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"orders",
+										"0000000000",
+										"shipment"
+									]
+								},
+								"description": "Ship a single order item within an order."
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel a single order item",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"reasonCode\": \"UNFINDABLE_ITEM\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/orders/0000000000/cancellation?",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"orders",
+										"0000000000",
+										"cancellation"
+									],
+									"query": [
+										{
+											"key": "fulfilment-method",
+											"value": "fbr",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Cancels a single order item within an order."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Process status",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get process status by id",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/process-status/000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"process-status",
+										"000000000"
+									]
+								},
+								"description": "Retrieves the process status of a single process."
+							},
+							"response": []
+						},
+						{
+							"name": "Get process statuses by entity id and event type",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/process-status?entity-id=0000000000&event-type=CANCEL_ORDER&page=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"process-status"
+									],
+									"query": [
+										{
+											"key": "entity-id",
+											"value": "0000000000"
+										},
+										{
+											"key": "event-type",
+											"value": "CANCEL_ORDER"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Retrieves all the process statuses per entity and event type."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "03305f5c-d57b-4f46-b9db-8c0d480e15de",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "77c2be90-2dbd-449d-8db7-267627fa8f5e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Shipping labels",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get purchasable shipping labels",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/purchasable-shippinglabels/0000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"purchasable-shippinglabels",
+										"0000000000"
+									]
+								},
+								"description": "Retrieves the shipping labels that can be purchased for this order item id."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "da8453fc-7c81-4ef8-b5df-502fe9967596",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c5c7946-9322-4fc5-a542-74b562d4c685",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Shipments",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get all shipments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d253d985-3da8-411e-895d-79f0b4a31b57",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/shipments?fulfilment-method=FBR",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"shipments"
+									],
+									"query": [
+										{
+											"key": "fulfilment-method",
+											"value": "FBR"
+										}
+									]
+								},
+								"description": "Retrieves all your shipments that have occured"
+							},
+							"response": []
+						},
+						{
+							"name": "Get single shipment by shipment id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "d4b26c96-087d-4c0c-b7ce-cbb48288ee78",
+										"exec": [
+											"tests[\"Status code is 200\"] = responseCode.code === 200;"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/shipments/000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"shipments",
+										"000000000"
+									]
+								},
+								"description": "Retrieves the details of a single shipment."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Transports",
+			"item": [
+				{
+					"name": "PDF",
+					"item": [
+						{
+							"name": "Get shipping label",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+pdf"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/transports/000000000/shipping-label",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"transports",
+										"000000000",
+										"shipping-label"
+									]
+								},
+								"description": "Retrives the shipping label in case you purchased a shipping label from bol.com."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Update transport",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"transporterCode\": \"TNT\",\r\n  \"trackAndTrace\": \"3SXXXXXXX\"\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/transports/000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"transports",
+										"000000000"
+									]
+								},
+								"description": "Updates a transport."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Inbounds",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get delivery windows",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds/delivery-windows?items-to-send=1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds",
+										"delivery-windows"
+									],
+									"query": [
+										{
+											"key": "items-to-send",
+											"value": "1"
+										}
+									]
+								},
+								"description": "Retrieves the available delivery windows."
+							},
+							"response": []
+						},
+						{
+							"name": "Get FBB transporters",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds/fbb-transporters",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds",
+										"fbb-transporters"
+									]
+								},
+								"description": "Retrieves all transporters that can ship FBB (lvb) items."
+							},
+							"response": []
+						},
+						{
+							"name": "Get all inbounds",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds"
+									]
+								},
+								"description": "Get all inbound shipments."
+							},
+							"response": []
+						},
+						{
+							"name": "Get single inbound by inbound id",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds/0000000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds",
+										"0000000000"
+									]
+								},
+								"description": "Get single inbound shipment by inbound id."
+							},
+							"response": []
+						},
+						{
+							"name": "Get lvb inventory",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inventory",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inventory"
+									]
+								},
+								"description": "Retrieve lvb inventory that is present in our warehouses."
+							},
+							"response": []
+						},
+						{
+							"name": "Create inbound shipment",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"reference\": \"addReferenceHere\",\r\n  \"timeSlot\": {\r\n    \"start\": \"2019-02-08T08:00:00+02:00\",\r\n    \"end\": \"2019-02-08T09:00:00+02:00\"\r\n  },\r\n  \"fbbTransporter\": {\r\n    \"code\": \"DHL\",\r\n    \"name\": \"DHL\"\r\n  },\r\n  \"labellingService\": \"true\",\r\n  \"products\": [{\r\n    \"ean\": \"0000000000000\",\r\n    \"announcedQuantity\": 15\r\n  }]\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds"
+									]
+								},
+								"description": "Create a shipment for sending FBB (lvb) stock to one of our warehouses."
+							},
+							"response": []
+						},
+						{
+							"name": "Get product labels",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"productLabels\": [\n\t\t{\n\t\t\t\"ean\": \"0000000000000\",\n\t\t\t\"quantity\": 10\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds/productlabels?format=a",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds",
+										"productlabels"
+									],
+									"query": [
+										{
+											"key": "format",
+											"value": "a"
+										}
+									]
+								},
+								"description": "Retrieve the product labels (bSKU's) per ean."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "PDF",
+					"item": [
+						{
+							"name": "Get packinglist by inbound id",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+pdf"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds/0000000000/packinglist",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds",
+										"0000000000",
+										"packinglist"
+									]
+								},
+								"description": "Retrieve the packing list belonging to the inbound."
+							},
+							"response": []
+						},
+						{
+							"name": "Get shipping label by inbound id",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+pdf"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/inbounds/0000000000/shippinglabel",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"inbounds",
+										"0000000000",
+										"shippinglabel"
+									]
+								},
+								"description": "Retrieve the shipping label belonging to the inbound."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Returns",
+			"item": [
+				{
+					"name": "JSON",
+					"item": [
+						{
+							"name": "Get all returns",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/returns?page=1&handled=true&fulfilment-method=FBR",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"returns"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "handled",
+											"value": "true"
+										},
+										{
+											"key": "fulfilment-method",
+											"value": "FBR"
+										}
+									]
+								},
+								"description": "Get all returns."
+							},
+							"response": []
+						},
+						{
+							"name": "Get single return",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/returns/00000000",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"returns",
+										"00000000"
+									]
+								},
+								"description": "Retrieve the details of a single return."
+							},
+							"response": []
+						},
+						{
+							"name": "Handle single return",
+							"request": {
+								"auth": {
+									"type": "oauth2",
+									"oauth2": [
+										{
+											"key": "accessToken",
+											"value": "{{seller_oauth_token}}",
+											"type": "string"
+										},
+										{
+											"key": "tokenType",
+											"value": "Bearer",
+											"type": "string"
+										},
+										{
+											"key": "addTokenTo",
+											"value": "header",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.retailer.v3+json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/vnd.retailer.v3+json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"handlingResult\": \"RETURN_RECEIVED\",\r\n  \"quantityReturned\": 1\r\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/{{environment}}/returns/00000000?",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"{{environment}}",
+										"returns",
+										"00000000"
+									],
+									"query": [
+										{
+											"key": "fulfilment-method",
+											"value": "fbr",
+											"disabled": true
+										}
+									]
+								},
+								"description": "Handle a single return."
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Retrieve token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a19dcf53-a6b3-4abf-a137-b02fe8117781",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"seller_oauth_token\", data.access_token);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4b7ed344-1ee7-4b6e-8e4a-2925c35b45e3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{seller_client_secret}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{seller_client_id}}",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://login.bol.com/token?client_id=1e8939d0-7015-4958-8544-e65e97549c2e&client_secret=AO1uX_aOC4OvyfRqizqgEMucxdPEDJo4ozUS7KbdS3FJTJWFsgwlBLclGLGNVMmk7HlifkQ1i1E2dPg_H3ju7x8&grant_type=client_credentials",
+					"protocol": "https",
+					"host": [
+						"login",
+						"bol",
+						"com"
+					],
+					"path": [
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "1e8939d0-7015-4958-8544-e65e97549c2e"
+						},
+						{
+							"key": "client_secret",
+							"value": "AO1uX_aOC4OvyfRqizqgEMucxdPEDJo4ozUS7KbdS3FJTJWFsgwlBLclGLGNVMmk7HlifkQ1i1E2dPg_H3ju7x8"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						}
+					]
+				},
+				"description": "Retrieves the access token for accessing the endpoints."
+			},
+			"response": []
+		},
+		{
+			"name": "seller data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.bol.com/catalog/v4/products/1004004011187773?apikey=07DEBB95B6BB4DA4B948022A8CDAB9FB&offers=all&includeAttributes=false&format=json&limit=100",
+					"protocol": "https",
+					"host": [
+						"api",
+						"bol",
+						"com"
+					],
+					"path": [
+						"catalog",
+						"v4",
+						"products",
+						"1004004011187773"
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "07DEBB95B6BB4DA4B948022A8CDAB9FB"
+						},
+						{
+							"key": "offers",
+							"value": "all"
+						},
+						{
+							"key": "includeAttributes",
+							"value": "false"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get Bareear token from bol.com",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://login.bol.com/token?client_id=97f504c4-0b40-4b21-83f2-6c768d33fdff&client_secret=fPLPHLqtdE3Iz_dklBB-tvJuo2a_l3_T_-rOeDPem8sAzvDmHyDMfie98qqV1COkXwJDQeDNG09TljDxcHN_OA&grant_type=client_credentials",
+					"protocol": "https",
+					"host": [
+						"login",
+						"bol",
+						"com"
+					],
+					"path": [
+						"token"
+					],
+					"query": [
+						{
+							"key": "client_id",
+							"value": "97f504c4-0b40-4b21-83f2-6c768d33fdff"
+						},
+						{
+							"key": "client_secret",
+							"value": "fPLPHLqtdE3Iz_dklBB-tvJuo2a_l3_T_-rOeDPem8sAzvDmHyDMfie98qqV1COkXwJDQeDNG09TljDxcHN_OA"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get retailer invoices",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.retailer.v3+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJraWQiOiJyc2EyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxZTg5MzlkMC03MDE1LTQ5NTgtODU0NC1lNjVlOTc1NDljMmUiLCJhenAiOiIxZTg5MzlkMC03MDE1LTQ5NTgtODU0NC1lNjVlOTc1NDljMmUiLCJjbGllbnRuYW1lIjoiVGVzdCIsImlzcyI6Imh0dHBzOlwvXC9sb2dpbi5ib2wuY29tIiwic2NvcGVzIjoiUkVUQUlMRVIiLCJleHAiOjE1NzI2Mjg4NTYsImlhdCI6MTU3MjYyODU1NiwiYWlkIjoiQ0xOVEM6YmUyYjcwMTYtNzM0Ni1jMzZlLWQxMzgtNzc3MDgxNzNmN2JjIFNMUjoxMzk0NTAyIiwianRpIjoiMTMxNzgzYWMtODhlYy00NWYxLTg5N2EtMTY3MDdjNzA3MjQ1In0.RVb55JKKpAdWMwIslZNsq2SOxXcb9D7uhqRqeFNO2zS8ovLBnmQ2yuSAZxHKpzyTFz4NB6qqKDrM5KTmNBHm8NANNY7qR9-1C0_RDZ5ASzO-QTS8QJ8diQ9gdowPgqD2JXdd8uogvhQev_lhr5EpVOeQcsYWmgLaffkbTPYu6CcTIP94kqVImPwIi6ctJkXK6MqqmGwU5h7bxMRntIYU8KKHgqbIXxJzLytlgymcfUMMH1657e-ewuZ7-JbqnN1fE5bbrkKyW1XZCOrV5RlEXW8VU7bJ-z0lZUaAilCmOwwDusTsl6qioJJBv544CkeUXLfywMVd4pQebd4f1e40SA",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.bol.com/retailer/invoices?period-start=2019-10-01&period-end=2019-10-30",
+					"protocol": "https",
+					"host": [
+						"api",
+						"bol",
+						"com"
+					],
+					"path": [
+						"retailer",
+						"invoices"
+					],
+					"query": [
+						{
+							"key": "period-start",
+							"value": "2019-10-01"
+						},
+						{
+							"key": "period-end",
+							"value": "2019-10-30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get recurring payment status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer live_Czcwqf7czGATgHn29FDan65y8BnNJj",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.mollie.com/v2/payments/tr_FvkagfNpG4",
+					"protocol": "https",
+					"host": [
+						"api",
+						"mollie",
+						"com"
+					],
+					"path": [
+						"v2",
+						"payments",
+						"tr_FvkagfNpG4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.bol.com/catalog/v4/lists/?apikey=07DEBB95B6BB4DA4B948022A8CDAB9FB&type=toplist_last_week&limit=100&sort=rankasc&format=json&offset=100",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.bol.com/catalog/v4/lists/?apikey=07DEBB95B6BB4DA4B948022A8CDAB9FB&type=toplist_last_week&limit=100&sort=rankasc&format=json&offset=100",
+					"protocol": "https",
+					"host": [
+						"api",
+						"bol",
+						"com"
+					],
+					"path": [
+						"catalog",
+						"v4",
+						"lists",
+						""
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "07DEBB95B6BB4DA4B948022A8CDAB9FB"
+						},
+						{
+							"key": "type",
+							"value": "toplist_last_week"
+						},
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "sort",
+							"value": "rankasc"
+						},
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "offset",
+							"value": "100"
+						},
+						{
+							"key": "ids",
+							"value": "3136",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get invoice data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.retailer.v3+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJraWQiOiJyc2EyIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJlZTkyYmM1Mi0zZjA5LTQ4YmItYWRhNS1jMGRiMmQ1MjA2NTgiLCJhenAiOiJlZTkyYmM1Mi0zZjA5LTQ4YmItYWRhNS1jMGRiMmQ1MjA2NTgiLCJjbGllbnRuYW1lIjoiQm9sYm9va3MiLCJpc3MiOiJodHRwczpcL1wvbG9naW4uYm9sLmNvbSIsInNjb3BlcyI6IlJFVEFJTEVSIiwiZXhwIjoxNTc3MTk4ODM1LCJpYXQiOjE1NzcxOTg1MzUsImFpZCI6IkNMTlRDOmJlMmI3MDE2LTczNDYtYzM2ZS1kMTM4LTc3NzA4MTczZjdiYyBTTFI6MTQxMTc2MyIsImp0aSI6IjU5MTc4Njc0LTNkOGYtNGJkZC04MjRlLTkzNGRjNmU0YjM2ZCJ9.W3aG1BNdWuH924U0_IJW9GEx4cOFFoFeHVDK4kksqtqr8Ht46yvBNg4dMzbYeVCKeI_YrtLzhTugsP0w5sguzdEtqKcyvFBQDE_7G3yEQpjbuOkUahp4wKYtk8DwEI0wJS-OD_08iUSycrLYJvPE6xkT2KLZfVc1mXrnbXDd65c6xEhF4T_fEGm2tBm5T9rxsz1OHGlPeBrS7ud7YjRc03UWr1kLDYej4m2J-fNlkfz-JencWfbU8VzeXJBJhTY6Op6IRgMMDuBOXEzK7POqoPX49wAB7kL51SnMP95dKc33Zxly6F2U8XVzZY-8rjxr0xTFl1sLFB_IahkfFYQr2w",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.bol.com/retailer/invoices/3901824296101?",
+					"protocol": "https",
+					"host": [
+						"api",
+						"bol",
+						"com"
+					],
+					"path": [
+						"retailer",
+						"invoices",
+						"3901824296101"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "100",
+							"disabled": true
+						},
+						{
+							"key": "period-end",
+							"value": "2019-12-31",
+							"disabled": true
+						},
+						{
+							"key": "period-start",
+							"value": "2019-12-01",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a0572c26-9594-4850-9716-e6f86934bd89",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0e839934-b691-4848-a169-8c4f5fdac815",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -143,6 +143,16 @@ Route::get('/dashboard', [
     'as'   => 'dashboard'
 ]);
 
+Route::get('/betaling', [
+    'uses' => 'DashboardController@after_register',
+    'as'   => 'betaling'
+]);
+
+Route::get('/nieuw', [
+    'uses' => 'DashboardController@after_first_payment',
+    'as'   => 'nieuw'
+]);
+
 Route::get('/setting', function () {
     return view('dashboard.setting');
 });

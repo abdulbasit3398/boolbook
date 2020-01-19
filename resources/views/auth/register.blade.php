@@ -106,6 +106,12 @@
     font-size: 80%;
     color: #dc3545;
   }
+  .blue_link{
+    color: #175ade;
+  }
+  .blue_link:hover{
+    color: #175ade;
+  }
 </style>
 
 <div class="container" style="height: 15%">
@@ -234,7 +240,8 @@
                 
                 <input type="checkbox" id="md_checkbox_18" class="chk-col-blue-grey" value="true" name="agrement">
                 <label class="checkbox_label" for="md_checkbox_18">
-                Ik ga akkoord met de algemene voorwaarden & de privacyverklaring.
+                Ik ga akkoord met de <a class="blue_link" href="https://bolbooks.nl/algemene-voorwaarden">algemene voorwaarden</a> & de  
+                <a class="blue_link" href="https://bolbooks.nl/privacy-disclaimer">privacyverklaring</a>.
                 </label>
                 <!-- <div class="form-radio form-radio-flat">
                   <label class="form-check-label">

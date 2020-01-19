@@ -2,12 +2,10 @@ var invoice_for_month = $('#invoice_for_month').val();
     var invoice_for_year = $('#invoice_for_year').val();
     ajaxCall(invoice_for_month,invoice_for_year);
 
-    $("#select_month,#select_year").change(function(){
+    $("#select_month").change(function(){
       var select_month_year = $(this).val();
-      // var month = select_month_year.substr(0,2);
-      var month = $('#select_month').val();
-      // var year = select_month_year.substr(-4);
-      var year = $('#select_year').val();
+      var month = select_month_year.substr(0,2);
+      var year = select_month_year.substr(-4);
       var monthName = GetMonthName(month);
 
       $('#monthName').html(monthName);
@@ -58,7 +56,7 @@ var invoice_for_month = $('#invoice_for_month').val();
           response_custom_cost = response['custom_costs'];
           response = response['all_costs'];
           
-          var turnover_tax_amnt_val = correction_outbound_line_ext_val = pick_pack_tax_amnt_val = correction_pick_pack_line_ext_val = correction_pick_pack_tax_amnt_val = turnover_line_ext_val = profit_before_tax = outbound = pick_pack = commission = first_mile_line_ext_val = first_mile_tax_amnt_val = logistical_charge_line_ext_val = logistical_charge_tax_amnt_val = plaza_return_shipping_label_line_ext_val = plaza_return_shipping_label_tax_amnt_val = commission_line_ext_val = commission_tax_amnt_val = compensation_line_ext_val = compensation_tax_amnt_val = compensation_lost_goods_line_ext_val = compensation_lost_goods_tax_amnt_val = cal_compensation_lost_goods = shipment_label_line_ext_val = shipment_label_tax_amnt_val = cal_shipment_label = shipment_label_post_line_ext_val = shipment_label_post_tax_amnt_val = cal_shipment_label_post = correction_correction_line_ext_val = correction_correction_tax_amnt_val = cal_correction_correction = plaza_return_shipping_label = logistical_charge = first_mile = compensation_lost_goods = compensation = nck_stock = shipment_label_post = correction_correction = set_correction_pick_pack = set_pick_pack = set_correction_outbound = set_outbound = set_turnover = set_correction_turnover = set_correction_commission = set_commission = total_costs = custom_cost_tax_amount_val = correction_correction_tax = shipment_label_tax = stock_tax = nck_stock_tax = plaza_return_shipping_label_tax = logistical_charge_tax = commission_tax = pick_pack_tax = outbound_tax = total_revenue = correction_pick_pack_line_ext_vacorrection_pick_pack_tax_amnt_val = pick_pack_line_ext_val = pick_pack_tax_amnt_vacorrection_outbound_line_ext_val = correction_outbound_tax_amnt_val = outbound_line_ext_val = outbound_tax_amnt_val = stock_line_ext_val = stock_tax_amnt_val = nck_stock_line_ext_val = nck_stock_tax_amnt_val = correction_turnover_line_ext_val = correction_turnover_tax_amnt_val = turnover_line_ext_vaturnover_tax_amnt_val = correction_commission_line_ext_val = correction_commission_tax_amnt_val = stock = shipment_label = 0;
+          var set_correction_pick_pack = set_pick_pack = set_correction_outbound = set_outbound = set_turnover = set_correction_turnover = set_correction_commission = set_commission = total_costs = custom_cost_tax_amount_val = correction_correction_tax = shipment_label_tax = stock_tax = nck_stock_tax = plaza_return_shipping_label_tax = logistical_charge_tax = commission_tax = pick_pack_tax = outbound_tax = total_revenue = correction_pick_pack_line_ext_val = correction_pick_pack_tax_amnt_val = pick_pack_line_ext_val = pick_pack_tax_amnt_val = correction_outbound_line_ext_val = correction_outbound_tax_amnt_val = outbound_line_ext_val = outbound_tax_amnt_val = stock_line_ext_val = stock_tax_amnt_val = nck_stock_line_ext_val = nck_stock_tax_amnt_val = correction_turnover_line_ext_val = correction_turnover_tax_amnt_val = turnover_line_ext_val = turnover_tax_amnt_val = correction_commission_line_ext_val = correction_commission_tax_amnt_val = 0;
           if (response.length == 0)
           {
 
@@ -82,11 +80,9 @@ var invoice_for_month = $('#invoice_for_month').val();
 
             if(response[i]['cost_name'] == 'CORRECTION_CORRECTION')
             {
-              correction_correction_line_ext_val = response[i]['line_ext_val'];
-              correction_correction_tax_amnt_val = response[i]['tax_amount_val'];
-              cal_correction_correction = 0;
-              cal_correction_correction = correction_correction_line_ext_val + correction_correction_tax_amnt_val;
-              correction_correction += cal_correction_correction;
+              var correction_correction_line_ext_val = response[i]['line_ext_val'];
+              var correction_correction_tax_amnt_val = response[i]['tax_amount_val'];
+              var correction_correction = correction_correction_line_ext_val + correction_correction_tax_amnt_val;
               total_costs = total_costs + correction_correction;
               correction_correction_tax = (correction_correction/121)*21;
 
@@ -96,11 +92,9 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'SHIPMENT_LABEL_POST')
             {
-              shipment_label_post_line_ext_val = response[i]['line_ext_val'];
-              shipment_label_post_tax_amnt_val = response[i]['tax_amount_val'];
-              cal_shipment_label_post = 0;
-              cal_shipment_label_post = (shipment_label_post_line_ext_val + shipment_label_post_tax_amnt_val);
-              shipment_label_post += cal_shipment_label_post;
+              var shipment_label_post_line_ext_val = response[i]['line_ext_val'];
+              var shipment_label_post_tax_amnt_val = response[i]['tax_amount_val'];
+              var shipment_label_post = (shipment_label_post_line_ext_val + shipment_label_post_tax_amnt_val);
               total_costs += shipment_label_post;
 
               $('#shipment_label_post_div').show();
@@ -108,48 +102,44 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'SHIPMENT_LABEL')
             {
-              shipment_label_line_ext_val = response[i]['line_ext_val'];
-              shipment_label_tax_amnt_val = response[i]['tax_amount_val'];
-              cal_shipment_label = 0;
-              cal_shipment_label = (shipment_label_line_ext_val + shipment_label_tax_amnt_val);
-              shipment_label += cal_shipment_label;
+              var shipment_label_line_ext_val = response[i]['line_ext_val'];
+              var shipment_label_tax_amnt_val = response[i]['tax_amount_val'];
+              var shipment_label = (shipment_label_line_ext_val + shipment_label_tax_amnt_val);
               shipment_label_tax = (shipment_label/121)*21;
               total_costs += shipment_label;
-//check thisssssssssssssss
+
               $('#shipment_label_div').show();
               $('#shipment_label').html(currencyFormatDE(shipment_label));
             }
             else if(response[i]['cost_name'] == 'CORRECTION_PICK_PACK')
             {
-              correction_pick_pack_line_ext_val = response[i]['line_ext_val'];
-              correction_pick_pack_tax_amnt_val = response[i]['tax_amount_val'];
+              var correction_pick_pack_line_ext_val = response[i]['line_ext_val'];
+              var correction_pick_pack_tax_amnt_val = response[i]['tax_amount_val'];
               set_correction_pick_pack = 1;
             }
             else if(response[i]['cost_name'] == 'PICK_PACK')
             {
-              pick_pack_line_ext_val = response[i]['line_ext_val'];
-              pick_pack_tax_amnt_val = response[i]['tax_amount_val'];
+              var pick_pack_line_ext_val = response[i]['line_ext_val'];
+              var pick_pack_tax_amnt_val = response[i]['tax_amount_val'];
               set_pick_pack = 1;
             }
             else if(response[i]['cost_name'] == 'CORRECTION_OUTBOUND')
             {
-              correction_outbound_line_ext_val = response[i]['line_ext_val'];
-              correction_outbound_tax_amnt_val = response[i]['tax_amount_val'];
+              var correction_outbound_line_ext_val = response[i]['line_ext_val'];
+              var correction_outbound_tax_amnt_val = response[i]['tax_amount_val'];
               set_correction_outbound = 1;
             }
             else if(response[i]['cost_name'] == 'OUTBOUND')
             {
-              outbound_line_ext_val = response[i]['line_ext_val'];
-              outbound_tax_amnt_val = response[i]['tax_amount_val'];
+              var outbound_line_ext_val = response[i]['line_ext_val'];
+              var outbound_tax_amnt_val = response[i]['tax_amount_val'];
               set_outbound = 1;
             }
             else if(response[i]['cost_name'] == 'STOCK')
             {
-              stock_line_ext_val = response[i]['line_ext_val'];
-              stock_tax_amnt_val = response[i]['tax_amount_val'];
-              var cal_stock = 0;
-              cal_stock = stock_line_ext_val + stock_tax_amnt_val;
-              stock += cal_stock;
+              var stock_line_ext_val = response[i]['line_ext_val'];
+              var stock_tax_amnt_val = response[i]['tax_amount_val'];
+              var stock = stock_line_ext_val + stock_tax_amnt_val;
               stock_tax = (stock/121)*21;
               total_costs += stock;
 
@@ -158,11 +148,9 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'NCK_STOCK')
             {
-              nck_stock_line_ext_val = response[i]['line_ext_val'];
-              nck_stock_tax_amnt_val = response[i]['tax_amount_val'];
-              var cal_nck_stock = 0;
-              cal_nck_stock = nck_stock_line_ext_val + nck_stock_tax_amnt_val;
-              nck_stock += cal_nck_stock;
+              var nck_stock_line_ext_val = response[i]['line_ext_val'];
+              var nck_stock_tax_amnt_val = response[i]['tax_amount_val'];
+              var nck_stock = nck_stock_line_ext_val + nck_stock_tax_amnt_val;
               nck_stock_tax = (nck_stock/121)*21;
               total_costs += nck_stock;
 
@@ -171,11 +159,9 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'COMPENSATION_LOST_GOODS')
             {
-              compensation_lost_goods_line_ext_val = response[i]['line_ext_val'];
-              compensation_lost_goods_tax_amnt_val = response[i]['tax_amount_val'];
-              cal_compensation_lost_goods = 0;
-              cal_compensation_lost_goods = compensation_lost_goods_line_ext_val + compensation_lost_goods_tax_amnt_val;
-              compensation_lost_goods += cal_compensation_lost_goods;
+              var compensation_lost_goods_line_ext_val = response[i]['line_ext_val'];
+              var compensation_lost_goods_tax_amnt_val = response[i]['tax_amount_val'];
+              var compensation_lost_goods = compensation_lost_goods_line_ext_val + compensation_lost_goods_tax_amnt_val;
               total_costs += compensation_lost_goods;
 
               $('#compensation_lost_goods_div').show();
@@ -183,11 +169,9 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'COMPENSATION')
             {
-              compensation_line_ext_val = response[i]['line_ext_val'];
-              compensation_tax_amnt_val = response[i]['tax_amount_val'];
-              var cal_compensation = 0;
-              var cal_compensation = compensation_line_ext_val + compensation_tax_amnt_val;
-              compensation += cal_compensation;
+              var compensation_line_ext_val = response[i]['line_ext_val'];
+              var compensation_tax_amnt_val = response[i]['tax_amount_val'];
+              var compensation = compensation_line_ext_val + compensation_tax_amnt_val;
               total_costs += compensation;
 
               $('#compensation_div').show();
@@ -195,35 +179,33 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'CORRECTION_TURNOVER')
             {
-              correction_turnover_line_ext_val = response[i]['line_ext_val'];
-              correction_turnover_tax_amnt_val = response[i]['tax_amount_val'];
+              var correction_turnover_line_ext_val = response[i]['line_ext_val'];
+              var correction_turnover_tax_amnt_val = response[i]['tax_amount_val'];
               set_correction_turnover = 1;
             }
             else if(response[i]['cost_name'] == 'TURNOVER')
             {
-              turnover_line_ext_val = response[i]['line_ext_val'];
-              turnover_tax_amnt_val = response[i]['tax_amount_val'];
+              var turnover_line_ext_val = response[i]['line_ext_val'];
+              var turnover_tax_amnt_val = response[i]['tax_amount_val'];
               set_turnover = 1;
             }
             else if(response[i]['cost_name'] == 'CORRECTION_COMMISSION')
             {
-              correction_commission_line_ext_val = response[i]['line_ext_val'];
-              correction_commission_tax_amnt_val = response[i]['tax_amount_val'];
+              var correction_commission_line_ext_val = response[i]['line_ext_val'];
+              var correction_commission_tax_amnt_val = response[i]['tax_amount_val'];
               set_correction_commission = 1;
             }
             else if(response[i]['cost_name'] == 'COMMISSION')
             {
-              commission_line_ext_val = response[i]['line_ext_val'];
-              commission_tax_amnt_val = response[i]['tax_amount_val'];
+              var commission_line_ext_val = response[i]['line_ext_val'];
+              var commission_tax_amnt_val = response[i]['tax_amount_val'];
               set_commission = 1;
             }
             else if(response[i]['cost_name'] == 'PLAZA_RETURN_SHIPPING_LABEL')
             {
-              plaza_return_shipping_label_line_ext_val = response[i]['line_ext_val'];
-              plaza_return_shipping_label_tax_amnt_val = response[i]['tax_amount_val'];
-              var cal_plaza_return_shipping_label = 0;
-              cal_plaza_return_shipping_label = plaza_return_shipping_label_line_ext_val + plaza_return_shipping_label_tax_amnt_val;
-              plaza_return_shipping_label += cal_plaza_return_shipping_label;
+              var plaza_return_shipping_label_line_ext_val = response[i]['line_ext_val'];
+              var plaza_return_shipping_label_tax_amnt_val = response[i]['tax_amount_val'];
+              var plaza_return_shipping_label = plaza_return_shipping_label_line_ext_val + plaza_return_shipping_label_tax_amnt_val;
               plaza_return_shipping_label_tax = (plaza_return_shipping_label/121)*21;
               total_costs += plaza_return_shipping_label;
 
@@ -232,11 +214,9 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'LOGISTICAL_CHARGE')
             {
-              logistical_charge_line_ext_val = response[i]['line_ext_val'];
-              logistical_charge_tax_amnt_val = response[i]['tax_amount_val'];
-              var cal_logistical_charge = 0;
-              cal_logistical_charge = logistical_charge_line_ext_val + logistical_charge_tax_amnt_val;
-              logistical_charge += cal_logistical_charge;
+              var logistical_charge_line_ext_val = response[i]['line_ext_val'];
+              var logistical_charge_tax_amnt_val = response[i]['tax_amount_val'];
+              var logistical_charge = logistical_charge_line_ext_val + logistical_charge_tax_amnt_val;
               logistical_charge_tax = (logistical_charge/121)*21;
               total_costs += logistical_charge;
 
@@ -245,16 +225,15 @@ var invoice_for_month = $('#invoice_for_month').val();
             }
             else if(response[i]['cost_name'] == 'FIRST_MILE')
             {
-              first_mile_line_ext_val = response[i]['line_ext_val'];
-              first_mile_tax_amnt_val = response[i]['tax_amount_val'];
-              var cal_first_mile = 0;
-              cal_first_mile = first_mile_line_ext_val + first_mile_tax_amnt_val;
-              first_mile += cal_first_mile;
+              var first_mile_line_ext_val = response[i]['line_ext_val'];
+              var first_mile_tax_amnt_val = response[i]['tax_amount_val'];
+              var first_mile = first_mile_line_ext_val + first_mile_tax_amnt_val;
               first_mile_tax = (first_mile/121)*21;
               total_costs += first_mile;
 
               $('#first_mile_div').show();
               $('#first_mile').html(currencyFormatDE(first_mile));
+              console.log(first_mile);
             }
           }
           if(set_correction_turnover == 1 || set_turnover == 1)
@@ -266,14 +245,13 @@ var invoice_for_month = $('#invoice_for_month').val();
 
           if(set_correction_commission == 1 || set_commission == 1)
           {
-            commission = (commission_line_ext_val + commission_tax_amnt_val) + (correction_commission_line_ext_val + correction_commission_tax_amnt_val);
+            var commission = (commission_line_ext_val + commission_tax_amnt_val) + (correction_commission_line_ext_val + correction_commission_tax_amnt_val);
             commission_tax = (commission/121)*21;
             total_costs += commission;
 
             $('#commission_div').show();
             $('#commission').html(currencyFormatDE(commission));
           }
-
 
           if(set_correction_pick_pack == 1 || set_pick_pack == 1)
           {

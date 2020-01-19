@@ -50,14 +50,16 @@ class PaymentController extends Controller
 			if($interval < 0)
 			{
 				$user_previous_payment = Payment::where([['user_id',$user->id],['sequenceType','recurring'],['status','pending']])->get();
-
+				$usr_pzy[] = $user_previous_payment;
 				if(count($user_previous_payment) == 0)
 				{
+					$correction_turnover_line_ext_val = $correction_turnover_tax_amnt_val = $turnover_line_ext_val = $turnover_tax_amnt_val = $amount_val = $total_revenue = 0;
 					$user_id = $user->id;
 					$customerId = $user->mollie_customer_id;
 					$first_date_last_month = new Carbon('first day of last month');
 					$last_month = date('m',strtotime($first_date_last_month));
-					$user_costs = AllCosts::where([['user_id',$user_id],['custom_cost',0],['for_month',$last_month]])->get();
+					$for_year = date('Y',strtotime($first_date_last_month));
+					$user_costs = AllCosts::where([['user_id',$user_id],['custom_cost',0],['for_month',$last_month],['for_year',$for_year]])->get();
 
 					for($i = 0; $i < count($user_costs); $i++)
 					{
@@ -75,7 +77,7 @@ class PaymentController extends Controller
 
 					$total_revenue = ($turnover_line_ext_val * (-1)) + ($correction_turnover_line_ext_val * (-1));
 					$total_revenue = round($total_revenue,2);
-					if($total_revenue > 0 && $total_revenue <= 700)
+					if($total_revenue <= 700)
 					{
 						$amount_val = 5.99;
 					}
@@ -99,7 +101,7 @@ class PaymentController extends Controller
 					{
 						$amount_val = 84.64;
 					}
-
+					
 					$amount_val = strval($amount_val);
 					$payment = Mollie::api()->payments()->create([
 						'amount' => [
@@ -137,7 +139,6 @@ class PaymentController extends Controller
 			}//if user access date end
 
 		}
-
 	}
 	public function first_payment_status(Request $request)
 	{
@@ -174,13 +175,13 @@ class PaymentController extends Controller
 			$payment->save();
 
 			$email = $user->email;
-	        Mail::send('mail.newUserMail',
-	          array(
-	          ), function($message) use ($email)
-	          {
+			Mail::send('mail.newUserMail',
+				array(
+				), function($message) use ($email)
+				{
 	            // $message->from('abdulbasit3398@gmail.com');
-	            $message->to($email, 'Admin')->subject('Welkom bij Bolbooks');
-	        });
+					$message->to($email, 'Admin')->subject('Welkom bij Bolbooks');
+				});
 		}
 	}
 

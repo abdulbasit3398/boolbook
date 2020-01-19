@@ -2,6 +2,7 @@
 
 @section('head_section')
 <link href="{{asset('css/customcosts.css')}}" rel="stylesheet">
+
 @endsection
 
 @section('main_content')
@@ -78,6 +79,72 @@ $total_val_tax_arr = $total_tax_arr = [];
   }
  
 ?>
+<style type="text/css">
+
+.button_outer {
+    color: #175ade;
+    background: #fff;
+    border-radius: 60px;
+    text-align: center;
+    /* height: 50px; */
+    /* width: 200px; */
+    display: inline-block;
+    transition: .2s;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #175ade;
+}
+.btn_upload {
+    font-size: 14px;
+    padding: 7px 18px;
+    color: #175ade;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    /* overflow: hidden; */
+    z-index: 3;
+    white-space: nowrap;
+    font-weight: 500;
+}
+.btn_upload input {position: absolute; width: 100%; left: 0; top: 0; width: 100%; height: 105%; cursor: pointer; opacity: 0;}
+.file_uploading {width: 100%; height: 10px; margin-top: 20px; background: #ccc;}
+.file_uploading .btn_upload {display: none;}
+.processing_bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    border-radius: 30px;
+    background: #fff;
+    transition: 3s;
+}
+.file_uploading .processing_bar {width: 100%;}
+.success_box {display: none; width: 50px; height: 50px; position: relative;}
+.success_box:before {
+  content: '';
+  display: block;
+  width: 9px;
+  height: 18px;
+  border-bottom: 6px solid #175ade;
+  border-right: 6px solid #175ade;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  left: 15px;
+  top: 9px;
+}
+.file_uploaded .success_box {display: inline-block;}
+.file_uploaded {margin-top: 0; width: 40px; background:#175ade; height: 40px;}
+.uploaded_file_view {max-width: 300px; margin: 40px auto; text-align: center; position: relative; transition: .2s; opacity: 0; border: 2px solid #ddd; padding: 15px;}
+.file_remove{width: 30px; height: 30px; border-radius: 50%; display: block; position: absolute; background: #aaa; line-height: 30px; color: #fff; font-size: 12px; cursor: pointer; right: -15px; top: -15px;}
+.file_remove:hover {background: #222; transition: .2s;}
+.uploaded_file_view img {max-width: 100%;}
+.uploaded_file_view.show {opacity: 1;}
+.error_msg {text-align: center; color: #f00}
+</style>
 @foreach($data['custom_category'] as $category)
 <?php $for_month = 0; ?>
 <div class="modal fade" id="Modal{{$category->id}}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel{{$category->id}}" aria-hidden="true">
@@ -126,8 +193,8 @@ $total_val_tax_arr = $total_tax_arr = [];
                         €<?= number_format($total_tax_arr[$category->id][$custom_cost->for_month],2,",",".");?>
                       </td>
                       <td>
-                        <a href="#" style="color: #6d6d6d" data-toggle="tooltip" data-original-title="Alle kosten bekijken.">
-                          <i data-toggle="collapse" data-target="#collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>" class="mdi mdi-eye"></i>
+                        <a href="#" style="color: #6d6d6d"  data-toggle="collapse" data-target="#collapse<?= $custom_cost->for_month.'_'.$custom_cost->custom_cost; ?>">
+                          <i class="mdi mdi-eye" data-toggle="tooltip" data-original-title="Alle kosten bekijken." ></i>
                         </a>
                         
 
@@ -169,6 +236,12 @@ $total_val_tax_arr = $total_tax_arr = [];
                           
                       </td>
                       <td>
+                        @if($custom_cost->cost_file != '')
+                        <a href="{{asset('public/assets/costs/'.$custom_cost->cost_file)}}" download style="color: #6d6d6d">
+                          <i class="mdi mdi-download" data-toggle="tooltip" data-original-title="Download de bon/factuur"></i>
+                        </a>
+                        @endif
+                        
                         <i class="mdi mdi-information" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
                         <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('kosten.destroy',$custom_cost->id)}}">
                           {{csrf_field()}}
@@ -211,6 +284,11 @@ $total_val_tax_arr = $total_tax_arr = [];
                           
                       </td>
                       <td>
+                        @if($custom_cost->cost_file != '')
+                        <a href="{{asset('public/assets/costs/'.$custom_cost->cost_file)}}" download style="color: #6d6d6d">
+                          <i class="mdi mdi-download" data-toggle="tooltip" data-original-title="Download de bon/factuur"></i>
+                        </a>
+                        @endif
                         <i class="mdi mdi-information" data-toggle="tooltip" data-original-title="{{$custom_cost->description}}"></i>
                         <form id="delete-form-{{$custom_cost->id}}" method="post" style="display: none;" action="{{route('kosten.destroy',$custom_cost->id)}}">
                           {{csrf_field()}}
@@ -410,7 +488,7 @@ $total_val_tax_arr = $total_tax_arr = [];
         </div>
         <div class="row">
           <div class="col-md-9" >
-        <form class="form-material" method="post"  action="{{route('kosten.store')}}">
+        <form class="form-material" method="post"  action="{{route('kosten.store')}}" enctype="multipart/form-data">
           {{ csrf_field() }}
           <div class="row" style="padding-left: 14px">
             <div class="form-group col-md-6">
@@ -501,8 +579,25 @@ $total_val_tax_arr = $total_tax_arr = [];
             </div>
           </div>
           <div class="row" style="margin: 22px 0px 10px 8px;">
-            <div class="col-md-9" style="padding: 0px;">
+            <div class="col-md-3" style="padding: 0px;margin-top: 5px;">
               <button type="submit" class="btn waves-effect waves-light btn-rounded btn-secondary">Kosten toevoegen</button>
+              
+            </div>
+            <div class="col-md-5" style="padding-left: 0px;margin-top: 5px;">
+              <div class="panel1">
+                <div class="button_outer">
+                  <div class="btn_upload">
+                    <input type="file" id="upload_file" name="cost_file">
+                    Bon/factuur bijvoegen
+                  </div>
+                  <div class="processing_bar"></div>
+                  <div class="success_box"></div>
+                </div>
+              </div>
+              <div class="error_msg"></div>
+              <div class="uploaded_file_view" id="uploaded_view">
+                <span class="file_remove">X</span>
+              </div>
             </div>
           </div>
           </div>
@@ -683,6 +778,43 @@ $total_val_tax_arr = $total_tax_arr = [];
         ele.value = str;
     }
     }
+    $("#upload_file").click(function(){
+      $(this).val('');
+    });
+    var btnUpload = $("#upload_file"),
+    btnOuter = $(".button_outer");
+  btnUpload.on("change", function(e){
+    // $('#uploaded_view').append('<span class="file_remove">X</span>');
+    var ext = btnUpload.val().split('.').pop().toLowerCase();
+    if($.inArray(ext, ['gif','png','svg','jpg','jpeg','pdf','txt','csv','docx','doc','xls','xlsx']) == -1) {
+      $(".error_msg").text("Bestand niet toegestaan.");
+    } else {
+      $(".error_msg").text("");
+      btnOuter.addClass("file_uploading");
+      setTimeout(function(){
+        btnOuter.addClass("file_uploaded");
+      },3000);
+      var uploadedFile = URL.createObjectURL(e.target.files[0]);
+      setTimeout(function(){
+        $("#file_name").remove();
+        if(ext == 'gif'|| ext ==  'png' || ext ==  'jpg' || ext ==  'jpeg')
+        {
+          $("#uploaded_view").append('<img src="'+uploadedFile+'" />').addClass("show");
+        }
+        else{
+          $("#uploaded_view").append('<span id="file_name">'+e.target.files[0]['name']+'</span>').addClass("show");
+        }
+        
+      },3500);
+    }
+  });
+  $(".file_remove").on("click", function(e){
+    $('#upload_file').val('');
+    $("#uploaded_view").removeClass("show");
+    $("#uploaded_view").find("img").remove();
+    btnOuter.removeClass("file_uploading");
+    btnOuter.removeClass("file_uploaded");
+  });
 </script>
 
 

@@ -23,6 +23,99 @@ class DashboardController extends Controller
 	{
 		$this->middleware('auth');
 	}
+	public function after_register()
+	{
+		$user_id = Auth::id();
+		$payment['exists'] = $payment['paid'] = $payment['user_invoice'] = 0;
+		$pay = Payment::where('user_id',$user_id)->first();
+		$payment['exists'] = count($pay);
+
+		$pay = Payment::where([['user_id',$user_id],['status','paid']])->first();
+		$payment['paid'] = count($pay);
+
+		$user_invoice = User_invoice::where('user_id',$user_id)->get();
+		$payment['user_invoice'] = count($user_invoice);
+		//check user has trial or recurring status
+		$user = User::find($user_id);
+		// $interval = 0;
+		// if($user->access_type == 'trial')
+		// {
+		// 	$trial_ends_at = $user->trial_ends_at;
+		// 	if($trial_ends_at != '')
+		// 	{
+		// 		$today = date('Y-m-d');
+		// 		$trial_ends_at = new DateTime($trial_ends_at);
+		// 		$today = new DateTime($today);
+		// 		$interval = $today->diff($trial_ends_at);
+		// 		$interval = $interval->format('%R%a');
+		// 	}
+		// }
+		// else if($user->access_type == 'recurring'){
+		// 	$access_ends_at = $user->access_ends_at;
+		// 	$today = date('Y-m-d');
+		// 	$access_ends_at = new DateTime($access_ends_at);
+		// 	$today = new DateTime($today);
+		// 	$interval = $today->diff($access_ends_at);
+		// 	$interval = $interval->format('%R%a');
+		// }
+		// $payment['recurring'] = $interval;
+
+		//check if user data didn't fetch after payment
+		if(Auth::user()->client_id != '' && Auth::user()->new_user == 0 && $payment['paid'] != 0 && $payment['user_invoice'] == 0)
+		{
+			$user_payment = Payment::where([['user_id',$user_id],['status','paid'],['payment_for','first_api_data']])->first();
+			$user_payment->api_call = 1;
+			$user_payment->save();
+		}
+		return view('m_dashboard.dashboard',compact('payment'));
+
+	}
+	public function after_first_payment()
+	{
+		$user_id = Auth::id();
+		$payment['exists'] = $payment['paid'] = $payment['user_invoice'] = 0;
+		$pay = Payment::where('user_id',$user_id)->first();
+		$payment['exists'] = count($pay);
+
+		$pay = Payment::where([['user_id',$user_id],['status','paid']])->first();
+		$payment['paid'] = count($pay);
+
+		$user_invoice = User_invoice::where('user_id',$user_id)->get();
+		$payment['user_invoice'] = count($user_invoice);
+		//check user has trial or recurring status
+		$user = User::find($user_id);
+		// $interval = 0;
+		// if($user->access_type == 'trial')
+		// {
+		// 	$trial_ends_at = $user->trial_ends_at;
+		// 	if($trial_ends_at != '')
+		// 	{
+		// 		$today = date('Y-m-d');
+		// 		$trial_ends_at = new DateTime($trial_ends_at);
+		// 		$today = new DateTime($today);
+		// 		$interval = $today->diff($trial_ends_at);
+		// 		$interval = $interval->format('%R%a');
+		// 	}
+		// }
+		// else if($user->access_type == 'recurring'){
+		// 	$access_ends_at = $user->access_ends_at;
+		// 	$today = date('Y-m-d');
+		// 	$access_ends_at = new DateTime($access_ends_at);
+		// 	$today = new DateTime($today);
+		// 	$interval = $today->diff($access_ends_at);
+		// 	$interval = $interval->format('%R%a');
+		// }
+		// $payment['recurring'] = $interval;
+
+		//check if user data didn't fetch after payment
+		if(Auth::user()->client_id != '' && Auth::user()->new_user == 0 && $payment['paid'] != 0 && $payment['user_invoice'] == 0)
+		{
+			$user_payment = Payment::where([['user_id',$user_id],['status','paid'],['payment_for','first_api_data']])->first();
+			$user_payment->api_call = 1;
+			$user_payment->save();
+		}
+		return view('m_dashboard.dashboard',compact('payment'));
+	}
 	public function index()
 	{
 		$user_id = Auth::user()->id;
@@ -344,8 +437,8 @@ class DashboardController extends Controller
 		      "sequenceType" => 'first',
 		      "description" => "Proefweek Bolbooks",
 		      "method"      => \Mollie\Api\Types\PaymentMethod::IDEAL,
-		      "redirectUrl" => "https://app.bolbooks.nl/dashboard",
-		      'webhookUrl' =>	 "https://app.bolbooks.nl/first_payment_status",
+		      "redirectUrl" => env('APP_URL')."nieuw",
+		      'webhookUrl' =>	 env('APP_URL')."first_payment_status",
 		    ]);
 
 		$payment = Mollie::api()->payments()->get($payment->id);

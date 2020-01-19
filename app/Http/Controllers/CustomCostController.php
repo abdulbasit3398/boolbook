@@ -49,7 +49,17 @@ class CustomCostController extends Controller
      */
     public function create()
     {
-        //
+        $data['invoice_for_month'] = date('m');
+      $data['invoice_for_year'] = date('Y');
+      $data['monthName'] = date("F", mktime(0, 0, 0, $data['invoice_for_month'], 10));
+
+      $user_id = Auth::user()->id;
+      $data['custom_category'] = CustomCategory::where('user_id',$user_id)->get();
+      //Fetch all custom costs
+      $data['custom_costs'] = AllCosts::where([['user_id',$user_id],['custom_cost','!=','0']])->orderBy('for_year','desc')->orderBy('for_month','desc')->orderBy('id','desc')->get();
+      //Fetch custom costs group by for_month
+      $data['custom_costs_group'] = AllCosts::where([['user_id',$user_id],['custom_cost','!=','0']])->groupBy('for_month')->orderBy('for_year','desc')->orderBy('for_month','desc')->get();
+      dd($data);
     }
 
     /**
@@ -66,7 +76,9 @@ class CustomCostController extends Controller
           'cost_amount' => 'required',
           'tax_amount' => 'required',
           'category_description' => 'required',
+          'cost_file' => 'mimes:jpeg,jpg,png,gif,svg,pdf,csv,txt,doc,docx,xls,xlsx',
         ]);
+
         if($validator->fails)
         {
           return redirect()->back()->with('errors');
@@ -134,6 +146,16 @@ class CustomCostController extends Controller
           $all_costs->line_ext_val = $cost;
           $all_costs->tax_amount_val = $tax;
           $all_costs->description = $category_description;
+
+          if($request->hasFile('cost_file'))
+          {
+            $image = $request->file('cost_file');
+            $name = 'Kosten_bolbooks_'.time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/assets/costs');
+            $imagePath = $destinationPath. "/". $name;
+            $image->move($destinationPath, $name);
+            $all_costs->cost_file = $name;
+          }
           $all_costs->save();
 
           return redirect()->back()->with('message','Kosten succesvol toegevoegd.');
